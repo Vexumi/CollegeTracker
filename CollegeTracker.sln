@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollegeTracker.WEB", "CollegeTracker.WEB\CollegeTracker.WEB.csproj", "{C262E4CC-56B3-4B55-95D3-C343DEB0DCAC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollegeTracker.DataAccess", "CollegeTracker.DataAccess\CollegeTracker.DataAccess.csproj", "{0098A29F-B872-471F-81AD-402E1FF10287}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{C262E4CC-56B3-4B55-95D3-C343DEB0DCAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C262E4CC-56B3-4B55-95D3-C343DEB0DCAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C262E4CC-56B3-4B55-95D3-C343DEB0DCAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0098A29F-B872-471F-81AD-402E1FF10287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0098A29F-B872-471F-81AD-402E1FF10287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0098A29F-B872-471F-81AD-402E1FF10287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0098A29F-B872-471F-81AD-402E1FF10287}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
