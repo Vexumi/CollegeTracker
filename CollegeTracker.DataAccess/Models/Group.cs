@@ -14,4 +14,7 @@ public class Group: BaseEntity
     
     // предметы которые проходят у группы
     public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
+
+    // учителя у которых группа в избранном
+    public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }
