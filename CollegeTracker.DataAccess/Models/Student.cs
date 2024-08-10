@@ -2,9 +2,9 @@ namespace CollegeTracker.DataAccess.Models;
 
 public class Student: BaseEntity
 {
-    public long UserId { get; set; }
+    public long UserInfoId { get; set; }
     
-    public User User { get; set; } = null!;
+    public User UserInfo { get; set; } = null!;
     
     public long GroupId { get; set; }
 

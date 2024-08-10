@@ -11,4 +11,7 @@ public class Group: BaseEntity
     public long SpecialityId { get; set; }
 
     public Speciality Speciality { get; set; } = null!;
+    
+    // предметы которые проходят у группы
+    public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 }
