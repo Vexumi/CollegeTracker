@@ -26,6 +26,7 @@ public static class DependencyRegister
         
         // Custom Services
         builder.Services.AddTransient<IUserService, UserService>();
+        builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
         
         // Main Services
         builder.Services.AddControllers();

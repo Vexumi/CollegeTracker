@@ -11,20 +11,23 @@ public class UserService: IUserService
 {
     private readonly CollegeTrackerDbContext dbContext;
     private readonly IMapper mapper;
+    private readonly IAuthorizationService authorizationService;
 
     public UserService(
         CollegeTrackerDbContext dbContext,
-        IMapper mapper
+        IMapper mapper,
+        IAuthorizationService authorizationService
         )
     {
         this.dbContext = dbContext;
         this.mapper = mapper;
+        this.authorizationService = authorizationService;
     }
 
     public async Task<long> CreateAsync(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         var user = mapper.Map<User>(userViewModel);
-        user.PasswordHash = GetPasswordHash(userViewModel.Password);
+        user.PasswordHash = authorizationService.GetPasswordHash(userViewModel.Password);
             
         var entity = await dbContext.Users.AddAsync(user, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -62,10 +65,4 @@ public class UserService: IUserService
     
     private IQueryable<User> GetAllUsers()
         => dbContext.Users.AsNoTracking();
-
-    private string GetPasswordHash(string password)
-    {
-        return password; //TODO create authservice
-    }
-
 }
