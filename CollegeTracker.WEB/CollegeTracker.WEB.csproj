@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CollegeTracker.Business\CollegeTracker.Business.csproj" />
       <ProjectReference Include="..\CollegeTracker.DataAccess\CollegeTracker.DataAccess.csproj" />
     </ItemGroup>
 
