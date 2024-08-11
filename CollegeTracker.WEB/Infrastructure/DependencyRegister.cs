@@ -3,9 +3,10 @@ using CollegeTracker.Business.Infrastructure;
 using CollegeTracker.Business.Interfaces;
 using CollegeTracker.Business.Services;
 using CollegeTracker.DataAccess;
+using CollegeTracker.WEB.Infrastructure.ExceptionHandlers;
 using Microsoft.EntityFrameworkCore;
 
-namespace CollegeTracker.WEB;
+namespace CollegeTracker.WEB.Infrastructure;
 
 public static class DependencyRegister
 {
@@ -21,6 +22,8 @@ public static class DependencyRegister
         builder.Services.AddDbContext<CollegeTrackerDbContext>(options => options.UseNpgsql(connectionString));
         
         // Common Services
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddProblemDetails();
         builder.Services.AddAutoMapper(MapperConfigurator.Configure);
         // builder.Services.AddHangfire(); //TODO add hangfire
         
