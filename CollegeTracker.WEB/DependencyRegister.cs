@@ -30,6 +30,7 @@ public static class DependencyRegister
         builder.Services.AddTransient<ISpecialityService, SpecialityService>();
         builder.Services.AddTransient<IGroupService, GroupService>();
         builder.Services.AddTransient<ISubjectService, SubjectService>();
+        builder.Services.AddTransient<IStudentService, StudentService>();
 
         
         // Main Services
