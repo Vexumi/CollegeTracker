@@ -3,7 +3,6 @@ using CollegeTracker.Business.Infrastructure;
 using CollegeTracker.Business.Interfaces;
 using CollegeTracker.Business.Services;
 using CollegeTracker.DataAccess;
-using CollegeTracker.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CollegeTracker.WEB;
@@ -30,6 +29,8 @@ public static class DependencyRegister
         builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
         builder.Services.AddTransient<ISpecialityService, SpecialityService>();
         builder.Services.AddTransient<IGroupService, GroupService>();
+        builder.Services.AddTransient<ISubjectService, SubjectService>();
+
         
         // Main Services
         builder.Services.AddControllers();
