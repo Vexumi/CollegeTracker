@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CollegeTracker.WEB.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("api/[controller]/[action]")]
 public class UserController: ControllerBase
 {
     private readonly IUserService userService;

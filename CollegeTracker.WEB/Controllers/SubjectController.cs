@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CollegeTracker.WEB.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("api/[controller]/[action]")]
 public class SubjectController: ControllerBase
 {
     private readonly ISubjectService subjectService;

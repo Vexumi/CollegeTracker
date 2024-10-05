@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CollegeTracker.WEB.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("api/[controller]/[action]")]
 public class SpecialityController: ControllerBase
 {
     private readonly ISpecialityService specialityService;
