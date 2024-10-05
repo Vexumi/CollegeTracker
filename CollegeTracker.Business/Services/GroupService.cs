@@ -36,7 +36,13 @@ public class GroupService: IGroupService
     }
 
     public IQueryable<Group> GetAll()
-        => dbContext.Groups.AsQueryable();
+        => dbContext.Groups
+            .AsNoTracking()
+            .Include(x => x.Speciality)
+            .Include(x => x.Subjects)
+            .Include(x => x.Teachers)
+            .AsSplitQuery()
+            .AsQueryable();
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken)
     {
