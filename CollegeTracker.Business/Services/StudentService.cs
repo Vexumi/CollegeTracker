@@ -11,20 +11,28 @@ public class StudentService: IStudentService
 {
     
     private readonly CollegeTrackerDbContext dbContext;
+    private readonly IUserService userService;
     private readonly IMapper mapper;
 
     public StudentService(
         CollegeTrackerDbContext dbContext,
+        IUserService userService,
         IMapper mapper
     )
     {
         this.dbContext = dbContext;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
     public async Task<long> CreateAsync(StudentModificationDTO studentViewModel, CancellationToken cancellationToken)
     {
-        var student = mapper.Map<Student>(studentViewModel);
+        var userProfileId = await userService.CreateAsync(studentViewModel.UserInfo, cancellationToken);
+        var student = new Student()
+        {
+            UserInfoId = userProfileId,
+            GroupId = studentViewModel.GroupId
+        };
         await dbContext.Students.AddAsync(student, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 

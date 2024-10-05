@@ -34,6 +34,13 @@ public class UserController: ControllerBase
         return await userService.UpdateAsync(userViewModel, cancellationToken);
     }
     
+    // TODO
+    [HttpPost]
+    public async Task ChangePassword(long id, string newPassword, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+    
     [HttpDelete]
     public async Task Delete(long id, CancellationToken cancellationToken)
     {
