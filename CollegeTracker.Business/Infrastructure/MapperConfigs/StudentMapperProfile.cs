@@ -10,5 +10,6 @@ public class StudentMapperProfile: Profile
     {
         CreateMap<Student, StudentViewModel>();
         CreateMap<StudentViewModel, Student>();
+        CreateMap<StudentModificationDTO, Student>();
     }
 }

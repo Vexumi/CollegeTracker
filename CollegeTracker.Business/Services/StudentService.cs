@@ -22,7 +22,7 @@ public class StudentService: IStudentService
         this.mapper = mapper;
     }
 
-    public async Task<long> CreateAsync(StudentViewModel studentViewModel, CancellationToken cancellationToken)
+    public async Task<long> CreateAsync(StudentModificationDTO studentViewModel, CancellationToken cancellationToken)
     {
         var student = mapper.Map<Student>(studentViewModel);
         await dbContext.Students.AddAsync(student, cancellationToken);
@@ -48,14 +48,14 @@ public class StudentService: IStudentService
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<StudentViewModel> UpdateAsync(StudentViewModel entity, CancellationToken cancellationToken)
+    public async Task<StudentViewModel> UpdateAsync(StudentModificationDTO entity, CancellationToken cancellationToken)
     {
         var student = mapper.Map<Student>(entity);
         dbContext.Attach(student);
         dbContext.Entry(student).State = EntityState.Modified;
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return entity;
+        return await GetByIdAsync(student.Id, cancellationToken);
     }
 
     public async Task ChangeStudentGroup(long studentId, long groupId, CancellationToken cancellationToken)
