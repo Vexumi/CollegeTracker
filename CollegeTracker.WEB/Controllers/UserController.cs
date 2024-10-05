@@ -28,6 +28,12 @@ public class UserController: ControllerBase
         return await userService.CreateAsync(userViewModel, cancellationToken);
     }
     
+    [HttpPost]
+    public async Task<UserViewModel> Update(UserViewModel userViewModel, CancellationToken cancellationToken)
+    {
+        return await userService.UpdateAsync(userViewModel, cancellationToken);
+    }
+    
     [HttpDelete]
     public async Task Delete(long id, CancellationToken cancellationToken)
     {

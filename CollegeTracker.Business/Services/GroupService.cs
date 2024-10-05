@@ -1,4 +1,6 @@
+using AutoMapper;
 using CollegeTracker.Business.Interfaces;
+using CollegeTracker.Business.ViewModels;
 using CollegeTracker.DataAccess;
 using CollegeTracker.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +10,20 @@ namespace CollegeTracker.Business.Services;
 public class GroupService: IGroupService
 {
     private readonly CollegeTrackerDbContext dbContext;
+    private readonly IMapper mapper;
 
     public GroupService(
-        CollegeTrackerDbContext dbContext
+        CollegeTrackerDbContext dbContext,
+        IMapper mapper
     )
     {
         this.dbContext = dbContext;
+        this.mapper = mapper;
     }
 
-    public async Task<long> CreateAsync(Group group, CancellationToken cancellationToken)
+    public async Task<long> CreateAsync(GroupModificationDTO dto, CancellationToken cancellationToken)
     {
+        var group = mapper.Map<Group>(dto);
         var entity = await dbContext.Groups.AddAsync(group, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
@@ -40,8 +46,9 @@ public class GroupService: IGroupService
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Group> UpdateAsync(Group group, CancellationToken cancellationToken)
+    public async Task<Group> UpdateAsync(GroupModificationDTO dto, CancellationToken cancellationToken)
     {
+        var group = mapper.Map<Group>(dto);
         dbContext.Attach(group);
         dbContext.Entry(group).State = EntityState.Modified;
         await dbContext.SaveChangesAsync(cancellationToken);
