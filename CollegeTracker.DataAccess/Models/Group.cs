@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace CollegeTracker.DataAccess.Models;
 
 public class Group: BaseEntity
@@ -9,12 +11,13 @@ public class Group: BaseEntity
     public DateTime StopDate { get; set; }
     
     public long SpecialityId { get; set; }
-
     public Speciality Speciality { get; set; } = null!;
     
+    [JsonIgnore]
     // предметы которые проходят у группы
     public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
+    [JsonIgnore]
     // учителя у которых группа в избранном
     public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }

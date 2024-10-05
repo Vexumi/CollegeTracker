@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using CollegeTracker.DataAccess.Models;
 
 namespace CollegeTracker.Business.ViewModels;
