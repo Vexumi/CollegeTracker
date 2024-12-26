@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$theme-blue: #198DCE;
+$theme-sky-blue: #9BDEFB;
+$theme-text: #20318A;
+
+$theme-color: (
+    blue: #198DCE,
+    sky-blue: #9BDEFB,
+    text: #20318A,
+);
+
+* {
+    color: map-get($theme-color, text);
+}
