@@ -63,6 +63,6 @@ public class UserService: IUserService
         return userViewModel;
     }
     
-    private IQueryable<User> GetAllUsers()
+    public IQueryable<User> GetAllUsers()
         => dbContext.Users.AsNoTracking();
 }

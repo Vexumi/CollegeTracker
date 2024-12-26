@@ -8,7 +8,7 @@ public class UserMapperProfile: Profile
 {
     public UserMapperProfile()
     {
-        CreateMap<User, UserViewModel>();
-        CreateMap<UserViewModel, User>();
+        CreateMap<User, UserViewModel>().ForMember(x => x.Password, x => x.Ignore());
+        CreateMap<UserViewModel, User>().ForMember(x => x.PasswordHash, x => x.MapFrom(s => s.Password));
     }
 }

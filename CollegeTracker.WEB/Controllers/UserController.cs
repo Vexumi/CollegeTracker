@@ -1,5 +1,6 @@
 using CollegeTracker.Business.Interfaces;
 using CollegeTracker.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

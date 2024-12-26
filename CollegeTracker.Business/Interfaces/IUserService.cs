@@ -1,4 +1,5 @@
 using CollegeTracker.Business.ViewModels;
+using CollegeTracker.DataAccess.Models;
 
 namespace CollegeTracker.Business.Interfaces;
 
@@ -13,4 +14,6 @@ public interface IUserService
     Task DeleteAsync(long id, CancellationToken cancellationToken);
 
     Task<UserViewModel> UpdateAsync(UserViewModel user, CancellationToken cancellationToken);
+
+    IQueryable<User> GetAllUsers();
 }
