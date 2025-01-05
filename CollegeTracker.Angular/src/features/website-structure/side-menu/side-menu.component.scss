@@ -1,0 +1,40 @@
+@import '../../../styles.scss';
+
+.side-menu {
+    background-color: map-get($theme-color, sky-blue);
+    height: 90vh;
+    width: 10vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    transition: width 0.2s;
+
+    &__options-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__element {
+        grid-column: 1;
+        z-index: 100;
+        margin: 10px;
+        height: min-content;
+
+        span {
+            text-align: center;
+        }
+    }
+
+    &__rolled-up {
+        width: 20px;
+    }
+
+    &__roll-arrow {
+        grid-column: 2;
+        //grid-row: 1 / 5;
+        //grid-row: span 4;
+        margin: auto 0;
+        width: 20px;
+    }
+}

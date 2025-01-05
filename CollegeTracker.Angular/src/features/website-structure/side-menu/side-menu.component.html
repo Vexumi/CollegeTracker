@@ -1,0 +1,22 @@
+<div class="side-menu" [class.side-menu__rolled-up]="sideMenuRolledUp" (click)="onSideMenuClick()">
+    @if (!sideMenuRolledUp) {
+      <div class="side-menu__options-grid">
+        <div class="side-menu__element">
+          <button>Profile</button>
+        </div>
+        <div class="side-menu__element">
+          <button>Projects</button>
+        </div>
+        <div class="side-menu__element">
+          <button>Marks</button>
+        </div>
+        <div class="side-menu__element">
+          <button>Settings</button>
+        </div>
+      </div>
+      <img class="side-menu__roll-arrow" src="assets/arrow-left.png" alt="arrow roll up"/>
+    }
+    @else {
+      <img class="side-menu__roll-arrow" src="assets/arrow-right.png" alt="arrow roll up"/>
+    }
+</div>
