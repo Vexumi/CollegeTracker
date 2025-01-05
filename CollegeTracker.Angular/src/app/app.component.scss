@@ -1,7 +1,11 @@
 .app {
-    &__body {
+    &__block {
+        width: 100%;
+    }
+
+    .body {
         display: flex;
         flex-direction: row;
-        height: 80vh;
+        height: 90vh;
     }
 }
