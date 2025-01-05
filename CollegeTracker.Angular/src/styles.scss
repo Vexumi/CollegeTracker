@@ -11,8 +11,19 @@ $theme-color: (
     blue: #198DCE,
     sky-blue: #9BDEFB,
     text: #20318A,
+    light-red: #ff6e6e
 );
 
 * {
     color: map-get($theme-color, text);
+}
+
+@mixin button-base {
+    border-radius: 15px;
+    padding: 5px 15px;
+    background-color: map-get($theme-color, blue);
+
+    &:hover {
+        filter: brightness(85%);
+    }
 }
