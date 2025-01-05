@@ -1,0 +1,45 @@
+@import '../../styles.scss';
+
+.auth {    
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+
+    &__logo {
+        margin: 0 auto;
+    }
+
+    &__wrapper {
+        width: min-content; //max(20%, 400px);
+        height: min-content; //max(20%, 200px);
+        margin: auto;
+    }
+
+    &__card {
+        background-color: map-get($theme-color, sky-blue);
+        padding: 20px;
+
+        border-radius: 5px;
+    }
+
+    .form {
+        &__input-block {
+            width: min-content;
+            margin: 0 auto 10px auto;
+        }
+
+        &__button {
+            margin-top: 20px;
+            background-color: map-get($theme-color, blue);
+            border-radius: 5px;
+            height: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        input {
+            width: 300px;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.app {
+    &__block {
+        width: 100%;
+    }
+
+    .body {
+        display: flex;
+        flex-direction: row;
+        height: 90vh;
+    }
+}
