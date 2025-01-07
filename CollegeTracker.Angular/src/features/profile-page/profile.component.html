@@ -1,22 +1,25 @@
 <div class="profile">
     <div class="profile-card">
+        <div class="profile-card__avatar-item">
+            <img class="profile-card__circular-image" src="{{ 'assets/' + getImageByRole() }}" alt="student image"/>
+        </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> ФИО: </span>
-            <span class="profile-card__element"> Гааг Глеб Александрович </span>
+            <span class="profile-card__element"> {{ currentUser.fullname }} </span>
         </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> Тип аккаунта: </span>
-            <span class="profile-card__element"> Студент </span>
+            <span class="profile-card__element"> {{ getUserType() }} </span>
         </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> Номер телефона: </span>
             <span class="profile-card__element">
-                {{ '88005553535' | phone }}
+                {{ currentUser.phoneNumber | phone }}
             </span>
         </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> Электронная почта: </span>
-            <span class="profile-card__element"> examplemail.ru </span>
+            <span class="profile-card__element"> {{ currentUser.email }} </span>
         </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> Пароль: </span>

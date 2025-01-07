@@ -11,7 +11,7 @@ export class PhonePipe implements PipeTransform {
         let formattedPhone: string | null = null;
         try {
             formattedPhone = this.formatPhoneNumber(val);
-        } catch (error) {
+        } catch {
             formattedPhone = val;
         }
 

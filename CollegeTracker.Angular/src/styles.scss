@@ -16,6 +16,7 @@ $theme-color: (
 
 * {
     color: map-get($theme-color, text);
+    font-size: x-large;
 }
 
 @mixin button-base {
