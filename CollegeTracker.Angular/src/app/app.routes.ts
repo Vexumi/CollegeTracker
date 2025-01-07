@@ -6,7 +6,7 @@ import { ProfilePageComponent } from '../features/profile-page/profile.component
 
 export const routes: Routes = [
     { 
-        path: "", 
+        path: "",
         component: MainPageComponent,
         children: [
             {

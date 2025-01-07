@@ -52,15 +52,11 @@ public static class DependencyRegister
         // Add Cors
         builder.Services.AddCors(options =>
         {
-            var hosts = builder.Configuration.GetValue<string>("FrontendOrigin");
-            var origins = new List<string>(hosts.Split(","));
-
+            //var host = builder.Configuration.GetValue<string>("FrontendOrigin"); //TODO: doesnt working
             options.AddPolicy("AllowSpecificOrigin",
-                builder => builder.WithOrigins(origins.ToArray())
+                builder => builder.AllowAnyOrigin()//.WithOrigins(host)
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .WithExposedHeaders("Content-Disposition"));
+                    .AllowAnyMethod());
         });
 
         

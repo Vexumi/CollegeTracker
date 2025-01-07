@@ -1,8 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using AutoMapper;
 using CollegeTracker.Business.Interfaces;
 using CollegeTracker.Business.ViewModels;
 using CollegeTracker.WEB.Infrastructure;
+using CollegeTracker.WEB.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -10,15 +12,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CollegeTracker.WEB.Controllers;
 
-public class AuthorizationController(IUserService userService, IOptions<AuthOptions> authOptions): Controller
+public class AuthorizationController(IUserService userService, IOptions<AuthOptions> authOptions, IMapper mapper): Controller
 {
-    [HttpGet("~/authorize")]
-    public async Task<IActionResult> AuthorizeUser(string username, string password, CancellationToken cancellationToken)
+    [HttpGet("~/api/authorize")]
+    public async Task<IActionResult> AuthorizeUser(string login, string password, CancellationToken cancellationToken)
     {
-        var user = await userService.GetAllUsers().FirstOrDefaultAsync(x => x.Username == username && x.PasswordHash == password, cancellationToken); // TODO Comparison of passwords
+        var user = await userService.GetAllUsers().FirstOrDefaultAsync(x => x.Email == login && x.PasswordHash == password, cancellationToken); // TODO Comparison of passwords
         if (user is null)
         {
-            return NotFound();
+            return Ok(null);
         }
 
         var claims = new List<Claim>
@@ -30,8 +32,10 @@ public class AuthorizationController(IUserService userService, IOptions<AuthOpti
             new(ClaimTypes.Role, user.Role.ToString())
         };
 
-        var userToken = TokenForAuth(claims);
-        return Ok(userToken);
+        var tokenResponse = TokenForAuth(claims);
+        var userViewModel = mapper.Map<UserViewModel>(user);
+        tokenResponse.User = userViewModel;
+        return Ok(tokenResponse);
     }
     
     private JwtTokenResponse TokenForAuth(List<Claim> claims)
