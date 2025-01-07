@@ -1,109 +1,84 @@
 <div class="flex flex-col h-screen">
     <!-- Header -->
     <header class="bg-blue-500 text-white p-4 flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <button
-          class="p-2 bg-blue-700 rounded-md"
-          (click)="toggleSidebar()"
-        >
-          {{ isSidebarHidden ? '☰' : '✕' }}
-        </button>
-        <h1 class="text-lg font-semibold">Dashboard</h1>
-      </div>
-      <nav class="space-x-4">
-        <a href="#" class="hover:underline">Notifications</a>
-        <a href="#" class="hover:underline">Profile</a>
-        <a href="#" class="hover:underline">Logout</a>
-      </nav>
+        <div class="flex items-center space-x-4">
+            <button class="p-2 bg-blue-700 rounded-md" (click)="toggleSidebar()">
+                {{ isSidebarHidden ? '☰' : '✕' }}
+            </button>
+            <h1 class="text-lg font-semibold">Dashboard</h1>
+        </div>
+        <nav class="space-x-4">
+            <a href="#" class="hover:underline">Notifications</a>
+            <a href="#" class="hover:underline">Profile</a>
+            <a href="#" class="hover:underline">Logout</a>
+        </nav>
     </header>
-  
+
     <!-- Body -->
     <div class="flex flex-grow">
-      <!-- Sidebar -->
-      <aside
-        class="bg-blue-200 h-full transition-all duration-300"
-        [ngClass]="{ 'w-16': isSidebarHidden, 'w-64': !isSidebarHidden }"
-      >
-        <div class="flex flex-col items-center h-full">
-          <nav
-            *ngIf="!isSidebarHidden"
-            class="mt-8 space-y-4 text-center"
-          >
-            <a href="#" class="block text-blue-700 hover:underline">Home</a>
-            <a href="#" class="block text-blue-700 hover:underline">Profile</a>
-            <a href="#" class="block text-blue-700 hover:underline">Settings</a>
-            <a href="#" class="block text-blue-700 hover:underline">Help</a>
-          </nav>
-          <div *ngIf="isSidebarHidden" class="mt-8">
-            <!-- Icons when sidebar is hidden -->
-            <button class="block p-2 text-blue-700 hover:text-blue-900">
-              <span>🏠</span>
-            </button>
-            <button class="block p-2 text-blue-700 hover:text-blue-900">
-              <span>👤</span>
-            </button>
-            <button class="block p-2 text-blue-700 hover:text-blue-900">
-              <span>⚙️</span>
-            </button>
-            <button class="block p-2 text-blue-700 hover:text-blue-900">
-              <span>❓</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-  
-      <!-- Main Content -->
-      <main class="flex-grow p-8 bg-gray-100">
-        <h2 class="text-2xl font-semibold">Welcome to the Dashboard</h2>
-        <p class="mt-4 text-gray-600">
-          This is the main content area. Use the side menu to navigate through
-          different sections.
-        </p>
-  
-        <!-- Example Content Section -->
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Card 1 -->
-          <div class="bg-white shadow-md rounded-lg p-4">
-            <h3 class="text-lg font-semibold">Card Title 1</h3>
-            <p class="mt-2 text-gray-600">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <!-- Sidebar -->
+        <aside
+            class="bg-blue-200 h-full transition-all duration-300"
+            [ngClass]="{ 'w-16': isSidebarHidden, 'w-64': !isSidebarHidden }"
+        >
+            <div class="flex flex-col items-center h-full">
+                <nav *ngIf="!isSidebarHidden" class="mt-8 space-y-4 text-center">
+                    <a href="#" class="block text-blue-700 hover:underline">Home</a>
+                    <a href="#" class="block text-blue-700 hover:underline">Profile</a>
+                    <a href="#" class="block text-blue-700 hover:underline">Settings</a>
+                    <a href="#" class="block text-blue-700 hover:underline">Help</a>
+                </nav>
+                <div *ngIf="isSidebarHidden" class="mt-8">
+                    <!-- Icons when sidebar is hidden -->
+                    <button class="block p-2 text-blue-700 hover:text-blue-900">
+                        <span>🏠</span>
+                    </button>
+                    <button class="block p-2 text-blue-700 hover:text-blue-900">
+                        <span>👤</span>
+                    </button>
+                    <button class="block p-2 text-blue-700 hover:text-blue-900">
+                        <span>⚙️</span>
+                    </button>
+                    <button class="block p-2 text-blue-700 hover:text-blue-900">
+                        <span>❓</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-grow p-8 bg-gray-100">
+            <h2 class="text-2xl font-semibold">Welcome to the Dashboard</h2>
+            <p class="mt-4 text-gray-600">
+                This is the main content area. Use the side menu to navigate through different sections.
             </p>
-            <button
-              class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            >
-              View More
-            </button>
-          </div>
-          <!-- Card 2 -->
-          <div class="bg-white shadow-md rounded-lg p-4">
-            <h3 class="text-lg font-semibold">Card Title 2</h3>
-            <p class="mt-2 text-gray-600">
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <button
-              class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            >
-              View More
-            </button>
-          </div>
-          <!-- Card 3 -->
-          <div class="bg-white shadow-md rounded-lg p-4">
-            <h3 class="text-lg font-semibold">Card Title 3</h3>
-            <p class="mt-2 text-gray-600">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-            </p>
-            <button
-              class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            >
-              View More
-            </button>
-          </div>
-        </div>
-      </main>
+
+            <!-- Example Content Section -->
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-lg font-semibold">Card Title 1</h3>
+                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">View More</button>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-lg font-semibold">Card Title 2</h3>
+                    <p class="mt-2 text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">View More</button>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-lg font-semibold">Card Title 3</h3>
+                    <p class="mt-2 text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                    <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">View More</button>
+                </div>
+            </div>
+        </main>
     </div>
-  
+
     <!-- Footer -->
     <footer class="bg-blue-500 text-white p-4 text-center">
-      <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
     </footer>
-  </div>
+</div>

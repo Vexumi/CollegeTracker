@@ -1,6 +1,6 @@
-import { UserModel } from "./user/user.model";
+import { UserModel } from './user/user.model';
 
 export interface JwtTokenResponse {
-    token: string,
-    user: UserModel
+    token: string;
+    user: UserModel;
 }

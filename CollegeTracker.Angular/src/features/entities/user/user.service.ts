@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
 export class UserService {
-  constructor(private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
-  public getUserById(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`/users/${id}`);
-  }
+    public getUserById(id: number): Observable<any[]> {
+        return this.http.get<any[]>(`/users/${id}`);
+    }
 }

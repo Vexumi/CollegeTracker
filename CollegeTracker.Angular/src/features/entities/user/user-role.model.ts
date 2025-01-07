@@ -1,5 +1,4 @@
-export enum UserRole
-{
+export enum UserRole {
     Guest,
     Student,
     Teacher,

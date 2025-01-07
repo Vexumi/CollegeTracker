@@ -1,0 +1,7 @@
+build
+cache
+node_modules
+.eslintrc.js
+package-lock.json
+/.nx/cache
+/.nx/workspace-data
