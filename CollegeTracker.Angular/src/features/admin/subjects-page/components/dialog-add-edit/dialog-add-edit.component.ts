@@ -16,7 +16,7 @@ interface DialogData {
     imports: [ReactiveFormsModule]
 })
 export class DialogAddEditSubjectComponent {
-    public readonly isEdit = this.data.isEdit;
+    public readonly isEdit: boolean;
 
     public readonly form = new FormGroup({
         title: new FormControl("", [Validators.required, Validators.minLength(3)]),
@@ -26,7 +26,13 @@ export class DialogAddEditSubjectComponent {
     constructor(
         private readonly dialogRef: MatDialogRef<DialogAddEditSubjectComponent>,
         @Inject(MAT_DIALOG_DATA) private readonly data: DialogData
-    ) {}
+    ) {
+        this.isEdit = this.data.isEdit;
+        if (this.isEdit) {
+            this.form.controls["title"].setValue(data.subject!.title);
+            this.form.controls["description"].setValue(data.subject!.description);
+        }
+    }
 
     public onSaveClicked(): void {
         const result = this.form.value as SubjectModel;

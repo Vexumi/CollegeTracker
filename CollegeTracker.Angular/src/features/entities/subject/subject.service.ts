@@ -18,4 +18,8 @@ export class SubjectService {
     public createSubject(subject: SubjectModel): Observable<number> {
         return this.http.post<number>(`${ApiEndpoints.Subjects}/Create`, subject);
     }
+
+    public editSubject(subject: SubjectModel): Observable<SubjectModel> {
+        return this.http.post<SubjectModel>(`${ApiEndpoints.Subjects}/Update`, subject);
+    }
 }

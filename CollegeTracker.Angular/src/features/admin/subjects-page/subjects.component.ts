@@ -43,4 +43,26 @@ export class SubjectsPageComponent {
             )
             .subscribe();
     }
+
+    public onEditClicked(subject: SubjectModel): void {
+        const dialogRef = this.dialogSerivce.open(DialogAddEditSubjectComponent, {
+            data: 
+            {
+                isEdit: true,
+                subject: subject
+            }
+        });
+      
+        dialogRef.afterClosed()
+            .pipe(
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    return this.subjectService.editSubject(result)
+                        .pipe(
+                            tap(() => this.subjects$ = this.subjectService.getAllSubjects())
+                        );
+                })
+            )
+            .subscribe();
+    }
 }

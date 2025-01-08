@@ -14,7 +14,7 @@
                     <td class="table__cell">{{ item.description }}</td>
                     <td class="table__cell">{{ true ? "Да" : "Нет" }}</td>
                     <td class="table__cell">
-                        <button class="table__button">Редактировать</button>
+                        <button class="table__button" (click)="onEditClicked(item)">Редактировать</button>
                         <button class="table__button">{{ true ? "Деактивировать" : "Активировать" }}</button>
                     </td>
                 </tr>
