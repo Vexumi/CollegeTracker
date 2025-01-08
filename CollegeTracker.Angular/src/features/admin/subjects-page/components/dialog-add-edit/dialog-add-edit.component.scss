@@ -1,0 +1,42 @@
+@import '../../../../../styles.scss';
+
+.card {
+    padding: 20px;
+    background-color: white;
+
+    h1 {
+        font-size: larger;
+        margin: 0;
+    }
+
+    hr {
+        margin: 5px 0;
+        display: block;
+        border-top: 1px solid rgba(black, 0.4);
+    }
+
+    .form {
+        &__input-block {
+            width: min-content;
+            margin: 0 auto 10px auto;
+
+            input {
+                border: 1px solid grey;
+                border-radius: 5px;
+            }
+        }
+
+        &__button {
+            @include button-base;
+            margin: 20px 5px 0 5px;
+            background-color: map-get($theme-color, blue);
+            border-radius: 5px;
+            height: 40px;
+            color: white;
+        }
+
+        input {
+            width: 300px;
+        }
+    }
+}

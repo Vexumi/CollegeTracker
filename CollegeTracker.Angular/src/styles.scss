@@ -16,7 +16,7 @@ $theme-color: (
 
 * {
     color: map-get($theme-color, text);
-    font-size: x-large;
+    //font-size: x-large;
 }
 
 @mixin button-base {
@@ -28,3 +28,6 @@ $theme-color: (
         filter: brightness(85%);
     }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

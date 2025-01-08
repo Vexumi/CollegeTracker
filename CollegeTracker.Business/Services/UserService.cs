@@ -55,7 +55,6 @@ public class UserService: IUserService
     public async Task<UserViewModel> UpdateAsync(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         var user = mapper.Map<User>(userViewModel);
-        
         dbContext.Attach(user);
         dbContext.Entry(user).State = EntityState.Modified;
         await dbContext.SaveChangesAsync(cancellationToken);

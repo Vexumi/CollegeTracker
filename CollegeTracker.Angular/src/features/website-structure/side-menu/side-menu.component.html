@@ -1,21 +1,39 @@
-<div class="side-menu" [class.side-menu__rolled-up]="sideMenuRolledUp" (click)="onSideMenuClick()">
+<div class="side-menu" [class.side-menu__rolled-up]="sideMenuRolledUp">
     @if (!sideMenuRolledUp) {
         <div class="side-menu__options-grid">
             <div class="side-menu__element">
-                <button>Профиль</button>
+                <a href="{{ routes.Profile }}">Профиль</a>
             </div>
             <div class="side-menu__element">
-                <button>Проекты</button>
+                <a href="{{ routes.AdminRoutes.Students }}">Студенты (админ)</a>
             </div>
             <div class="side-menu__element">
-                <button>Оценки</button>
+                <a href="{{ routes.AdminRoutes.Subjects }}">Предметы (админ)</a>
             </div>
             <div class="side-menu__element">
-                <button>Настройки</button>
+                <a href="{{ routes.AdminRoutes.Groups }}">Группы (админ)</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.AdminRoutes.Reports }}">Отчеты (админ)</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.TeacherRoutes.Students }}">Студенты (преподаватель)</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.TeacherRoutes.Projects }}">Проекты (преподаватель)</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.StudentRoutes.MyProjects }}">Мои проекты (студент)</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.AllProjects }}">Все проекты</a>
+            </div>
+            <div class="side-menu__element">
+                <a href="{{ routes.StudentRoutes.Marks }}">Оценки</a>
             </div>
         </div>
-        <img class="side-menu__roll-arrow" src="assets/arrow-left.png" alt="arrow roll up" />
+        <img class="side-menu__roll-arrow" src="assets/arrow-left.png" alt="arrow roll up" (click)="onSideMenuClick()"/>
     } @else {
-        <img class="side-menu__roll-arrow" src="assets/arrow-right.png" alt="arrow roll up" />
+        <img class="side-menu__roll-arrow" src="assets/arrow-right.png" alt="arrow roll up" (click)="onSideMenuClick()"/>
     }
 </div>

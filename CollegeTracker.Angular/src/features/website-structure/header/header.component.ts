@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AppRoutes } from '../../../constants/app-routes';
 @Component({
     standalone: true,
     selector: 'app-header',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
     styleUrls: ['./header.component.scss'],
     imports: []
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+    public readonly currentPageName: string;
+
+    constructor(private readonly router: Router) {
+        const currentUrl = this.router.url.replace("/", "");
+        this.currentPageName = this.getPageName(currentUrl);
+    }
+
+    private getPageName(url: string): string {
+        switch (url) {
+            case AppRoutes.Profile: return "Профиль пользователя"; 
+            case AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
+            default: return "";
+        }
+    }
+}

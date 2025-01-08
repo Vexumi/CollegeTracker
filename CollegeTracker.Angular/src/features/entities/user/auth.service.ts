@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserModel } from './user.model';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { JwtTokenResponse } from '../token-response.model';
+import { ApiEndpoints } from '../../../constants/api-routes';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,7 @@ export class AuthService {
     public authorizeUser(login: string, password: string): Observable<JwtTokenResponse> {
         return this.http
             .get<JwtTokenResponse>(
-                `api/authorize?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
+                `${ApiEndpoints.Authorization}?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}`
             )
             .pipe(
                 tap((resp) => {
