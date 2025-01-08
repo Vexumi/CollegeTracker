@@ -29,8 +29,10 @@ export class AuthService {
             )
             .pipe(
                 tap((resp) => {
-                    this.saveUserInfo(resp.user);
-                    this.saveToken(resp.token);
+                    if (resp) {
+                        this.saveUserInfo(resp.user);
+                        this.saveToken(resp.token);
+                    }
                 }),
                 catchError(() => {
                     return EMPTY;

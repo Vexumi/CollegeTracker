@@ -3,19 +3,20 @@ import { AuthPageComponent } from '../features/auth-page/auth.component';
 import { NotFoundPageComponent } from '../features/not-found-page/not-found.component';
 import { MainPageComponent } from '../features/website-structure/main-page.component';
 import { ProfilePageComponent } from '../features/profile-page/profile.component';
+import { AppRoutes } from '../constants/app-routes';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: AppRoutes.Home,
         component: MainPageComponent,
         children: [
             {
-                path: 'profile',
+                path: AppRoutes.Profile,
                 pathMatch: 'full',
                 component: ProfilePageComponent
             }
         ]
     },
-    { path: 'sign-in', component: AuthPageComponent },
+    { path: AppRoutes.Authorization, component: AuthPageComponent },
     { path: '**', component: NotFoundPageComponent }
 ];
