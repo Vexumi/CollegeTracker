@@ -13,7 +13,7 @@
                     <td class="table__cell">{{ item.title }}</td>
                     <td class="table__cell">{{ item.description }}</td>
                     <td class="table__cell">{{ item.isActive ? "Да" : "Нет" }}</td>
-                    <td class="table__cell">
+                    <td class="table__cell buttons-row">
                         <button class="table__button" (click)="onEditClicked(item)">Редактировать</button>
                         <button class="table__button" (click)="onChangeActiveClicked(item.id)">{{ item.isActive ? "Деактивировать" : "Активировать" }}</button>
                     </td>

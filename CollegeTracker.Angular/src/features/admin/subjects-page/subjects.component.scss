@@ -22,6 +22,8 @@
     }
 
     .table {
+        width: 100%;
+
         th {
             text-align: left;
         }
@@ -38,5 +40,9 @@
         &__button {
             margin-right: 20px;
         }
+    }
+
+    .buttons-row {
+        text-align: right;
     }
 }
