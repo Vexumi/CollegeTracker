@@ -65,4 +65,11 @@ export class SubjectsPageComponent {
             )
             .subscribe();
     }
+
+    public onChangeActiveClicked(id: number): void {
+        this.subjectService.changeActive(id).pipe(
+            tap(() => this.subjects$ = this.subjectService.getAllSubjects())
+        )
+        .subscribe();
+    }
 }

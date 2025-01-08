@@ -22,4 +22,8 @@ export class SubjectService {
     public editSubject(subject: SubjectModel): Observable<SubjectModel> {
         return this.http.post<SubjectModel>(`${ApiEndpoints.Subjects}/Update`, subject);
     }
+
+    public changeActive(id: number): Observable<void> {
+        return this.http.post<void>(`${ApiEndpoints.Subjects}/ChangeActivityState/${id}`, null);
+    }
 }

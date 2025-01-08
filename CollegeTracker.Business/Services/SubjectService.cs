@@ -1,4 +1,5 @@
 using CollegeTracker.Business.Interfaces;
+using CollegeTracker.Business.ViewModels;
 using CollegeTracker.DataAccess;
 using CollegeTracker.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
@@ -47,5 +48,12 @@ public class SubjectService: ISubjectService
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return entity;
+    }
+
+    public async Task ChangeActivityState(long entityId, CancellationToken cancellationToken)
+    {
+        var entity = await dbContext.Subjects.FirstAsync(x => x.Id == entityId, cancellationToken);
+        entity.IsActive = !entity.IsActive;
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

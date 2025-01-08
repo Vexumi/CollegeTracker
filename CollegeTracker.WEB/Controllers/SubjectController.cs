@@ -38,4 +38,10 @@ public class SubjectController: ControllerBase
     {
         await subjectService.DeleteAsync(id, cancellationToken);
     }
+
+    [HttpPost("{id}")]
+    public async Task ChangeActivityState([FromRoute]long id, CancellationToken cancellationToken)
+    {
+        await subjectService.ChangeActivityState(id, cancellationToken);
+    }
 }

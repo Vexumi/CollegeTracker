@@ -1,8 +1,9 @@
+using CollegeTracker.Business.ViewModels;
 using CollegeTracker.DataAccess.Models;
 
 namespace CollegeTracker.Business.Interfaces;
 
-public interface ISubjectService
+public interface ISubjectService: IActivityChangeable
 {
     Task<long> CreateAsync(Subject entity, CancellationToken cancellationToken);
 
