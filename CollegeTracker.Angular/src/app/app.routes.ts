@@ -5,6 +5,7 @@ import { MainPageComponent } from '../features/website-structure/main-page.compo
 import { ProfilePageComponent } from '../features/profile-page/profile.component';
 import { AppRoutes } from '../constants/app-routes';
 import { SubjectsPageComponent } from '../features/admin/subjects-page/subjects.component';
+import { SpecialitiesPageComponent } from '../features/admin/specialities-page/specialities.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,11 @@ export const routes: Routes = [
                 path: AppRoutes.AdminRoutes.Subjects,
                 pathMatch: 'full',
                 component: SubjectsPageComponent
+            },
+            {
+                path: AppRoutes.AdminRoutes.Specialities,
+                pathMatch: 'full',
+                component: SpecialitiesPageComponent
             },
         ]
     },

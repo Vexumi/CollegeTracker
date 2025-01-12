@@ -39,4 +39,10 @@ public class SpecialityController: ControllerBase
     {
         await specialityService.DeleteAsync(id, cancellationToken);
     }
+    
+    [HttpPost("{id}")]
+    public async Task ChangeActivityState([FromRoute]long id, CancellationToken cancellationToken)
+    {
+        await specialityService.ChangeActivityState(id, cancellationToken);
+    }
 }

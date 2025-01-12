@@ -1,3 +1,4 @@
+using KST.Business.Infrastructure;
 using KST.DataAccess;
 using KST.Business.Interfaces;
 using KST.DataAccess;
@@ -6,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
 
-public class SpecialityService: ISpecialityService
+public class SpecialityService: BaseService<Speciality>, ISpecialityService
 {
     private readonly KSTDbContext dbContext;
 
     public SpecialityService(
         KSTDbContext dbContext
-    )
+    ): base(dbContext)
     {
         this.dbContext = dbContext;
     }

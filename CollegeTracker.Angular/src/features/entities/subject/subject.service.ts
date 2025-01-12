@@ -14,7 +14,6 @@ export class SubjectService {
         return this.http.get<SubjectModel[]>(`${ApiEndpoints.Subjects}/GetAll`);
     }
 
-
     public createSubject(subject: SubjectModel): Observable<number> {
         return this.http.post<number>(`${ApiEndpoints.Subjects}/Create`, subject);
     }

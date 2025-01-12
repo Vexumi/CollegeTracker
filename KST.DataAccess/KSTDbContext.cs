@@ -115,14 +115,20 @@ public partial class KSTDbContext : DbContext
                 new Speciality()
                 {
                     Id = 1,
-                    Title = "Информационные системы и программирование",
-                    Code = "09.02.01"
+                    Title = "Разработка веб-сайтов",
+                    Description = "Разработка веб-сайтов на заказ",
                 },
                 new Speciality()
                 {
                     Id = 2,
-                    Title = "Робототехника и компьютерные комплексы",
-                    Code = "09.08.07"
+                    Title = "Разработка 1с",
+                    Description = "Разработка 1с на заказ",
+                },
+                new Speciality()
+                {
+                    Id = 3,
+                    Title = "Изготовление кровель",
+                    Description = "Изготовление кровель на заводе",
                 }
             }
         );

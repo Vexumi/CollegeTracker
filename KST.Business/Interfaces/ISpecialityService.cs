@@ -1,8 +1,9 @@
+using KST.Business.ViewModels;
 using KST.DataAccess.Models;
 
 namespace KST.Business.Interfaces;
 
-public interface ISpecialityService
+public interface ISpecialityService: IActivityChangeable
 {
     Task<long> CreateAsync(Speciality speciality, CancellationToken cancellationToken);
 

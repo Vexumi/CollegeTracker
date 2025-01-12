@@ -1,0 +1,18 @@
+<div class="card">
+    <h1>{{ isEdit ? "Добавление направления" : "Редактирование направления"}}</h1>
+    <hr>
+    <form class="form" [formGroup]="form">
+        <div class="form__input-block">
+            <label for="title">Название: </label>
+            <input type="text" name="title" formControlName="title" />
+        </div>
+        <div class="form__input-block">
+            <label for="description">Описание: </label>
+            <input type="text" name="description" formControlName="description" />
+        </div>
+        <div class="text-center">
+            <button class="form__button" (click)="onSaveClicked()" [disabled]="!form.valid">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="page">
+    <button class="button-add" (click)="onAddClicked()">Добавить направление</button>
+    <table class="table">
+        <thead>
+            <th class="table__th">Название</th>
+            <th class="table__th">Описание</th>
+            <th class="table__th">Активен</th>
+            <th class="table__th"></th>
+        </thead>
+        <tbody>
+            @for (item of subjects$ | async; track item.id) {
+                <tr>
+                    <td class="table__cell">{{ item.title }}</td>
+                    <td class="table__cell">{{ item.description }}</td>
+                    <td class="table__cell">{{ item.isActive ? "Да" : "Нет" }}</td>
+                    <td class="table__cell buttons-row">
+                        <button class="table__button" (click)="onEditClicked(item)">Редактировать</button>
+                        <button class="table__button" (click)="onChangeActiveClicked(item.id)">{{ item.isActive ? "Деактивировать" : "Активировать" }}</button>
+                    </td>
+                </tr>
+            }
+            @empty {
+                Тут пока ничего нет
+            }
+        </tbody>
+    </table>
+</div>

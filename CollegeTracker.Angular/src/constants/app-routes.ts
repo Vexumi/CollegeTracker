@@ -12,6 +12,7 @@ export const AppRoutes = {
         Groups: "admin/groups",
         Subjects: "admin/subjects",
         Reports: "admin/reports",
+        Specialities: "admin/specialities"
     },
     TeacherRoutes: {
         Students: "teacher/students",
