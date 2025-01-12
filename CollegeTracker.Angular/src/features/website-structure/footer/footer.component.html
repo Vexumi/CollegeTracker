@@ -1,30 +1,28 @@
 <footer class="footer">
-    <div class="footer__block">
-        <img class="footer__logo" src="assets/logo_white.png" alt="white logo VKI" />
-        <span>
-            © 2001–{{ currentYear }}
-            <br />
-            Высший колледж информатики НГУ
-        </span>
+    <div class="footer__block-wrapper">
+        <div class="footer__block grid">
+            <a href="{{ companyWebsiteRoute }}">О компании</a>
+            <a href="{{ companyWebsiteRoute }}">Вакансии</a>
+            <a href="{{ companyWebsiteRoute }}">Контакты и реквизиты</a>
+            <a href="{{ companyWebsiteRoute }}">Лицензированное соглашение</a>
+            <a href="{{ companyWebsiteRoute }}">Политика конфиденциальности</a>
+        </div>
+        <div class="footer__block">
+            <span>
+                Телефон: {{ phoneNumber }}
+            </span>
+            <span>
+                Е-mail: <a href="mailto:{{ email }}">{{ email }}</a>
+            </span>
+            <span>
+                Адрес: {{ address }}
+            </span>
+        </div>
+        <div class="footer__block map">
+            <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/65/novosibirsk/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Новосибирск</a><a href="https://yandex.ru/maps/65/novosibirsk/house/ulitsa_1905_goda_69/bEsYfwdmQUcHQFtvfXx1dX1hYA==/?ll=82.906820%2C55.044124&utm_medium=mapframe&utm_source=maps&z=16.62" style="color:#eee;font-size:12px;position:absolute;top:14px;">Улица 1905 года, 69 — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=82.906820%2C55.044124&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzA5ODg3NRJC0KDQvtGB0YHQuNGPLCDQndC-0LLQvtGB0LjQsdC40YDRgdC6LCDRg9C70LjRhtCwIDE5MDUg0LPQvtC00LAsIDY5IgoNS9ClQhUvLVxC&z=16.62" width="400" height="200" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+        </div>
     </div>
-    <div class="footer__block">
-        <span>
-            Телефон: {{ phoneNumber }}
-        </span>
-        <span>
-            Е-mail: <a href="mailto:{{ email }}">{{ email }}</a>
-        </span>
-        <span>
-            Адрес: 630058, г. Новосибирск, ул. Русская, 35
-        </span>
-    </div>
-    <div class="footer__block grid">
-        <a href="{{ ciNsuRoutes.news }}">Новости</a>
-        <a href="{{ ciNsuRoutes.about }}">Информация о колледже</a>
-        <a href="{{ ciNsuRoutes.advert }}">Обьявления</a>
-        <a href="{{ ciNsuRoutes.contacts }}">Контакты</a>
-    </div>
-    <div class="footer__block grid">
-        <img class="footer__logo" src="assets/logo-white-nsu.svg" alt="white logo NSU" />
+    <div class="footer__subtitle">
+        {{ subtitle }}
     </div>
 </footer>

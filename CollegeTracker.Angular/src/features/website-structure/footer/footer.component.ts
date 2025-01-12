@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ciNSURoutes } from '../../../constants/external-routes';
-import { CollegeInfo } from '../../../constants/ci-nsu-info';
+import { CompanyWebsiteBaseRoute } from '../../../constants/external-routes';
+import { CompanyInfo } from '../../../constants/company-info';
 
 @Component({
     standalone: true,
@@ -11,8 +11,10 @@ import { CollegeInfo } from '../../../constants/ci-nsu-info';
 })
 export class FooterComponent {
     public readonly currentYear = new Date().getFullYear();
-    public readonly email = CollegeInfo.email;
-    public readonly phoneNumber = CollegeInfo.phone;
+    public readonly email = CompanyInfo.email;
+    public readonly phoneNumber = CompanyInfo.phone;
+    public readonly address = CompanyInfo.address;
+    public readonly subtitle = CompanyInfo.subtitle;
 
-    public readonly ciNsuRoutes = ciNSURoutes;
+    public readonly companyWebsiteRoute = CompanyWebsiteBaseRoute;
 }

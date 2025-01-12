@@ -15,6 +15,10 @@
         border-top: 1px solid rgba(black, 0.4);
     }
 
+    label, h1, input {
+        color: map-get($theme-color, text-inverted);
+    }
+
     .form {
         &__input-block {
             width: min-content;
@@ -29,10 +33,8 @@
         &__button {
             @include button-base;
             margin: 20px 5px 0 5px;
-            background-color: map-get($theme-color, blue);
             border-radius: 5px;
             height: 40px;
-            color: white;
         }
 
         input {

@@ -11,13 +11,13 @@
     }
 
     &__wrapper {
-        width: min-content; //max(20%, 400px);
-        height: min-content; //max(20%, 200px);
+        width: min-content;
+        height: min-content;
         margin: auto;
     }
 
     &__card {
-        background-color: map-get($theme-color, sky-blue);
+        background-color: map-get($theme-color, theme-light);
         padding: 20px;
 
         border-radius: 5px;
@@ -36,12 +36,10 @@
         }
 
         &__button {
+            @include button-base;
             margin-top: 20px;
-            background-color: map-get($theme-color, blue);
-            border-radius: 5px;
             height: 40px;
-            color: white;
-            cursor: pointer;
+            border-radius: 5px;
         }
 
         input {

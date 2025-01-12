@@ -1,7 +1,7 @@
 @import '../../../styles.scss';
 
 .side-menu {
-    background-color: map-get($theme-color, sky-blue);
+    background-color: map-get($theme-color, theme-light);
     height: 100%;
     width: 20vw;
     display: flex;

@@ -11,15 +11,13 @@
     margin: 0;
     padding: 20px;
 
-    background-color: white;
-
     &-card {
         margin: 50px auto;
         padding: 20px;
         width: 60%;
         height: min-content;
 
-        background-color: map-get($theme-color, sky-blue);
+        background-color: map-get($theme-color, theme-light);
         border-radius: 10px;
         border: 1px solid black;
 

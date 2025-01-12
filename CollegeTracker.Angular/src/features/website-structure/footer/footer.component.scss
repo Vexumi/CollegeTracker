@@ -1,11 +1,19 @@
 .footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     width: 100%;
     height: min-content;
 
     background: #363636;
+
+    &__subtitle {
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    &__block-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 
     &__block {
         display: flex;
@@ -24,6 +32,9 @@
         row-gap: 10px;
         column-gap: 20px;
         height: min-content;
+    }
+
+    .map {
     }
 
     span,

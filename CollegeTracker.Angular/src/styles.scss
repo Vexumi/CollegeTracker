@@ -8,23 +8,37 @@ $theme-sky-blue: #9bdefb;
 $theme-text: #20318a;
 
 $theme-color: (
-    blue: #198dce,
-    sky-blue: #9bdefb,
-    text: #20318a,
-    light-red: #ff6e6e
+    theme: #161618,
+    theme-light: #44444a,
+    text: white,
+    text-inverted: black,
+    light-red: #ff6e6e,
+    accent: #ffc4a2,
+    dark-box: #2d2d2d,
+    background-color: #9d9da8,
+    button-background: #bd7946
 );
 
 * {
     color: map-get($theme-color, text);
-    //font-size: x-large;
+}
+
+input {
+    color: map-get($theme-color, text-inverted);
+}
+
+body {
+    background-color: map-get($theme-color, background-color);
 }
 
 @mixin button-base {
     border-radius: 15px;
     padding: 5px 15px;
-    background-color: map-get($theme-color, blue);
+    background-color: map-get($theme-color, button-background);
 
     &:hover {
+        color: black;
+        background-color: map-get($theme-color, accent);
         filter: brightness(85%);
     }
 }
