@@ -2,10 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubjectModel } from '../../../../entities/subject/subject.model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SpecialityModel } from '../../../../entities/speciality/speciality.model';
 
 interface DialogData {
     isEdit: boolean,
-    subject: SubjectModel | null
+    subject: SpecialityModel | null
 }
 
 @Component({

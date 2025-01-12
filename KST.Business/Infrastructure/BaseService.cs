@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Infrastructure;
 
-public abstract class BaseService<T>(KSTDbContext dbContext): IActivityChangeable where T: BaseEntity
+public abstract class BaseService<T>(KSTDbContext dbContext): IBaseService where T: BaseEntity
 {
     public async Task ChangeActivityState(long entityId, CancellationToken cancellationToken)
     {

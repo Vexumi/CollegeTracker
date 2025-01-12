@@ -5,6 +5,7 @@ import { EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddEditSpecialityComponent } from './components/dialog-add-edit/dialog-add-edit-speciality.component';
 import { SpecialityService } from '../../entities/speciality/speciality.service';
+import { SpecialityModel } from '../../entities/speciality/speciality.model';
 
 @Component({
     standalone: true,
@@ -14,7 +15,7 @@ import { SpecialityService } from '../../entities/speciality/speciality.service'
     imports: [AsyncPipe]
 })
 export class SpecialitiesPageComponent {
-    public subjects$: Observable<SubjectModel[]>;
+    public subjects$: Observable<SpecialityModel[]>;
 
     constructor(
         private readonly specialitiesService: SpecialityService,

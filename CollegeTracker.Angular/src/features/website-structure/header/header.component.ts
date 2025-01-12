@@ -20,6 +20,8 @@ export class HeaderComponent {
         switch (url) {
             case AppRoutes.Profile: return "Профиль пользователя"; 
             case AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
+            case AppRoutes.AdminRoutes.Specialities: return "Направления"; 
+            case AppRoutes.AdminRoutes.Groups: return "Студенческие группы"; 
             default: return "";
         }
     }

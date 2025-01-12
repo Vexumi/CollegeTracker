@@ -1,0 +1,31 @@
+<div class="page">
+    <button class="button-add" (click)="onAddClicked()">Добавить группу</button>
+    <table class="table">
+        <thead>
+            <th class="table__th">Код</th>
+            <th class="table__th">Дата начала</th>
+            <th class="table__th">Дата окончания</th>
+            <th class="table__th">Специальность</th>
+            <th class="table__th">Активен</th>
+            <th class="table__th"></th>
+        </thead>
+        <tbody>
+            @for (item of subjects$ | async; track item.id) {
+                <tr>
+                    <td class="table__cell">{{ item.number }}</td>
+                    <td class="table__cell">{{ item.launchDate | date: "dd.MM.yyyy" }}</td>
+                    <td class="table__cell">{{ item.stopDate | date: "dd.MM.yyyy" }}</td>
+                    <td class="table__cell">{{ item.speciality.title }}</td>
+                    <td class="table__cell">{{ item.isActive ? "Да" : "Нет" }}</td>
+                    <td class="table__cell buttons-row">
+                        <button class="table__button" (click)="onEditClicked(item)">Редактировать</button>
+                        <button class="table__button" (click)="onChangeActiveClicked(item.id)">{{ item.isActive ? "Деактивировать" : "Активировать" }}</button>
+                    </td>
+                </tr>
+            }
+            @empty {
+                Тут пока ничего нет
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,9 +1,10 @@
+using KST.Business.Infrastructure;
 using KST.Business.ViewModels;
 using KST.DataAccess.Models;
 
 namespace KST.Business.Interfaces;
 
-public interface IGroupService
+public interface IGroupService: IBaseService
 {
     Task<long> CreateAsync(GroupModificationDTO dto, CancellationToken cancellationToken);
 

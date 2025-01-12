@@ -9,6 +9,7 @@ export const AppRoutes = {
     },
     AdminRoutes: {
         Students: "admin/students",
+        Teachers: "admin/teachers",
         Groups: "admin/groups",
         Subjects: "admin/subjects",
         Reports: "admin/reports",

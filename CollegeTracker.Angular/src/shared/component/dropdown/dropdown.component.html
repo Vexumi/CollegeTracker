@@ -1,0 +1,14 @@
+<div class="container-dropdown">
+	<input style="display:none;" id="dropdownInput" type="checkbox"/>
+	<div class="dropdown">
+        <label class="dropbtn" for="dropdownInput">
+            <span class="m-auto ml1 small-font">{{ selectedItem?.title ?? 'Невыбранно' }} ↓</span>
+		</label>
+		<div class="dropdown-content">
+			<p *ngFor="let item of items" (click)="setElement(item)" for="dropdownInput">
+				<label for="dropdownInput">{{ item.title }}</label>
+			</p>
+		</div>
+		<label for="dropdownInput" class="overlay"></label>
+	</div>
+</div>

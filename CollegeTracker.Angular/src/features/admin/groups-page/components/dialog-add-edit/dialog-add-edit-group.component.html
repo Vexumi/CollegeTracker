@@ -1,0 +1,26 @@
+<div class="card">
+    <h1>{{ isEdit ? "Добавление группы" : "Редактирование группы"}}</h1>
+    <hr>
+    <form class="form" [formGroup]="form">
+        <div class="form__input-block">
+            <label for="title">Код: </label>
+            <input type="text" name="title" formControlName="number" />
+        </div>
+        <div class="form__input-block">
+            <label for="launchDate">Дата начала: </label>
+            <input type="date" name="launchDate" formControlName="launchDate" />
+        </div>
+        <div class="form__input-block">
+            <label for="stopDate">Дата окончания: </label>
+            <input type="date" name="stopDate" formControlName="stopDate" />
+        </div>
+        <div class="form__input-block">
+            <label for="stopDate">Направление: </label>
+            <app-dropdown-select-id [items]="(specialities$ | async) ?? []" [currentItem]="getCurrentSpeciality()" (itemSelected)="onSpecialitySelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="text-center">
+            <button class="form__button" (click)="onSaveClicked()" [disabled]="!formValid()">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>

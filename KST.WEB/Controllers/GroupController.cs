@@ -1,17 +1,18 @@
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess.Models;
+using KST.WEB.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class GroupController: ControllerBase
+public class GroupController: BaseController<Group>
 {
     private readonly IGroupService _groupService;
     
-    public GroupController(IGroupService groupService)
+    public GroupController(IGroupService groupService): base(groupService)
     {
         this._groupService = groupService;
     }

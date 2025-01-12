@@ -6,6 +6,7 @@ import { ProfilePageComponent } from '../features/profile-page/profile.component
 import { AppRoutes } from '../constants/app-routes';
 import { SubjectsPageComponent } from '../features/admin/subjects-page/subjects.component';
 import { SpecialitiesPageComponent } from '../features/admin/specialities-page/specialities.component';
+import { GroupsPageComponent } from '../features/admin/groups-page/groups.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,12 @@ export const routes: Routes = [
                 path: AppRoutes.AdminRoutes.Specialities,
                 pathMatch: 'full',
                 component: SpecialitiesPageComponent
+            },
+
+            {
+                path: AppRoutes.AdminRoutes.Groups,
+                pathMatch: 'full',
+                component: GroupsPageComponent
             },
         ]
     },

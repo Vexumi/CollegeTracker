@@ -1,4 +1,5 @@
 using AutoMapper;
+using KST.Business.Infrastructure;
 using KST.DataAccess;
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
 
-public class GroupService: IGroupService
+public class GroupService: BaseService<Group>, IGroupService
 {
     private readonly KSTDbContext dbContext;
     private readonly IMapper mapper;
@@ -16,7 +17,7 @@ public class GroupService: IGroupService
     public GroupService(
         KSTDbContext dbContext,
         IMapper mapper
-    )
+    ): base(dbContext)
     {
         this.dbContext = dbContext;
         this.mapper = mapper;
@@ -58,6 +59,7 @@ public class GroupService: IGroupService
         var group = mapper.Map<Group>(dto);
         dbContext.Attach(group);
         dbContext.Entry(group).State = EntityState.Modified;
+        
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return group;
