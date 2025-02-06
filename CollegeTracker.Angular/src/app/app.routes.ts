@@ -7,6 +7,7 @@ import { AppRoutes } from '../constants/app-routes';
 import { SubjectsPageComponent } from '../features/admin/subjects-page/subjects.component';
 import { SpecialitiesPageComponent } from '../features/admin/specialities-page/specialities.component';
 import { GroupsPageComponent } from '../features/admin/groups-page/groups.component';
+import { StudentsPageComponent } from '../features/admin/students-page/students.component';
 
 export const routes: Routes = [
     {
@@ -28,11 +29,15 @@ export const routes: Routes = [
                 pathMatch: 'full',
                 component: SpecialitiesPageComponent
             },
-
             {
                 path: AppRoutes.AdminRoutes.Groups,
                 pathMatch: 'full',
                 component: GroupsPageComponent
+            },
+            {
+                path: AppRoutes.AdminRoutes.Students,
+                pathMatch: 'full',
+                component: StudentsPageComponent
             },
         ]
     },

@@ -1,0 +1,34 @@
+<div class="card">
+    <h1>{{ isEdit ? "Добавление группы" : "Редактирование группы"}}</h1>
+    <hr>
+    <form class="form" [formGroup]="form">
+        <div class="form__input-block">
+            <label for="stopDate">Код группы: </label>
+            <app-dropdown-select-id [items]="(groups$ | async) ?? []" [currentItem]="getCurrentGroup()" (itemSelected)="onGroupSelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="form__input-block">
+            <label for="email">Email: </label>
+            <input type="email" name="email" formControlName="email" />
+        </div>
+        <div class="form__input-block">
+            <label for="email">Номер телефона: </label>
+            <input type="phone" name="phone" formControlName="phoneNumber" />
+        </div>
+        <div class="form__input-block">
+            <label for="fullname">ФИО: </label>
+            <input type="text" name="fullname" formControlName="fullname" />
+        </div>
+        <div class="form__input-block">
+            <label for="username">Имя пользователя: </label>
+            <input type="text" name="username" formControlName="username"/>
+        </div>
+        <div class="form__input-block" *ngIf="!isEdit">
+            <label for="password">Пароль: </label>
+            <input type="text" name="password" formControlName="password"/>
+        </div>
+        <div class="text-center">
+            <button class="form__button" (click)="onSaveClicked()" [disabled]="!formValid()">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>

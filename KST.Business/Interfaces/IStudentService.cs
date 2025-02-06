@@ -1,8 +1,9 @@
+using KST.Business.Infrastructure;
 using KST.Business.ViewModels;
 
 namespace KST.Business.Interfaces;
 
-public interface IStudentService
+public interface IStudentService: IBaseService
 {
     Task<long> CreateAsync(StudentModificationDTO entity, CancellationToken cancellationToken);
 

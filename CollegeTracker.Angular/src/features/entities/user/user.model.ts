@@ -7,4 +7,5 @@ export interface UserModel extends BaseModel {
     fullname: string;
     username: string;
     role: UserRoleModel;
+    password: string | null;
 }

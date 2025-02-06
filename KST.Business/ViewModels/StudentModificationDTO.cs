@@ -1,6 +1,6 @@
 namespace KST.Business.ViewModels;
 
-public class StudentModificationDTO
+public class StudentModificationDTO: BaseViewModel
 {
     public UserViewModel UserInfo { get; set; }
     

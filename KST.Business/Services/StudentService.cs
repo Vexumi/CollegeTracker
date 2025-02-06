@@ -1,14 +1,16 @@
 using AutoMapper;
+using KST.Business.Infrastructure;
 using KST.DataAccess;
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess;
+using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
 
-public class StudentService: IStudentService
+public class StudentService: BaseService<Student>, IStudentService
 {
     
     private readonly KSTDbContext dbContext;
@@ -19,7 +21,7 @@ public class StudentService: IStudentService
         KSTDbContext dbContext,
         IUserService userService,
         IMapper mapper
-    )
+    ): base(dbContext)
     {
         this.dbContext = dbContext;
         this.userService = userService;
@@ -28,6 +30,7 @@ public class StudentService: IStudentService
 
     public async Task<long> CreateAsync(StudentModificationDTO studentViewModel, CancellationToken cancellationToken)
     {
+        studentViewModel.UserInfo.Role = UserRoles.Student;
         var userProfileId = await userService.CreateAsync(studentViewModel.UserInfo, cancellationToken);
         var student = new Student()
         {
@@ -58,19 +61,21 @@ public class StudentService: IStudentService
     }
 
     public async Task<StudentViewModel> UpdateAsync(StudentModificationDTO entity, CancellationToken cancellationToken)
-    {
-        var student = mapper.Map<Student>(entity);
-        dbContext.Attach(student);
-        dbContext.Entry(student).State = EntityState.Modified;
-        await dbContext.SaveChangesAsync(cancellationToken);
+    {        
+        var student = await dbContext.Students.Include(x => x.UserInfo).FirstAsync(x => x.Id == entity.Id, cancellationToken);
+        student.GroupId = entity.GroupId;
+        student.UserInfo.Email = entity.UserInfo.Email;
+        student.UserInfo.Fullname = entity.UserInfo.Fullname;
+        student.UserInfo.PhoneNumber = entity.UserInfo.PhoneNumber;
+        student.UserInfo.Username = entity.UserInfo.Username;
 
-        return await GetByIdAsync(student.Id, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return mapper.Map<StudentViewModel>(student);
     }
 
     public async Task ChangeStudentGroup(long studentId, long groupId, CancellationToken cancellationToken)
     {
         var student = await dbContext.Students.Include(x => x.Group).FirstAsync(x => x.Id == studentId, cancellationToken);
-        var group = await dbContext.Groups.AsNoTracking().FirstAsync(x => x.Id == groupId, cancellationToken);
 
         student.GroupId = groupId;
 
@@ -80,6 +85,6 @@ public class StudentService: IStudentService
     private IQueryable<Student> GetAllStudents()
         => dbContext.Students
             .Include(x => x.UserInfo)
-            .Include(x => x.Group)
+            .Include(x => x.Group).ThenInclude(y => y.Speciality)
             .AsQueryable();
 }
