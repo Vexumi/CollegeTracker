@@ -4,7 +4,7 @@
     <form class="form" [formGroup]="form">
         <div class="form__input-block">
             <label for="stopDate">Код группы: </label>
-            <app-dropdown-select-id [items]="(groups$ | async) ?? []" [currentItem]="getCurrentGroup()" (itemSelected)="onGroupSelected($event)"></app-dropdown-select-id>
+            <app-dropdown-multiselect-ids [items]="(groups$ | async) ?? []" [currentItems]="getCurrentGroups()" (itemSelected)="onGroupSelected($event)"></app-dropdown-multiselect-ids >
         </div>
         <div class="form__input-block">
             <label for="email">Email: </label>

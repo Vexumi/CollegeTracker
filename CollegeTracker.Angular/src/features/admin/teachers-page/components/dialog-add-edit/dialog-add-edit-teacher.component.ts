@@ -1,28 +1,30 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DropdownSelectIdComponent, DropdownSelectIdItem } from '../../../../../shared/component/dropdown/dropdown.component';
+import { DropdownSelectIdItem } from '../../../../../shared/component/dropdown/dropdown.component';
 import { map, Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { StudentModel } from '../../../../entities/student/student.model';
 import { GroupService } from '../../../../entities/group/group.service';
 import { UserGeneratorService } from '../../../../../shared/services/user-generator.service';
+import { TeacherModel } from '../../../../entities/teacher/teacher.model';
+import { TeacherDtoModel } from '../../../../entities/teacher/teacher-dto.model';
+import { DropdownMultiSelectIdsComponent } from '../../../../../shared/component/dropdown-multiselect/dropdown-multiselect.component';
 
 interface DialogData {
     isEdit: boolean,
-    model: StudentModel | null
+    model: TeacherModel | null
 }
 
 @Component({
     standalone: true,
-    selector: 'app-dialog-add-edit-student',
-    templateUrl: './dialog-add-edit-student.component.html',
-    styleUrls: ['./dialog-add-edit-student.component.scss'],
-    imports: [ReactiveFormsModule, DropdownSelectIdComponent, AsyncPipe, NgIf],
+    selector: 'app-dialog-add-edit-teacher',
+    templateUrl: './dialog-add-edit-teacher.component.html',
+    styleUrls: ['./dialog-add-edit-teacher.component.scss'],
+    imports: [ReactiveFormsModule, DropdownMultiSelectIdsComponent, AsyncPipe, NgIf],
     providers: []
 })
-export class DialogAddEditStudentComponent {
+export class DialogAddEditTeacherComponent {
     public readonly isEdit: boolean;
     public readonly groups$: Observable<DropdownSelectIdItem[]>;
 
@@ -32,12 +34,12 @@ export class DialogAddEditStudentComponent {
         fullname: new FormControl<string | null>(null, [Validators.required]),
         username: new FormControl<string | null>(null, [Validators.required]),
         password: new FormControl<string | null>(null, [Validators.required]),
-        groupId: new FormControl<number | null>(null, [Validators.required]),
+        groupIds: new FormControl<number[]>([], [Validators.required]),
     });
 
     constructor(
         private readonly groupsService: GroupService,
-        private readonly dialogRef: MatDialogRef<DialogAddEditStudentComponent>,
+        private readonly dialogRef: MatDialogRef<DialogAddEditTeacherComponent>,
         private readonly userGenerator: UserGeneratorService,
         @Inject(MAT_DIALOG_DATA) private readonly data: DialogData
     ) {
@@ -52,7 +54,7 @@ export class DialogAddEditStudentComponent {
             this.form.controls.phoneNumber.setValue(userInfo.phoneNumber);
             this.form.controls.fullname.setValue(userInfo.fullname);
             this.form.controls.username.setValue(userInfo.username);
-            this.form.controls.groupId.setValue(data.model!.groupId);
+            this.form.controls.groupIds.setValue(data.model!.groups.map(x => x.id));
             this.form.controls.password.removeValidators(Validators.required);
         }
         else {
@@ -65,8 +67,8 @@ export class DialogAddEditStudentComponent {
         return this.form.valid;
     }
 
-    public onGroupSelected(selected: DropdownSelectIdItem) {
-        this.form.controls.groupId.setValue(selected.id);
+    public onGroupSelected(selected: DropdownSelectIdItem[]) {
+        this.form.controls.groupIds.setValue(selected.map(x => x.id));
     }
 
     public onSaveClicked(): void {
@@ -79,8 +81,8 @@ export class DialogAddEditStudentComponent {
                 username: this.form.controls.username.value,
                 password: this.form.controls.password.value,
             },
-            groupId: this.form.controls.groupId.value
-        } as StudentModel;
+            groupIds: this.form.controls.groupIds.value
+        } as TeacherDtoModel;
 
         if (this.isEdit) {
             result.id = this.data.model!.id;
@@ -102,10 +104,10 @@ export class DialogAddEditStudentComponent {
         this.form.controls.username.setValue(username);
     }
 
-    public getCurrentGroup(): DropdownSelectIdItem | null {
+    public getCurrentGroups(): DropdownSelectIdItem[] {
         if (this.isEdit) {
-            return { title: this.data.model!.group.number, id: this.data.model!.groupId };
+            return this.data.model!.groups.map((x) => ({ title: x.number, id: x.id }));
         }
-        return null;
+        return [];
     }
 }

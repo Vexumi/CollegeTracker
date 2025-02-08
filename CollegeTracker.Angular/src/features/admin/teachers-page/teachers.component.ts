@@ -2,11 +2,11 @@ import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddEditStudentComponent } from './components/dialog-add-edit/dialog-add-edit-student.component';
 import { PhonePipe } from '../../../shared/pipes/phone-number/phone.pipe';
 import { TeacherModel } from '../../entities/teacher/teacher.model';
 import { TeacherService } from '../../entities/teacher/teacher.service';
 import { GroupModel } from '../../entities/group/group.model';
+import { DialogAddEditTeacherComponent } from './components/dialog-add-edit/dialog-add-edit-teacher.component';
 
 @Component({
     standalone: true,
@@ -30,7 +30,7 @@ export class TeachersPageComponent {
     }
 
     public onAddClicked(): void {
-        const dialogRef = this.dialogSerivce.open(DialogAddEditStudentComponent, {
+        const dialogRef = this.dialogSerivce.open(DialogAddEditTeacherComponent, {
             data: 
             {
                 isEdit: false
@@ -51,7 +51,7 @@ export class TeachersPageComponent {
     }
 
     public onEditClicked(model: TeacherModel): void {
-        const dialogRef = this.dialogSerivce.open(DialogAddEditStudentComponent, {
+        const dialogRef = this.dialogSerivce.open(DialogAddEditTeacherComponent, {
             data: 
             {
                 isEdit: true,
