@@ -6,7 +6,7 @@
     .body {
         display: flex;
         flex-direction: row;
-        height: max(90vh, max-content);
+        height: minmax(90vh, auto);
         width: 100%;
     }
 }

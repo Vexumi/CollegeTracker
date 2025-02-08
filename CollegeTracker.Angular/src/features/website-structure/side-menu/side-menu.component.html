@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="side-menu" [class.side-menu__rolled-up]="sideMenuRolledUp">
     @if (!sideMenuRolledUp) {
         <div class="side-menu__options-grid">
@@ -8,7 +10,7 @@
                 <a href="{{ routes.AdminRoutes.Students }}">Студенты (админ)</a>
             </div>
             <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Teachers }}">Преподаватели (админ)</a>
+                <a href="{{ routes.AdminRoutes.Teachers }}">Наставники (админ)</a>
             </div>
             <div class="side-menu__element">
                 <a href="{{ routes.AdminRoutes.Subjects }}">Предметы (админ)</a>
@@ -23,10 +25,10 @@
                 <a href="{{ routes.AdminRoutes.Reports }}">Отчеты (админ)</a>
             </div>
             <div class="side-menu__element">
-                <a href="{{ routes.TeacherRoutes.Students }}">Студенты (преподаватель)</a>
+                <a href="{{ routes.TeacherRoutes.Students }}">Студенты (наставник)</a>
             </div>
             <div class="side-menu__element">
-                <a href="{{ routes.TeacherRoutes.Projects }}">Проекты (преподаватель)</a>
+                <a href="{{ routes.TeacherRoutes.Projects }}">Проекты (наставник)</a>
             </div>
             <div class="side-menu__element">
                 <a href="{{ routes.StudentRoutes.MyProjects }}">Мои проекты (студент)</a>
