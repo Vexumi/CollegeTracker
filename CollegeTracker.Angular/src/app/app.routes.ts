@@ -9,6 +9,7 @@ import { SpecialitiesPageComponent } from '../features/admin/specialities-page/s
 import { GroupsPageComponent } from '../features/admin/groups-page/groups.component';
 import { StudentsPageComponent } from '../features/admin/students-page/students.component';
 import { TeachersPageComponent } from '../features/admin/teachers-page/teachers.component';
+import { LogoutPageComponent } from '../features/logout-page/logout-page.component';
 
 export const routes: Routes = [
     {
@@ -48,6 +49,7 @@ export const routes: Routes = [
             },
         ]
     },
+    { path: AppRoutes.Logout, component: LogoutPageComponent },
     { path: AppRoutes.Authorization, component: AuthPageComponent },
     { path: '**', component: NotFoundPageComponent }
 ];
