@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { httpInterceptorsProvider } from '../interceptors/interceptors.provider';
+import { httpInterceptorsProvider } from '../authorization/interceptors/interceptors.provider';
 
 export const appConfig: ApplicationConfig = {
     providers: [

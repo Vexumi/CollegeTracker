@@ -2,9 +2,9 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, Observable, of } from "rxjs";
-import { AuthService } from "../shared/services/auth.service";
+import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
-import { AppRoutes } from "../constants/app-routes";
+import { AppRoutes } from "../../constants/app-routes";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
