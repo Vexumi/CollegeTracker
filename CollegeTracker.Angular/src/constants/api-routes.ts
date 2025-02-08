@@ -4,5 +4,6 @@ export const ApiEndpoints = {
     Subjects: apiPrefix + "subject",
     Specialities: apiPrefix + "speciality",
     Students: apiPrefix + "student",
+    Teachers: apiPrefix + "teacher",
     Authorization: apiPrefix + "authorize",
 }

@@ -2,26 +2,31 @@ import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { StudentService } from '../../entities/student/student.service';
-import { StudentModel } from '../../entities/student/student.model';
 import { DialogAddEditStudentComponent } from './components/dialog-add-edit/dialog-add-edit-student.component';
 import { PhonePipe } from '../../../shared/pipes/phone-number/phone.pipe';
+import { TeacherModel } from '../../entities/teacher/teacher.model';
+import { TeacherService } from '../../entities/teacher/teacher.service';
+import { GroupModel } from '../../entities/group/group.model';
 
 @Component({
     standalone: true,
-    selector: 'app-students',
-    templateUrl: './students.component.html',
-    styleUrls: ['./students.component.scss'],
+    selector: 'app-teachers',
+    templateUrl: './teachers.component.html',
+    styleUrls: ['./teachers.component.scss'],
     imports: [AsyncPipe, PhonePipe]
 })
-export class StudentsPageComponent {
-    public subjects$: Observable<StudentModel[]>;
+export class TeachersPageComponent {
+    public subjects$: Observable<TeacherModel[]>;
 
     constructor(
-        private readonly studentsService: StudentService,
+        private readonly baseService: TeacherService,
         private readonly dialogSerivce: MatDialog
     ) {
-        this.subjects$ = studentsService.getAll();
+        this.subjects$ = baseService.getAll();
+    }
+
+    public getGroups(groups: GroupModel[]): string {
+        return groups.map(x => x.number).join(', ');
     }
 
     public onAddClicked(): void {
@@ -36,16 +41,16 @@ export class StudentsPageComponent {
             .pipe(
                 switchMap((result) => {
                     if (!result) return EMPTY;
-                    return this.studentsService.create(result)
+                    return this.baseService.create(result)
                         .pipe(
-                            tap(() => this.subjects$ = this.studentsService.getAll())
+                            tap(() => this.subjects$ = this.baseService.getAll())
                         );
                 })
             )
             .subscribe();
     }
 
-    public onEditClicked(model: StudentModel): void {
+    public onEditClicked(model: TeacherModel): void {
         const dialogRef = this.dialogSerivce.open(DialogAddEditStudentComponent, {
             data: 
             {
@@ -58,9 +63,9 @@ export class StudentsPageComponent {
             .pipe(
                 switchMap((result) => {
                     if (!result) return EMPTY;
-                    return this.studentsService.edit(result)
+                    return this.baseService.edit(result)
                         .pipe(
-                            tap(() => this.subjects$ = this.studentsService.getAll())
+                            tap(() => this.subjects$ = this.baseService.getAll())
                         );
                 })
             )
@@ -68,8 +73,8 @@ export class StudentsPageComponent {
     }
 
     public onChangeActiveClicked(id: number): void {
-        this.studentsService.changeActive(id).pipe(
-            tap(() => this.subjects$ = this.studentsService.getAll())
+        this.baseService.changeActive(id).pipe(
+            tap(() => this.subjects$ = this.baseService.getAll())
         )
         .subscribe();
     }
