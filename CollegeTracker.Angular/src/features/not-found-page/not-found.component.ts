@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppRoutes } from '../../constants/app-routes';
 
 @Component({
     standalone: true,
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./not-found.component.scss'],
     imports: []
 })
-export class NotFoundPageComponent {}
+export class NotFoundPageComponent {
+    public readonly basePage = AppRoutes.Profile;
+}

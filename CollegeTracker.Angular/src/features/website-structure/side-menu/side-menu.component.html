@@ -6,33 +6,42 @@
             <div class="side-menu__element">
                 <a href="{{ routes.Profile }}">Профиль</a>
             </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Students }}">Студенты (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Teachers }}">Наставники (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Subjects }}">Предметы (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Specialities }}">Направления (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Groups }}">Группы (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.AdminRoutes.Reports }}">Отчеты (админ)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.TeacherRoutes.Students }}">Студенты (наставник)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.TeacherRoutes.Projects }}">Проекты (наставник)</a>
-            </div>
-            <div class="side-menu__element">
-                <a href="{{ routes.StudentRoutes.MyProjects }}">Мои проекты (студент)</a>
-            </div>
+            @if (authService.isAdmin()) {
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Students }}">Студенты</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Teachers }}">Наставники</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Subjects }}">Предметы</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Specialities }}">Направления</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Groups }}">Группы</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Reports }}">Отчеты</a>
+                </div>
+            }
+
+            @if (authService.isTeacher()) {
+                <div class="side-menu__element">
+                    <a href="{{ teacherPrefix +routes.TeacherRoutes.Students }}">Студенты</a>
+                </div>
+                <div class="side-menu__element">
+                    <a href="{{ teacherPrefix +routes.TeacherRoutes.Projects }}">Проекты</a>
+                </div>
+            }
+
+            @if (authService.isStudent()) {
+                <div class="side-menu__element">
+                    <a href="{{ studentPrefix + routes.StudentRoutes.MyProjects }}">Мои проекты</a>
+                </div>
+            }
+
             <div class="side-menu__element">
                 <a href="{{ routes.AllProjects }}">Все проекты</a>
             </div>

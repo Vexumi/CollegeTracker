@@ -4,6 +4,7 @@ import { UserModel } from '../../features/entities/user/user.model';
 import { catchError, EMPTY, Observable, tap } from 'rxjs';
 import { JwtTokenResponse } from '../../features/entities/token-response.model';
 import { ApiEndpoints } from '../../constants/api-routes';
+import { UserRole } from '../../features/entities/user/user-role.model';
 
 @Injectable({
     providedIn: 'root'
@@ -27,8 +28,24 @@ export class AuthService {
         return localStorage.getItem('token');
     }
 
-    public logout() {
+    public logout(): void {
         localStorage.clear();
+    }
+
+    public isAdmin(): boolean {
+        return this.getCurrentUser().role == UserRole.Admin;
+    }
+
+    public isTeacher(): boolean {
+        return this.getCurrentUser().role == UserRole.Teacher;
+    }
+
+    public isStudent(): boolean {
+        return this.getCurrentUser().role == UserRole.Student;
+    }
+
+    public isSignedIn(): boolean {
+        return this.getToken() != null;
     }
 
     public authorizeUser(login: string, password: string): Observable<JwtTokenResponse> {

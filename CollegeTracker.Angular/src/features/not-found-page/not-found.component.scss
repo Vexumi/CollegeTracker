@@ -1,3 +1,15 @@
-span {
-    font-size: x-large;
+.page {
+    display: flex;
+    flex-direction: column;
+
+    &__text {
+        margin: 10px 20px;
+        font-size: x-large;
+    }
+
+    &__link {
+        margin: 10px 20px;
+        font-size: x-large;
+        color: blue;
+    }
 }
