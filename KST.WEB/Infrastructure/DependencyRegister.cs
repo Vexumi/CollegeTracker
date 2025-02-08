@@ -68,7 +68,7 @@ public static class DependencyRegister
         builder.Services.AddTransient<IGroupService, GroupService>();
         builder.Services.AddTransient<ISubjectService, SubjectService>();
         builder.Services.AddTransient<IStudentService, StudentService>();
-
+        builder.Services.AddTransient<ITeacherService, TeacherService>();
         
         // Main Services
         builder.Services.AddControllers();
