@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace KST.WEB.Infrastructure;
+namespace KST.Business.Infrastructure;
 
 public class AuthOptions
 {

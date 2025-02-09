@@ -28,7 +28,7 @@ public class UserService: IUserService
     public async Task<long> CreateAsync(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         var user = mapper.Map<User>(userViewModel);
-        user.PasswordHash = authorizationService.GetPasswordHash(userViewModel.Password);
+        user.PasswordHash = authorizationService.HashPassword(userViewModel.Password);
             
         var entity = await dbContext.Users.AddAsync(user, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);

@@ -62,8 +62,8 @@ public static class DependencyRegister
         
         // Custom Services
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
         builder.Services.AddTransient<IUserService, UserService>();
+        builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
         builder.Services.AddTransient<ISpecialityService, SpecialityService>();
         builder.Services.AddTransient<IGroupService, GroupService>();
         builder.Services.AddTransient<ISubjectService, SubjectService>();
