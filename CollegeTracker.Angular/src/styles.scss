@@ -17,7 +17,9 @@ $theme-color: (
     dark-box: #2d2d2d,
     background-color: #9d9da8,
     button-background: #bd7946,
-    item-selected: #666966
+    item-selected: #666966,
+    error: red,
+    warn: yellow
 );
 
 * {

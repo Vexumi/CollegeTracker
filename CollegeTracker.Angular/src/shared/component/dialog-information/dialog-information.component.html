@@ -1,0 +1,8 @@
+<div class="card">
+    <h1>{{ headerText }}</h1>
+    @if (bodyText !== null) {
+        <hr>
+        <span class="card__body">{{ bodyText }}</span>
+    }
+    <button class="card__button" (click)="onOkClicked()">Ок</button>
+</div>

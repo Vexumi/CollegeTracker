@@ -36,6 +36,22 @@ public class UserService: IUserService
         return entity.Entity.Id;
     }
 
+    public async Task<bool> ChangePassword(string newPassword, string oldPassword, CancellationToken cancellationToken)
+    {
+        var currentUser = authorizationService.GetCurrentUser();
+        if (currentUser == null) return false;
+        
+        var dbUser =
+            await dbContext.Users.AsTracking().FirstOrDefaultAsync(
+                x => x.Email == currentUser.Email && x.Username == currentUser.Username, cancellationToken);
+        if (dbUser == null || !authorizationService.ValidateHashedPassword(dbUser.PasswordHash, oldPassword))
+            return false;
+
+        dbUser.PasswordHash = authorizationService.HashPassword(newPassword);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
     public async Task<UserViewModel> GetByIdAsync(long id, CancellationToken cancellationToken)
     {
         var user = await GetAllUsers().FirstAsync(x => x.Id == id, cancellationToken);

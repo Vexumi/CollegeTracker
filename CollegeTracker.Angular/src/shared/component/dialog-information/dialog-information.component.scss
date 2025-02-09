@@ -1,0 +1,38 @@
+@import '../../../styles.scss';
+
+.card {
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-size: larger;
+        margin: 0;
+    }
+
+    hr {
+        margin: 5px 0;
+        display: block;
+        border-top: 1px solid rgba(black, 0.4);
+    }
+
+    h1, span {
+        color: map-get($theme-color, text-inverted);
+    }
+
+    &__body {
+        max-width: 20vw;
+    }
+
+    &__button {
+        @include button-base;
+        margin: 20px 5px 0 5px;
+        border-radius: 5px;
+        height: 40px;
+
+        &:disabled {
+            filter: brightness(0.6);
+        }
+    }
+}

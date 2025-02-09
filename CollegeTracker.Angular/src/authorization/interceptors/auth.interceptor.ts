@@ -6,6 +6,8 @@ import { AuthService } from "../../shared/services/auth.service";
 import { Router } from "@angular/router";
 import { AppRoutes } from "../../constants/app-routes";
 
+const WHITE_LIST_ERROR_CODES = [400];
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private readonly authService = inject(AuthService);
@@ -25,6 +27,10 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((e: HttpErrorResponse) => {
                 if (e.status == 401) {
                     this.router.navigate([AppRoutes.Logout]);
+                    return of();
+                }
+
+                if (WHITE_LIST_ERROR_CODES.includes(e.status)) {
                     return of();
                 }
 

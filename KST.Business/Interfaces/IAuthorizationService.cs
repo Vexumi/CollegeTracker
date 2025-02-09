@@ -8,5 +8,5 @@ public interface IAuthorizationService
     Task<JwtTokenResponse?> AuthorizeByLoginAndPassword(string login, string password, CancellationToken cancellationToken);
     string HashPassword(string password);
     bool ValidateHashedPassword(string hash, string password);
-    UserViewModel GetCurrentUser();
+    UserViewModel? GetCurrentUser();
 }

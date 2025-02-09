@@ -28,6 +28,11 @@ export class AuthService {
         return localStorage.getItem('token');
     }
 
+    public refreshToken(password: string) {
+        const login = this.getCurrentUser().email;
+        return this.authorizeUser(login, password);
+    }
+
     public logout(): void {
         localStorage.clear();
     }

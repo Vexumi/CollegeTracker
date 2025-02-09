@@ -64,16 +64,17 @@ public class AuthorizationService(
         return password.Equals(translatedPassword);
     }
 
-    public UserViewModel GetCurrentUser()
+    public UserViewModel? GetCurrentUser()
     {
         var claims = httpContextAccessor.HttpContext.User.Claims;
+        if (!claims.Any()) return null;
+        
         UserRoles.TryParse(claims.First(x => x.Type == ClaimTypes.Role).Value, out UserRoles role); 
         var user = new UserViewModel()
         {
             Id = long.Parse(claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value as string),
             Username = claims.First(x => x.Type == "name").Value,
-            PhoneNumber = claims.First(x => x.Type == "phone").Value,
-            Fullname = claims.First(x => x.Type == "given_name").Value,
+            Fullname = claims.First(x => x.Type == ClaimTypes.GivenName).Value,
             Email = claims.First(x => x.Type == ClaimTypes.Email).Value,
             Role = role
         };

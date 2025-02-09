@@ -4,9 +4,9 @@ import { map, Observable, startWith } from 'rxjs';
 import { BaseModel } from './base.model';
 
 export class BaseService<T extends BaseModel> {
-    private readonly http = inject(HttpClient);
+    protected readonly http = inject(HttpClient);
 
-    constructor(private readonly baseControllerUrl: string) {}
+    constructor(protected readonly baseControllerUrl: string) {}
 
     public getAll(): Observable<T[]> {
         return this.http.get<T[]>(`${this.baseControllerUrl}/GetAll`).pipe(startWith([]));

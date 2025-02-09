@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="profile">
     <div class="profile-card">
         <div class="profile-card__avatar-item">
@@ -23,7 +25,7 @@
         </div>
         <div class="profile-card__item">
             <span class="profile-card__label"> Пароль: </span>
-            <a class="profile-card__element"> Сменить пароль </a>
+            <a class="profile-card__element clickable" (click)="onChangePasswordClicked()"> Сменить пароль </a>
         </div>
         <div class="profile-card__buttons-row">
             <button (click)="onLogoutClicked()" class="profile-card__button">Выйти из аккаунта</button>
