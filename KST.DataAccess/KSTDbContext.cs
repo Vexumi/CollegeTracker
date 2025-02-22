@@ -27,104 +27,29 @@ public partial class KSTDbContext : DbContext
     
     public DbSet<Project> Projects { get; set; }
     
+    public DbSet<ProjectTask> ProjectTasks { get; set; }
+
+    
     public DbSet<AuthorizationHistory> AuthorizationHistories { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Subject>().HasData(
-            new List<Subject>()
-            {
-                new Subject()
-                {
-                    Id = 1,
-                    Title = "Математика",
-                    Description = "Самая точная наука"
-                },
-                new Subject()
-                {
-                    Id = 2,
-                    Title = "Физика",
-                    Description = "Наука о природе и ее законах"
-                },
-                new Subject()
-                {
-                    Id = 3,
-                    Title = "Химия",
-                    Description = "Наука о веществах и их взаимодействии"
-                },
-                new Subject()
-                {
-                    Id = 4,
-                    Title = "Биология",
-                    Description = "Наука о живых организмах"
-                },
-                new Subject()
-                {
-                    Id = 5,
-                    Title = "Информатика",
-                    Description = "Наука об информации и вычислительной технике"
-                },
-                new Subject()
-                {
-                    Id = 6,
-                    Title = "Литература",
-                    Description = "Изучение художественных произведений и словесности"
-                },
-                new Subject()
-                {
-                    Id = 7,
-                    Title = "История",
-                    Description = "Изучение прошлого человечества"
-                },
-                new Subject()
-                {
-                    Id = 8,
-                    Title = "География",
-                    Description = "Наука о Земле и ее поверхности"
-                },
-                new Subject()
-                {
-                    Id = 9,
-                    Title = "Английский язык",
-                    Description = "Изучение иностранного языка"
-                },
-                new Subject()
-                {
-                    Id = 10,
-                    Title = "Физкультура",
-                    Description = "Физическое развитие и спортивные навыки"
-                },
-                new Subject()
-                {
-                    Id = 11,
-                    Title = "Музыка",
-                    Description = "Изучение музыки и музыкальной грамотности"
-                },
-                new Subject()
-                {
-                    Id = 12,
-                    Title = "ОБЖ",
-                    Description = "Основы безопасности жизнедеятельности"
-                }
-            }
-        );
-
         modelBuilder.Entity<Speciality>().HasData(
             new List<Speciality>()
             {
-                new Speciality()
+                new()
                 {
                     Id = 1,
                     Title = "Разработка веб-сайтов",
                     Description = "Разработка веб-сайтов на заказ",
                 },
-                new Speciality()
+                new()
                 {
                     Id = 2,
                     Title = "Разработка 1с",
                     Description = "Разработка 1с на заказ",
                 },
-                new Speciality()
+                new()
                 {
                     Id = 3,
                     Title = "Изготовление кровель",
@@ -136,7 +61,7 @@ public partial class KSTDbContext : DbContext
         modelBuilder.Entity<Group>().HasData(
             new List<Group>()
             {
-                new Group()
+                new()
                 {
                     Id = 1,
                     LaunchDate = DateTime.UtcNow,
@@ -144,7 +69,7 @@ public partial class KSTDbContext : DbContext
                     Number = "107в1",
                     SpecialityId = 1,
                 },
-                new Group()
+                new()
                 {
                     Id = 2,
                     LaunchDate = DateTime.UtcNow,
@@ -152,7 +77,7 @@ public partial class KSTDbContext : DbContext
                     Number = "107в2",
                     SpecialityId = 1,
                 },
-                new Group()
+                new()
                 {
                     Id = 3,
                     LaunchDate = DateTime.UtcNow,
@@ -161,7 +86,7 @@ public partial class KSTDbContext : DbContext
                     SpecialityId = 2,
                 }
                 ,
-                new Group()
+                new()
                 {
                     Id = 4,
                     LaunchDate = DateTime.UtcNow,
@@ -175,35 +100,55 @@ public partial class KSTDbContext : DbContext
         modelBuilder.Entity<User>().HasData(
             new List<User>()
             {
-                new User()
+                new()
                 {
                     Id = 1,
                     Email = "student1@gmail.com",
-                    PasswordHash = "123456",
+                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
                     Fullname = "Иванов Иван Иванович",
                     PhoneNumber = "88005554535",
                     Username = "IvIvIv",
                     Role = UserRoles.Student
                 },
-                new User()
+                new()
                 {
                     Id = 2,
                     Email = "student2@gmail.com",
-                    PasswordHash = "123456",
+                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
                     Fullname = "Иванов2 Иван2 Иванович2",
                     PhoneNumber = "88005554535",
                     Username = "Iv2Iv2Iv2",
                     Role = UserRoles.Student
                 },
-                new User()
+                new()
                 {
                     Id = 3,
                     Email = "student3@gmail.com",
-                    PasswordHash = "123456",
+                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
                     Fullname = "Иванов3 Иван3 Иванович3",
                     PhoneNumber = "88005554535",
                     Username = "Iv3Iv3Iv3",
                     Role = UserRoles.Student
+                },
+                new()
+                {
+                    Id = 4,
+                    Email = "admin@gmail.com",
+                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    Fullname = "Admin Admin Admin",
+                    PhoneNumber = "88005554535",
+                    Username = "Admin",
+                    Role = UserRoles.Admin
+                },
+                new()
+                {
+                    Id = 5,
+                    Email = "teacher@gmail.com",
+                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    Fullname = "Teacher Teacher Teacher",
+                    PhoneNumber = "88005554535",
+                    Username = "Teacher",
+                    Role = UserRoles.Teacher
                 }
             }
         );
@@ -211,23 +156,34 @@ public partial class KSTDbContext : DbContext
         modelBuilder.Entity<Student>().HasData(
             new List<Student>()
             {
-                new Student()
+                new()
                 {
                     Id = 1,
                     GroupId = 1,
                     UserInfoId = 1
                 },
-                new Student()
+                new()
                 {
                     Id = 2,
                     GroupId = 1,
                     UserInfoId = 2
                 },
-                new Student()
+                new()
                 {
                     Id = 3,
                     GroupId = 2,
                     UserInfoId = 3
+                }
+            }
+        );
+        
+        modelBuilder.Entity<Teacher>().HasData(
+            new List<Teacher>()
+            {
+                new()
+                {
+                    Id = 1,
+                    UserInfoId = 5
                 }
             }
         );

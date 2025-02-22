@@ -2,12 +2,10 @@ namespace KST.DataAccess.Enums;
 
 public enum ProjectState
 {
-    RequestedIncomplete,
-    Requested,
-    Approved,
+    Created,
+    InProgress,
+    OnReview,
+    Reviewed,
     Rejected,
-    Live,
-    WaitingForMark,
-    MarkRejected,
     Completed
 }

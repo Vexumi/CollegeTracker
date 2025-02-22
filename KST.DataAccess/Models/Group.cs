@@ -18,6 +18,5 @@ public class Group: BaseEntity
     public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
     [JsonIgnore]
-    // учителя у которых группа в избранном
     public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 }

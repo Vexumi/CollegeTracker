@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace KST.DataAccess.Models;
 
+[Obsolete] //TODO Remove entity
 public class Subject: BaseEntity
 {
     public string Title { get; set; } = null!;
