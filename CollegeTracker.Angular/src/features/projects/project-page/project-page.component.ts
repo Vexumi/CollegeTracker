@@ -5,13 +5,14 @@ import { ProjectService } from '../../entities/project/project.service';
 import { ProjectModel } from '../../entities/project/project.model';
 import { Router } from '@angular/router';
 import { ProjectMainInfoBlockComponent } from './components/main-info/main-info.component';
+import { ProjectTasksBlockComponent } from "./components/project-tasks/project-tasks.component";
 
 @Component({
     standalone: true,
     selector: 'app-project-page',
     templateUrl: './project-page.component.html',
     styleUrls: ['./project-page.component.scss'],
-    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule]
+    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent]
 })
 export class ProjectPageComponent {
     public project$: Observable<ProjectModel>;

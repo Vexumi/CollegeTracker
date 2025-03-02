@@ -40,4 +40,10 @@ public class ProjectTaskController: BaseController<ProjectTask>
     {
         await _service.DeleteAsync(id, cancellationToken);
     }
+    
+    [HttpPost]
+    public async Task<long> ChangeState(ProjectTaskChangeStateDTO viewModel, CancellationToken cancellationToken)
+    {
+        return await _service.ChangeState(viewModel.Id, viewModel.State, cancellationToken);
+    }
 }

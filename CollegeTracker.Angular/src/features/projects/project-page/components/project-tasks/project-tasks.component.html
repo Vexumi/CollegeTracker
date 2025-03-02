@@ -1,0 +1,54 @@
+<div class="block" cdkDropListGroup>
+    <div class="container">
+        <h3 class="container__label">Открыты</h3>
+        <div
+            id="Opened"
+            cdkDropList
+            [cdkDropListData]="opened"
+            class="container__list"
+            (cdkDropListDropped)="onItemDrop($event)">
+            @for (item of opened; track item) {
+                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
+            }
+        </div>
+    </div>
+    <div class="container">
+        <h3 class="container__label">Заблокированны</h3>
+        <div
+            id="Blocked"
+            cdkDropList
+            [cdkDropListData]="blocked"
+            class="container__list"
+            (cdkDropListDropped)="onItemDrop($event)">
+            @for (item of blocked; track item) {
+                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
+            }
+        </div>
+    </div>
+    <div class="container">
+        <h3 class="container__label">В процессе</h3>
+        <div
+            id="InProgress"
+            cdkDropList
+            [cdkDropListData]="inProgress"
+            class="container__list"
+            (cdkDropListDropped)="onItemDrop($event)">
+            @for (item of inProgress; track item) {
+                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
+            }
+        </div>
+    </div>
+    <div class="container">
+        <h3 class="container__label">Закрыты</h3>
+        <div
+            id="Closed"
+            cdkDropList
+            [cdkDropListData]="closed"
+            class="container__list"
+            (cdkDropListDropped)="onItemDrop($event)">
+            @for (item of closed; track item) {
+                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
+            }
+        </div>
+    </div>
+</div>

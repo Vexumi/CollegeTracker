@@ -205,5 +205,37 @@ public partial class KSTDbContext : DbContext
                 }
             }
         );
+
+        modelBuilder.Entity<ProjectTask>().HasData(
+            new List<ProjectTask>()
+            {
+                new ()
+                {
+                    Id = 1,
+                    Title = "Test 1",
+                    Description = "Test Description 1",
+                    EstimatedHours = 4,
+                    ProjectId = 1,
+                    AssignedToId = 1
+                },
+                new ()
+                {
+                    Id = 2,
+                    Title = "Test 2",
+                    Description = "Test Description 2",
+                    EstimatedHours = 8,
+                    ProjectId = 1,
+                    AssignedToId = 1
+                },
+                new ()
+                {
+                    Id = 3,
+                    Title = "Test 3",
+                    Description = "Test Description 3",
+                    EstimatedHours = 2,
+                    ProjectId = 1,
+                    AssignedToId = 1
+                },
+            });
     }
 }

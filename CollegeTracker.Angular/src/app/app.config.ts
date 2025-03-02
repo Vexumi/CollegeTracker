@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
         provideAnimationsAsync(),
         importProvidersFrom(HttpClientModule),
         httpInterceptorsProvider,
-        guardsProvider
+        guardsProvider, provideAnimationsAsync()
     ]
 };

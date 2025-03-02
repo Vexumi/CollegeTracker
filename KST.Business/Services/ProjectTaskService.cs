@@ -4,6 +4,7 @@ using KST.DataAccess;
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess;
+using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,5 +59,13 @@ public class ProjectTaskService: BaseService<ProjectTask>, IProjectTaskService
         dbContext.Entry(group).State = EntityState.Modified;
         await dbContext.SaveChangesAsync(cancellationToken);
         return group;
+    }
+
+    public async Task<long> ChangeState(long id, TaskState state, CancellationToken cancellationToken)
+    {
+        var task = await dbContext.Set<ProjectTask>().AsTracking().FirstAsync(x => x.Id == id, cancellationToken);
+        task.State = state;
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return id;
     }
 }
