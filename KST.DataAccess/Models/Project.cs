@@ -19,9 +19,10 @@ public class Project : BaseEntity
     
     public Speciality Speciality { get; set; }
     
-    public DateTime StartDate { get; set; } = DateTime.Now;
+    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly? ActualEndDate { get; set; }
 
-    public DateTime? Deadline { get; set; }
+    public DateOnly? Deadline { get; set; }
     
     public virtual ICollection<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
 

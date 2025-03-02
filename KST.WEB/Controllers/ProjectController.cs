@@ -22,6 +22,12 @@ public class ProjectController: BaseController<Project>
     {
         return _service.GetAll();
     }
+    
+    [HttpGet("{id}")]
+    public async Task<Project> GetById([FromRoute] long id, CancellationToken cancellationToken)
+    {
+        return await _service.GetByIdAsync(id, cancellationToken);
+    }
 
     [HttpPost]
     public async Task<long> Create(ProjectModificationDTO viewModel, CancellationToken cancellationToken)

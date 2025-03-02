@@ -6,5 +6,7 @@ export const ApiEndpoints = {
     Specialities: apiPrefix + "speciality",
     Students: apiPrefix + "student",
     Teachers: apiPrefix + "teacher",
-    Users: apiPrefix + "user"
+    Users: apiPrefix + "user",
+    Projects: apiPrefix + "project",
+    ProjectTasks: apiPrefix + "projectTask",
 }

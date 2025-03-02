@@ -3,6 +3,7 @@ export const AppRoutes = {
     Authorization: "sign-in",
     Logout: "logout",
     AllProjects: "all-projects",
+    ProjectInfo: "projects/:id",
 
     StudentRoutes: {
         MyProjects: "my-projects",

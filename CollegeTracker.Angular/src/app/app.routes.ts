@@ -7,6 +7,7 @@ import { AppRoutes } from '../constants/app-routes';
 import { LogoutPageComponent } from '../authorization/logout-page/logout-page.component';
 import { SignedInGuard } from '../authorization/guards/signed-in.guard';
 import { AdminRoutes } from '../features/admin/admin.routes';
+import { ProjectPageComponent } from '../features/projects/project-page/project-page.component';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,12 @@ export const routes: Routes = [
                 pathMatch: 'full',
                 canActivate: [SignedInGuard],
                 component: ProfilePageComponent
+            },
+            {
+                path: AppRoutes.ProjectInfo,
+                pathMatch: 'full',
+                canActivate: [SignedInGuard],
+                component: ProjectPageComponent
             },
             ...AdminRoutes
         ]

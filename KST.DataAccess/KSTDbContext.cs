@@ -152,30 +152,6 @@ public partial class KSTDbContext : DbContext
                 }
             }
         );
-
-        modelBuilder.Entity<Student>().HasData(
-            new List<Student>()
-            {
-                new()
-                {
-                    Id = 1,
-                    GroupId = 1,
-                    UserInfoId = 1
-                },
-                new()
-                {
-                    Id = 2,
-                    GroupId = 1,
-                    UserInfoId = 2
-                },
-                new()
-                {
-                    Id = 3,
-                    GroupId = 2,
-                    UserInfoId = 3
-                }
-            }
-        );
         
         modelBuilder.Entity<Teacher>().HasData(
             new List<Teacher>()
@@ -184,6 +160,48 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 1,
                     UserInfoId = 5
+                }
+            }
+        );
+        
+        modelBuilder.Entity<Project>().HasData(
+            new List<Project>()
+            {
+                new()
+                {
+                    Id = 1,
+                    Title = "Разработка 1С приложения для Магнита",
+                    Description = "Разработка 1С приложения для Магнит",
+                    TeacherId = 1,
+                    SpecialityId = 2,
+                    StartDate = DateOnly.FromDateTime(DateTime.UtcNow),
+                    Deadline = DateOnly.FromDateTime(DateTime.UtcNow.AddMonths(6)),
+                }
+            }
+        );
+        
+        modelBuilder.Entity<Student>().HasData(
+            new List<Student>()
+            {
+                new()
+                {
+                    Id = 1,
+                    GroupId = 1,
+                    UserInfoId = 1,
+                    ProjectId = 1
+                },
+                new()
+                {
+                    Id = 2,
+                    GroupId = 1,
+                    UserInfoId = 2,
+                    ProjectId = 1
+                },
+                new()
+                {
+                    Id = 3,
+                    GroupId = 2,
+                    UserInfoId = 3
                 }
             }
         );

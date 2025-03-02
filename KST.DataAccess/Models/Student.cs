@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace KST.DataAccess.Models;
 
 public class Student: BaseEntity
@@ -9,4 +11,9 @@ public class Student: BaseEntity
     public long GroupId { get; set; }
 
     public Group Group { get; set; } = null!;
+    
+    [JsonIgnore]
+    public long? ProjectId { get; set; }
+    [JsonIgnore]
+    public Project? Project { get; set; }
 }
