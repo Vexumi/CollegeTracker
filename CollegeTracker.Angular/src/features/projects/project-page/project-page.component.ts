@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProjectService } from '../../entities/project/project.service';
@@ -11,7 +11,7 @@ import { ProjectMainInfoBlockComponent } from './components/main-info/main-info.
     selector: 'app-project-page',
     templateUrl: './project-page.component.html',
     styleUrls: ['./project-page.component.scss'],
-    imports: [AsyncPipe, ProjectMainInfoBlockComponent]
+    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule]
 })
 export class ProjectPageComponent {
     public project$: Observable<ProjectModel>;

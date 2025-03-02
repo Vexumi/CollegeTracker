@@ -39,7 +39,7 @@ public class ProjectService: BaseService<Project>, IProjectService
     public IQueryable<Project> GetAll()
         => dbContext.Projects
             .AsNoTracking()
-            .Include(x => x.Teacher)
+            .Include(x => x.Teacher).ThenInclude(x => x.UserInfo)
             .Include(x => x.Speciality)
             .Include(x => x.Students).ThenInclude(x => x.UserInfo)
             .Include(x => x.Tasks).ThenInclude(x => x.AssignedTo).ThenInclude(x => x.UserInfo)

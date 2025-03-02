@@ -1,4 +1,7 @@
-<div class="page">
-    @let project = project$ | async;
+<div class="page" *ngIf="project$ | async as project else loading">
     <app-project-main-info-block [project]="project"></app-project-main-info-block>
 </div>
+
+<ng-template #loading>
+    <div class="loading">Загрузка...</div>
+</ng-template>

@@ -6,13 +6,16 @@
 }
 
 .page {
-    width: 100%;
+    width: 80%;
     height: 100%;
-    margin: 0;
+    margin: 20px auto;
     padding: 20px;
 
     display: flex;
     flex-direction: column;
+
+    background-color: map-get($theme-color, theme-light);
+    border-radius: 15px;
 
     button {
         @include button-base;
@@ -51,4 +54,9 @@
     .buttons-row {
         text-align: right;
     }
+}
+
+
+.loading {
+    margin: 20px;
 }

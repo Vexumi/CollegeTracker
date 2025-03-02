@@ -1,6 +1,7 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ProjectModel } from '../../../../entities/project/project.model';
+import { getProjectStateString } from '../../../../../shared/utils/project-state.utils';
 
 @Component({
     standalone: true,
@@ -12,4 +13,6 @@ import { ProjectModel } from '../../../../entities/project/project.model';
 export class ProjectMainInfoBlockComponent {
     @Input({ required: true })
     public project!: ProjectModel;
+
+    public getProjectStateString = getProjectStateString;
 }
