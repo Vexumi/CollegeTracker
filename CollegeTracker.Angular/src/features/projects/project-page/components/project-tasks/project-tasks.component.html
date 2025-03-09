@@ -1,4 +1,4 @@
-<div class="block" cdkDropListGroup>
+<div class="block__wrapper" cdkDropListGroup>
     <div class="container">
         <h3 class="container__label">Открыты</h3>
         <div
@@ -8,7 +8,10 @@
             class="container__list"
             (cdkDropListDropped)="onItemDrop($event)">
             @for (item of opened; track item) {
-                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
+                <div class="container__box" cdkDrag [cdkDragData]="item">
+                    {{ item.title }}
+                    <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
+                </div>
             }
         </div>
     </div>
@@ -21,8 +24,10 @@
             class="container__list"
             (cdkDropListDropped)="onItemDrop($event)">
             @for (item of blocked; track item) {
-                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
-            }
+                <div class="container__box" cdkDrag [cdkDragData]="item">
+                    {{ item.title }}
+                    <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
+                </div>            }
         </div>
     </div>
     <div class="container">
@@ -34,8 +39,10 @@
             class="container__list"
             (cdkDropListDropped)="onItemDrop($event)">
             @for (item of inProgress; track item) {
-                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
-            }
+                <div class="container__box" cdkDrag [cdkDragData]="item">
+                    {{ item.title }}
+                    <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
+                </div>            }
         </div>
     </div>
     <div class="container">
@@ -47,8 +54,10 @@
             class="container__list"
             (cdkDropListDropped)="onItemDrop($event)">
             @for (item of closed; track item) {
-                <div class="container__box" cdkDrag [cdkDragData]="item">{{ item.title }}</div>
-            }
+                <div class="container__box" cdkDrag [cdkDragData]="item">
+                    {{ item.title }}
+                    <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
+                </div>            }
         </div>
     </div>
 </div>

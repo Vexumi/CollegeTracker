@@ -1,7 +1,14 @@
 .block {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    &__title {
+
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 .container {
@@ -19,6 +26,14 @@
     }
 
     &__box {
-        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 5px;
+    }
+
+    &__link {
+        width: 20px;
+        margin: 0 5px;
     }
 }

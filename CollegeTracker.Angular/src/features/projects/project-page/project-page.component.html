@@ -1,8 +1,12 @@
 <div class="page" *ngIf="project$ | async as project else loading">
     <app-project-main-info-block [project]="project"></app-project-main-info-block>
     <div class="page__row">
-        <app-project-tasks-block [project]="project"></app-project-tasks-block>
+        <!-- 
+        DOCUMENTS
+        CHAT
+        -->
     </div>
+    <app-project-tasks-block [project]="project"></app-project-tasks-block>
 </div>
 
 <ng-template #loading>
