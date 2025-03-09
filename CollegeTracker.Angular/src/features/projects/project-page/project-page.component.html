@@ -6,7 +6,7 @@
         CHAT
         -->
     </div>
-    <app-project-tasks-block [project]="project"></app-project-tasks-block>
+    <app-project-tasks-block [project]="project" (tasksChanged)="onReload()"></app-project-tasks-block>
 </div>
 
 <ng-template #loading>

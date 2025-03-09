@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ProjectModel } from '../../../../entities/project/project.model';
 import { CdkDropListGroup, CdkDropList, CdkDrag, CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ProjectTaskStateEnum } from '../../../../entities/project-task/project-task-state.enum';
@@ -8,7 +8,7 @@ import { ProjectTaskService } from '../../../../entities/project-task/project-ta
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddEditProjectTaskComponent } from './components/dialog-project-task-add-edit/dialog-add-edit-project-task.component';
-import { EMPTY, switchMap } from 'rxjs';
+import { EMPTY, switchMap, tap } from 'rxjs';
 import { DialogProjectTaskDetailsComponent } from './components/dialog-project-task-details/dialog-project-task-details.component';
 
 @Component({
@@ -21,6 +21,9 @@ import { DialogProjectTaskDetailsComponent } from './components/dialog-project-t
 export class ProjectTasksBlockComponent implements OnChanges {
     @Input({ required: true })
     public project!: ProjectModel;
+
+    @Output()
+    public tasksChanged = new EventEmitter();
     
     public opened: ProjectTaskModel[] = [];
     public inProgress: ProjectTaskModel[] = [];
@@ -56,11 +59,10 @@ export class ProjectTasksBlockComponent implements OnChanges {
                 takeUntilDestroyed(this.destroyRef),
                 switchMap((result) => {
                     if (!result) return EMPTY;
-                    console.log(result);
                     return this.projectTaskService.create(result)
                 })
             )
-            .subscribe();
+            .subscribe(() => this.tasksChanged.emit());
     }
 
     public onDetailsClicked(model: ProjectTaskModel) {
@@ -73,6 +75,9 @@ export class ProjectTasksBlockComponent implements OnChanges {
         .afterClosed()
         .pipe(
             takeUntilDestroyed(this.destroyRef),
+            tap((result) => {
+                if (result) this.tasksChanged.emit();
+            })
         )
         .subscribe();
     }
