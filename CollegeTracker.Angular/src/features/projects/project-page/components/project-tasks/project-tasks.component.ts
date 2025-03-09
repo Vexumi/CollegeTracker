@@ -7,8 +7,9 @@ import { ProjectTaskModel } from '../../../../entities/project-task/project-task
 import { ProjectTaskService } from '../../../../entities/project-task/project-task.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogAddEditProjectTaskComponent } from './components/dialog-project-task-details/dialog-add-edit-project-task.component';
+import { DialogAddEditProjectTaskComponent } from './components/dialog-project-task-add-edit/dialog-add-edit-project-task.component';
 import { EMPTY, switchMap } from 'rxjs';
+import { DialogProjectTaskDetailsComponent } from './components/dialog-project-task-details/dialog-project-task-details.component';
 
 @Component({
     standalone: true,
@@ -60,6 +61,20 @@ export class ProjectTasksBlockComponent implements OnChanges {
                 })
             )
             .subscribe();
+    }
+
+    public onDetailsClicked(model: ProjectTaskModel) {
+        this.dialogSerivce.open(DialogProjectTaskDetailsComponent, {
+            data: 
+            {
+                model
+            }
+        })
+        .afterClosed()
+        .pipe(
+            takeUntilDestroyed(this.destroyRef),
+        )
+        .subscribe();
     }
 
     public onItemDrop(event: CdkDragDrop<ProjectTaskModel[]>) {

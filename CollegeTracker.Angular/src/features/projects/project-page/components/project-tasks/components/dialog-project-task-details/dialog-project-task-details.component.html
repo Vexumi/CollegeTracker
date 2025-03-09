@@ -1,0 +1,36 @@
+<div class="card">
+    <h1>{{ "Карточка задания" }}</h1>
+    <hr>
+    <div class="form__input-block">
+        <label for="title">Название: </label>
+        <span>{{ model.title }}</span>
+    </div>
+    <div class="form__input-block">
+        <label for="description">Описание: </label>
+        <span>{{ model.description }}</span>
+    </div>
+    <div class="form__input-block">
+        <label for="assignedTo">Назначенность: </label>
+        <span>{{ model.assignedTo.userInfo.fullname }}</span>
+    </div>
+    <div class="form__input-block">
+        <label for="estimatedHours">Расчетное время (часы): </label>
+        <span>{{ model.estimatedHours }}</span>
+    </div>
+    @if (model.actualHours) {
+        <div class="form__input-block">
+            <label for="actualHours">Фактическое время (часы): </label>
+            <span>{{ model.actualHours }}</span>
+        </div>
+    }
+    @if (model.inProgressSince && !model.actualHours) {
+        <div class="form__input-block">
+            <label for="estimatedHours">В процессе с: </label>
+            <span>{{ model.inProgressSince | date: "dd.MM.yyyy hh:mm:ss" }}</span>
+        </div>
+    }
+    <div class="text-center">
+        <button class="form__button">Редактировать</button>
+        <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+    </div>
+</div>

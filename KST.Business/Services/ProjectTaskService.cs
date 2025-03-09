@@ -64,7 +64,24 @@ public class ProjectTaskService: BaseService<ProjectTask>, IProjectTaskService
     public async Task<long> ChangeState(long id, TaskState state, CancellationToken cancellationToken)
     {
         var task = await dbContext.Set<ProjectTask>().AsTracking().FirstAsync(x => x.Id == id, cancellationToken);
+        
+        if (state == TaskState.InProgress)
+        {
+            task.InProgressSince = DateTime.UtcNow;
+        }
+        if (state == TaskState.Closed && task.InProgressSince != null)
+        {
+            var delta = (DateTime.UtcNow - task.InProgressSince).Value;
+            int targetDays = task.EstimatedHours / 8;
+            int targetHours = task.EstimatedHours % 8;
+            int actualDeltaDays = delta.Days;
+            int actualDeltaHours = delta.Hours;
+            var actualTime = (actualDeltaDays - targetDays) * 8 + (actualDeltaHours - targetHours);
+
+            task.ActualHours = task.EstimatedHours + actualTime;
+        }
         task.State = state;
+
         await dbContext.SaveChangesAsync(cancellationToken);
         return id;
     }
