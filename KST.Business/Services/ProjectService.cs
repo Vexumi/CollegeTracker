@@ -5,6 +5,8 @@ using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess;
 using KST.DataAccess.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
@@ -13,14 +15,17 @@ public class ProjectService: BaseService<Project>, IProjectService
 {
     private readonly KSTDbContext dbContext;
     private readonly IMapper mapper;
+    private readonly IFileUploadService fileUploadService;
 
     public ProjectService(
         KSTDbContext dbContext,
-        IMapper mapper
+        IMapper mapper,
+        IFileUploadService fileUploadService
     ): base(dbContext)
     {
         this.dbContext = dbContext;
         this.mapper = mapper;
+        this.fileUploadService = fileUploadService;
     }
 
     public async Task<long> CreateAsync(ProjectModificationDTO dto, CancellationToken cancellationToken)
@@ -61,5 +66,40 @@ public class ProjectService: BaseService<Project>, IProjectService
         dbContext.Entry(group).State = EntityState.Modified;
         await dbContext.SaveChangesAsync(cancellationToken);
         return group;
+    }
+
+    public IQueryable<ProjectAttachment> GetAttachments(long projectId)
+    {
+        return dbContext.ProjectAttachment.Where(x => x.ProjectId == projectId);
+    }
+
+    public async Task UploadFile(long projectId, IFormFile file, CancellationToken cancellationToken)
+    {
+        var filePath = await fileUploadService.UploadFileAsync(projectId, file);
+        var attachment = new ProjectAttachment()
+        {
+            ProjectId = projectId,
+            Name = file.FileName,
+            ContentType = file.ContentType,
+            FilePath = filePath
+        };
+        await dbContext.ProjectAttachment.AddAsync(attachment, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
+    
+    public async Task<bool> DeleteFile(long attachmentId, CancellationToken cancellationToken)
+    {
+        var attachment = await dbContext.ProjectAttachment.FirstAsync(x => x.Id == attachmentId, cancellationToken);
+        dbContext.ProjectAttachment.Remove(attachment);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        
+        return fileUploadService.DeleteFile(attachment.FilePath!);
+    }
+
+    public async Task<FileStreamResult> DownloadFile(long attachmentId, CancellationToken cancellationToken)
+    {
+        var attachment = await dbContext.ProjectAttachment.FirstAsync(x => x.Id == attachmentId, cancellationToken);
+        var fileStream = fileUploadService.GetFileStream(attachment.FilePath);
+        return new FileStreamResult(fileStream!, attachment.ContentType) { FileDownloadName = attachment.Name };
     }
 }

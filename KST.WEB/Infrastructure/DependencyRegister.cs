@@ -30,6 +30,10 @@ public static class DependencyRegister
         builder.Services.AddAutoMapper(MapperConfigurator.Configure);
         // builder.Services.AddHangfire(); //TODO add hangfire
         
+        // Add File attachments
+        builder.Services.Configure<AttachmentsOptions>(builder.Configuration.GetSection("AttachmentsSettings"));
+        builder.Services.AddTransient<IFileUploadService, FileUploadService>();
+
         
         // Add Authorization
         builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Authorization"));

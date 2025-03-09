@@ -14,7 +14,7 @@ public class ProjectController: BaseController<Project>
     
     public ProjectController(IProjectService service): base(service)
     {
-        this._service = service;
+        _service = service;
     }
 
     [HttpGet]
@@ -45,5 +45,31 @@ public class ProjectController: BaseController<Project>
     public async Task Delete(long id, CancellationToken cancellationToken)
     {
         await _service.DeleteAsync(id, cancellationToken);
+    }
+    
+    [HttpGet("{projectId}")]
+    public IQueryable<ProjectAttachment> GetAttachments(long projectId, CancellationToken cancellationToken)
+    {
+        return _service.GetAttachments(projectId);
+    }
+
+    [HttpPost("{projectId}")]
+    public async Task<bool> UploadFile(long projectId, [FromForm] IFormFile file, CancellationToken cancellationToken)
+    {
+        await _service.UploadFile(projectId, file, cancellationToken);
+        return true;
+    }
+    
+    [HttpDelete("{attachmentId}")]
+    public async Task<bool> DeleteFile(long attachmentId, CancellationToken cancellationToken)
+    {
+        await _service.DeleteFile(attachmentId, cancellationToken);
+        return true;
+    }
+
+    [HttpGet("{attachmentId}")]
+    public async Task<FileStreamResult> DownloadFile(long attachmentId, CancellationToken cancellationToken)
+    {
+        return await _service.DownloadFile(attachmentId, cancellationToken);
     }
 }

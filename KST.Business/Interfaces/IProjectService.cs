@@ -1,6 +1,8 @@
 using KST.Business.Infrastructure;
 using KST.Business.ViewModels;
 using KST.DataAccess.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KST.Business.Interfaces;
 
@@ -15,4 +17,12 @@ public interface IProjectService: IBaseService
     Task DeleteAsync(long id, CancellationToken cancellationToken);
 
     Task<Project> UpdateAsync(ProjectModificationDTO group, CancellationToken cancellationToken);
+
+    IQueryable<ProjectAttachment> GetAttachments(long projectId);
+
+    Task UploadFile(long projectId, IFormFile file, CancellationToken cancellationToken);
+
+    Task<bool> DeleteFile(long attachmentId, CancellationToken cancellationToken);
+
+    Task<FileStreamResult> DownloadFile(long attachmentId, CancellationToken cancellationToken);
 }

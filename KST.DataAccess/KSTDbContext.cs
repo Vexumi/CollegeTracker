@@ -28,7 +28,8 @@ public partial class KSTDbContext : DbContext
     public DbSet<Project> Projects { get; set; }
     
     public DbSet<ProjectTask> ProjectTasks { get; set; }
-
+    
+    public DbSet<ProjectAttachment> ProjectAttachment { get; set; }
     
     public DbSet<AuthorizationHistory> AuthorizationHistories { get; set; }
     
