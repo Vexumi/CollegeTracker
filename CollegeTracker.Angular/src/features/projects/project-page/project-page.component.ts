@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { ProjectMainInfoBlockComponent } from './components/main-info/main-info.component';
 import { ProjectTasksBlockComponent } from "./components/project-tasks/project-tasks.component";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ProjectAttachmentsBlockComponent } from './components/attachments/attachments.component';
 
 @Component({
     standalone: true,
     selector: 'app-project-page',
     templateUrl: './project-page.component.html',
     styleUrls: ['./project-page.component.scss'],
-    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent]
+    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent, ProjectAttachmentsBlockComponent]
 })
 export class ProjectPageComponent {
     public project$ = new BehaviorSubject<ProjectModel | null>(null);

@@ -1,0 +1,13 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="block">
+    <span class="block__title">
+        Файлы проекта
+        <img class="block__icon" src="assets/plus.png" alt="Add Attachment" (click)="onAddClicked()"/>
+    </span>
+    <hr>
+    @for (attachment of attachments$ | async; track attachment.id) {
+        <span class="block__attachment" (click)="openAttachment(attachment)">{{ attachment.name }}</span>
+    }
+    <input #fileInput type="file" style="display:none" (change)="uploadFile($event)">
+</div>
