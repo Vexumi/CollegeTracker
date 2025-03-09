@@ -96,6 +96,6 @@ export class ProjectTasksBlockComponent implements OnChanges {
 
         const id = event.item.data.id;
         const newState = ProjectTaskStateEnum[event.container.id as keyof typeof ProjectTaskStateEnum]
-        this.projectTaskService.changeState(id, newState).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+        this.projectTaskService.changeState(id, newState).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.tasksChanged.emit());
     }
 }

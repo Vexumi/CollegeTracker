@@ -19,6 +19,18 @@
             <span class="card__label">Предполагаемая дата окончания:</span>
             <span>{{ project.deadline | date : 'dd.MM.yyyy' }}</span>
         </div>
+        <div class="card__item">
+            <span class="card__label">Задач выполнено:</span>
+            <span>{{ getCompletedTasks() }}%</span>
+        </div>
+        <div class="card__item">
+            <span class="card__label">Расчетное время выполнения:</span>
+            <span>{{ getEstimatedHumanHours() }} ч.ч.</span>
+        </div>
+        <div class="card__item">
+            <span class="card__label">Фактическое время выполнения:</span>
+            <span>{{ getActualHumanHours() }} ч.ч.</span>
+        </div>
         @if (project.actualEndDate) {
             <div class="card__item">
                 <span class="card__label">Фактическая дата окончания:</span>
