@@ -1,0 +1,26 @@
+<div class="card">
+    <h1>{{ isEdit ? "Добавление задачи" : "Редактирование задачи"}}</h1>
+    <hr>
+    <form class="form" [formGroup]="form">
+        <div class="form__input-block">
+            <label for="title">Название: </label>
+            <input type="text" name="title" formControlName="title" />
+        </div>
+        <div class="form__input-block">
+            <label for="description">Описание: </label>
+            <input type="text" name="description" formControlName="description" />
+        </div>
+        <div class="form__input-block">
+            <label for="estimatedHours">Расчетное время (часы): </label>
+            <input type="number" name="estimatedHours" formControlName="estimatedHours" />
+        </div>
+        <div class="form__input-block">
+            <label for="assignment">Назначение: </label>
+            <app-dropdown-select-id [items]="(students$ | async) ?? []" [currentItem]="getCurrentStudent()" (itemSelected)="onStudentSelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="text-center">
+            <button class="form__button" (click)="onSaveClicked()" [disabled]="!formValid()">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>

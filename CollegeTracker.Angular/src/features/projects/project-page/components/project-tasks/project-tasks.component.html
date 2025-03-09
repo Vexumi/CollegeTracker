@@ -1,6 +1,11 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="block__wrapper" cdkDropListGroup>
     <div class="container">
-        <h3 class="container__label">Открыты</h3>
+        <h3 class="container__label">
+            Открыты
+            <img class="container__link" src="assets/plus.png" alt="Add Project Task" (click)="onAddTaskClicked()"/>
+        </h3>
         <div
             id="Opened"
             cdkDropList
@@ -11,6 +16,7 @@
                 <div class="container__box" cdkDrag [cdkDragData]="item">
                     {{ item.title }}
                     <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
+                    {{ item.assignedTo.userInfo.fullname }}
                 </div>
             }
         </div>
@@ -27,7 +33,9 @@
                 <div class="container__box" cdkDrag [cdkDragData]="item">
                     {{ item.title }}
                     <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
-                </div>            }
+                    {{ item.assignedTo.userInfo.fullname }}
+                </div>            
+            }
         </div>
     </div>
     <div class="container">
@@ -42,7 +50,9 @@
                 <div class="container__box" cdkDrag [cdkDragData]="item">
                     {{ item.title }}
                     <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
-                </div>            }
+                    {{ item.assignedTo.userInfo.fullname }}
+                </div>            
+            }
         </div>
     </div>
     <div class="container">
@@ -57,7 +67,8 @@
                 <div class="container__box" cdkDrag [cdkDragData]="item">
                     {{ item.title }}
                     <img class="container__link" src="assets/external-link.png" alt="Open task description"/>
-                </div>            }
+                </div>            
+            }
         </div>
     </div>
 </div>

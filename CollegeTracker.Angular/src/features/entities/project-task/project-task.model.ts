@@ -8,6 +8,8 @@ export interface ProjectTaskModel extends BaseModel {
     estimatedHours: number,
     actualHours: number | null,
     inProgressSince: Date,
+    assignedToId: number,
     assignedTo: StudentModel,
-    state: ProjectTaskStateEnum
+    state: ProjectTaskStateEnum,
+    projectId: number | undefined,
 }

@@ -26,8 +26,8 @@ public class ProjectTaskService: BaseService<ProjectTask>, IProjectTaskService
 
     public async Task<long> CreateAsync(ProjectTaskModificationDTO dto, CancellationToken cancellationToken)
     {
-        var project = mapper.Map<Project>(dto);
-        var entity = await dbContext.Projects.AddAsync(project, cancellationToken);
+        var task = mapper.Map<ProjectTask>(dto);
+        var entity = await dbContext.ProjectTasks.AddAsync(task, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         return entity.Entity.Id;
     }

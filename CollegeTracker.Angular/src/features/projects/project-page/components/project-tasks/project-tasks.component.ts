@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProjectModel } from '../../../../entities/project/project.model';
 import { CdkDropListGroup, CdkDropList, CdkDrag, CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
@@ -6,13 +6,16 @@ import { ProjectTaskStateEnum } from '../../../../entities/project-task/project-
 import { ProjectTaskModel } from '../../../../entities/project-task/project-task.model';
 import { ProjectTaskService } from '../../../../entities/project-task/project-task.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddEditProjectTaskComponent } from './components/dialog-project-task-details/dialog-add-edit-project-task.component';
+import { EMPTY, switchMap } from 'rxjs';
 
 @Component({
     standalone: true,
     selector: 'app-project-tasks-block',
     templateUrl: './project-tasks.component.html',
     styleUrls: ['./project-tasks.component.scss'],
-    imports: [AsyncPipe, DatePipe, CdkDropListGroup, CdkDropList, CdkDrag, CommonModule]
+    imports: [CdkDropListGroup, CdkDropList, CdkDrag, CommonModule]
 })
 export class ProjectTasksBlockComponent implements OnChanges {
     @Input({ required: true })
@@ -25,7 +28,8 @@ export class ProjectTasksBlockComponent implements OnChanges {
 
     constructor(
         private readonly projectTaskService: ProjectTaskService,
-        private readonly destroyRef: DestroyRef
+        private readonly destroyRef: DestroyRef,
+        private readonly dialogSerivce: MatDialog
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -35,6 +39,27 @@ export class ProjectTasksBlockComponent implements OnChanges {
             this.inProgress = this.project.tasks.filter(x => x.state == ProjectTaskStateEnum.InProgress);
             this.closed = this.project.tasks.filter(x => x.state == ProjectTaskStateEnum.Closed);
         }
+    }
+
+    public onAddTaskClicked() {
+        const dialogRef = this.dialogSerivce.open(DialogAddEditProjectTaskComponent, {
+            data: 
+            {
+                isEdit: false,
+                model: { projectId: this.project.id } as ProjectTaskModel
+            }
+        });
+        
+        dialogRef.afterClosed()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    console.log(result);
+                    return this.projectTaskService.create(result)
+                })
+            )
+            .subscribe();
     }
 
     public onItemDrop(event: CdkDragDrop<ProjectTaskModel[]>) {
