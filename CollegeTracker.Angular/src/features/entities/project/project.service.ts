@@ -22,6 +22,10 @@ export class ProjectService extends BaseService<ProjectModel> {
         return this.http.get<ProjectAttachmentModel[]>(`${this.baseControllerUrl}/GetAttachments/${projectId}`);
     }
 
+    public addLink(attachment: ProjectAttachmentModel) {
+        return this.http.post(`${this.baseControllerUrl}/AddLink`, attachment);
+    }
+
     public uploadFile(projectId: number, file: FormData) {
         return this.http.post(`${this.baseControllerUrl}/UploadFile/${projectId}`, file);
     }

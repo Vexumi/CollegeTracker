@@ -52,6 +52,12 @@ public class ProjectController: BaseController<Project>
     {
         return _service.GetAttachments(projectId);
     }
+    
+    [HttpPost]
+    public async Task<long> AddLink(ProjectAttachment attachment, CancellationToken cancellationToken)
+    {
+        return await _service.AddLink(attachment, cancellationToken);
+    }
 
     [HttpPost("{projectId}")]
     public async Task<bool> UploadFile(long projectId, [FromForm] IFormFile file, CancellationToken cancellationToken)

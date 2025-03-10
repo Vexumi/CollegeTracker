@@ -19,6 +19,8 @@ public interface IProjectService: IBaseService
     Task<Project> UpdateAsync(ProjectModificationDTO group, CancellationToken cancellationToken);
 
     IQueryable<ProjectAttachment> GetAttachments(long projectId);
+    
+    Task<long> AddLink(ProjectAttachment attachment, CancellationToken cancellationToken);
 
     Task UploadFile(long projectId, IFormFile file, CancellationToken cancellationToken);
 

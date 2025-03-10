@@ -1,10 +1,12 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, DestroyRef, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ProjectModel } from '../../../../entities/project/project.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, switchMap, tap } from 'rxjs';
 import { ProjectAttachmentModel } from '../../../../entities/project/project-attachment.model';
 import { ProjectService } from '../../../../entities/project/project.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddLinkComponent } from '../dialog-add-link/dialog-add-link.component';
 
 @Component({
     standalone: true,
@@ -23,7 +25,8 @@ export class ProjectAttachmentsBlockComponent implements OnChanges {
 
     constructor(
         private readonly projectService: ProjectService,
-        private readonly destroyRef: DestroyRef
+        private readonly destroyRef: DestroyRef,
+        private readonly dialogService: MatDialog
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -42,8 +45,23 @@ export class ProjectAttachmentsBlockComponent implements OnChanges {
         .subscribe();
     }
 
-    public onAddClicked() {
+    public onAddFileClicked() {
         this.fileInput.nativeElement.click();
+    }
+
+    public onAddLinkClicked() {
+        const dialogRef = this.dialogService.open(DialogAddLinkComponent);
+        
+        dialogRef.afterClosed()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    result.projectId = this.project.id;
+                    return this.projectService.addLink(result)
+                })
+            )
+            .subscribe(() => this.loadAttachments());
     }
 
     public openAttachment(attachment: ProjectAttachmentModel) {

@@ -73,6 +73,13 @@ public class ProjectService: BaseService<Project>, IProjectService
         return dbContext.ProjectAttachment.Where(x => x.ProjectId == projectId);
     }
 
+    public async Task<long> AddLink(ProjectAttachment attachment, CancellationToken cancellationToken)
+    {
+        await dbContext.ProjectAttachment.AddAsync(attachment, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+        return attachment.Id;
+    }
+
     public async Task UploadFile(long projectId, IFormFile file, CancellationToken cancellationToken)
     {
         var filePath = await fileUploadService.UploadFileAsync(projectId, file);
