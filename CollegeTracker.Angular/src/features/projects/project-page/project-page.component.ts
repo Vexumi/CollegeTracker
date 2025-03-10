@@ -18,6 +18,7 @@ import { ProjectAttachmentsBlockComponent } from './components/attachments/attac
 })
 export class ProjectPageComponent {
     public project$ = new BehaviorSubject<ProjectModel | null>(null);
+    public readOnlyMode = true;
     private readonly projectId: number;
 
     constructor(
@@ -44,7 +45,10 @@ export class ProjectPageComponent {
                     tasks: project.tasks.map((task) => ({...task, projectId: project.id}))
                 }
             )),
-            tap((project) => this.project$.next(project))
+            tap((project) => {
+                this.project$.next(project);
+                this.readOnlyMode = !this.projectService.userIsParticipantOfProject(project);
+            })
         ).subscribe();
     }
 }

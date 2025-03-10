@@ -23,6 +23,8 @@ export class ProjectAttachmentsBlockComponent implements OnChanges {
 
     public attachments$ = new BehaviorSubject<ProjectAttachmentModel[]>([]);
 
+    public readOnlyMode = true;
+
     constructor(
         private readonly projectService: ProjectService,
         private readonly destroyRef: DestroyRef,
@@ -31,6 +33,7 @@ export class ProjectAttachmentsBlockComponent implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['project'] && this.project.id !== undefined) {
+            this.readOnlyMode = !this.projectService.userIsParticipantOfProject(this.project);
             this.loadAttachments();
         }
     }

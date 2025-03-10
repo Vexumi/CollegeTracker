@@ -3,8 +3,10 @@
 <div class="block">
     <span class="block__title">
         Приложения проекта
-        <img class="block__icon" src="assets/add-file.png" alt="Add Attachment" (click)="onAddFileClicked()"/>
-        <img class="block__icon" src="assets/add-link.png" alt="Add Attachment" (click)="onAddLinkClicked()"/>
+        @if (!readOnlyMode) {
+            <img class="block__icon" src="assets/add-file.png" alt="Add Attachment" (click)="onAddFileClicked()"/>
+            <img class="block__icon" src="assets/add-link.png" alt="Add Attachment" (click)="onAddLinkClicked()"/>
+        }
     </span>
     <hr>
     @for (attachment of attachments$ | async; track attachment.id) {

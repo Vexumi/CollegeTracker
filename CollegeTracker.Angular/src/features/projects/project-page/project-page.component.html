@@ -7,7 +7,9 @@
         -->
         <app-project-attachments-block [project]="project"></app-project-attachments-block>
     </div>
-    <app-project-tasks-block [project]="project" (tasksChanged)="onReload()"></app-project-tasks-block>
+    @if (!readOnlyMode) {
+        <app-project-tasks-block [project]="project" (tasksChanged)="onReload()"></app-project-tasks-block>
+    }
 </div>
 
 <ng-template #loading>
