@@ -1,6 +1,6 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, DestroyRef } from '@angular/core';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, map, switchMap, tap } from 'rxjs';
 import { ProjectService } from '../../entities/project/project.service';
 import { ProjectModel } from '../../entities/project/project.model';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { ProjectMainInfoBlockComponent } from './components/main-info/main-info.
 import { ProjectTasksBlockComponent } from "./components/project-tasks/project-tasks.component";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProjectAttachmentsBlockComponent } from './components/attachments/attachments.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChangeStatusComponent } from './components/dialog-change-status/dialog-change-status.component';
 
 @Component({
     standalone: true,
@@ -24,7 +26,8 @@ export class ProjectPageComponent {
     constructor(
         private readonly projectService: ProjectService,
         private readonly router: Router,
-        private readonly destroyRef: DestroyRef
+        private readonly destroyRef: DestroyRef,
+        private readonly dialogService: MatDialog
     ) {
         const lastChar = this.router.url.split('/').reverse()[0];
         this.projectId = Number(lastChar);
@@ -33,6 +36,24 @@ export class ProjectPageComponent {
 
     public onReload() {
         this.loadProject();
+    }
+
+    public onChangeStatusClicked() {
+        const dialogRef = this.dialogService.open(DialogChangeStatusComponent, {
+            data: {
+                model: this.project$.value
+            }
+        });
+        
+        dialogRef.afterClosed()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    return this.projectService.changeState(this.projectId, result);
+                })
+            )
+            .subscribe(() => this.onReload());
     }
 
     private loadProject() {

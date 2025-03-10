@@ -1,4 +1,8 @@
 <div class="page" *ngIf="project$ | async as project else loading">
+    <div class="page__buttons-wrapper" *ngIf="!readOnlyMode">
+        <button class="page__button" (click)="onChangeStatusClicked()">Сменить статус</button>
+        <button class="page__button">Редактировать</button>
+    </div>
     <app-project-main-info-block [project]="project"></app-project-main-info-block>
     <div class="page__row">
         <!-- 

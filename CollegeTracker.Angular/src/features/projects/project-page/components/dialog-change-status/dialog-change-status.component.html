@@ -1,0 +1,19 @@
+<div class="card">
+    <h1>Новое состояние</h1>
+    <hr>
+    <div class="text-center column">
+        @for (state of suitableStates; track state) {
+            <button
+                class="form__button button-state" 
+                [class.selected]="stateSelected(state)"
+                (click)="onSelectStateClicked(state)">
+                {{ getProjectStateString(state) }}
+            </button>
+        }
+    </div>
+    <hr>
+    <div class="text-center">
+        <button class="form__button" (click)="onChangeClicked()" [disabled]="!this.formControl.valid">Сменить</button>
+        <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+    </div>
+</div>

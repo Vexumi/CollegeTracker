@@ -1,5 +1,6 @@
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
+using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,12 @@ public class ProjectController: BaseController<Project>
     public async Task Delete(long id, CancellationToken cancellationToken)
     {
         await _service.DeleteAsync(id, cancellationToken);
+    }
+        
+    [HttpPost("{projectId}")]
+    public async Task<long> ChangeState(long projectId, [FromBody] ProjectState state, CancellationToken cancellationToken)
+    {
+        return await _service.ChangeState(projectId, state, cancellationToken);
     }
     
     [HttpGet("{projectId}")]

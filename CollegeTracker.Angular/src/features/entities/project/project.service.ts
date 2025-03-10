@@ -6,13 +6,42 @@ import { Observable } from 'rxjs';
 import { ProjectAttachmentModel } from './project-attachment.model';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ProjectStateEnum } from './project-state.enum';
+import { UserRole } from '../user/user-role.model';
+
+
+type StateTransitionsType = Record<ProjectStateEnum, ProjectStateEnum[]>;
+type StatePermissionsType = Record<ProjectStateEnum, UserRole[]>;
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProjectService extends BaseService<ProjectModel> {
+    private readonly StateTransitions: StateTransitionsType = {
+        [ProjectStateEnum.Created]: [ProjectStateEnum.InProgress],
+        [ProjectStateEnum.InProgress]: [ProjectStateEnum.OnReview],
+        [ProjectStateEnum.OnReview]: [ProjectStateEnum.Rejected, ProjectStateEnum.Reviewed],
+        [ProjectStateEnum.Reviewed]: [ProjectStateEnum.Rejected, ProjectStateEnum.Completed],
+        [ProjectStateEnum.Rejected]: [ProjectStateEnum.InProgress],
+        [ProjectStateEnum.Completed]: [],
+    };
+
+    private readonly StatePermissions: StatePermissionsType = {
+        [ProjectStateEnum.Created]: [UserRole.Admin],
+        [ProjectStateEnum.InProgress]: [UserRole.Teacher, UserRole.Admin],
+        [ProjectStateEnum.OnReview]: [UserRole.Student, UserRole.Teacher, UserRole.Admin],
+        [ProjectStateEnum.Reviewed]: [UserRole.Teacher, UserRole.Admin],
+        [ProjectStateEnum.Rejected]: [UserRole.Teacher, UserRole.Admin],
+        [ProjectStateEnum.Completed]: [UserRole.Teacher, UserRole.Admin],
+    };
+
     constructor(private readonly authService: AuthService) {
         super(ApiEndpoints.Projects);
+    }
+
+    public changeState(projectId: number, state: ProjectStateEnum) {
+        return this.http.post(`${this.baseControllerUrl}/ChangeState/${projectId}`, state);
     }
 
     public getById(id: number): Observable<ProjectModel> {
@@ -55,7 +84,22 @@ export class ProjectService extends BaseService<ProjectModel> {
     }
 
     public userIsParticipantOfProject(project: ProjectModel) {
-        const currentUserId = this.authService.getCurrentUser().id;
-        return project.students.some(x => x.userInfo.id === currentUserId) || project.teacher.id === currentUserId;
+        const currentUser = this.authService.getCurrentUser();
+        return project.students.some(x => x.userInfo.id === currentUser.id) || 
+            project.teacher.userInfo.id === currentUser.id || 
+            currentUser.role === UserRole.Admin;
+    }
+
+    public getSuitableStates(project: ProjectModel) {
+        const currentUserRole = this.authService.getCurrentUser().role;
+
+        if (this.authService.isAdmin()) return Object.values(ProjectStateEnum).splice(Object.keys(ProjectStateEnum).length / 2) as ProjectStateEnum[];
+
+        const transitions = this.StateTransitions[project.state];
+
+        return transitions.filter((state) => {
+            const permissions = this.StatePermissions[state];
+            return permissions.includes(currentUserRole);
+        });
     }
 }
