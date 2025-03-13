@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProjectAttachmentsBlockComponent } from './components/attachments/attachments.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeStatusComponent } from './components/dialog-change-status/dialog-change-status.component';
+import { DialogEditProjectComponent } from './components/dialog-edit-project/dialog-edit-project.component';
 
 @Component({
     standalone: true,
@@ -51,6 +52,24 @@ export class ProjectPageComponent {
                 switchMap((result) => {
                     if (!result) return EMPTY;
                     return this.projectService.changeState(this.projectId, result);
+                })
+            )
+            .subscribe(() => this.onReload());
+    }
+
+    public onEditClicked() {
+        const dialogRef = this.dialogService.open(DialogEditProjectComponent, {
+            data: {
+                model: this.project$.value
+            }
+        });
+        
+        dialogRef.afterClosed()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    return this.projectService.edit(result);
                 })
             )
             .subscribe(() => this.onReload());

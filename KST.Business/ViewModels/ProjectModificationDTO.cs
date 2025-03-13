@@ -6,9 +6,8 @@ public class ProjectModificationDTO: BaseViewModel
 {
     public string Title { get; set; } = null!;
     public string? Description { get; set; }
-    public ProjectState State { get; set; } = ProjectState.Created;
     public long TeacherId { get; set; }
-    public long SubjectId { get; set; }
-    public DateTime StartDate { get; set; } = DateTime.Now;
-    public DateTime? Deadline { get; set; }
+    public long SpecialityId { get; set; }
+    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly? Deadline { get; set; }
 }

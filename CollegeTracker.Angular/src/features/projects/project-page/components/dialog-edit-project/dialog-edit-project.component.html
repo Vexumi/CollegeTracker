@@ -1,0 +1,34 @@
+<div class="card">
+    <h1>Редактирование проекта</h1>
+    <hr>
+    <form class="form" [formGroup]="formGroup">
+        <div class="form__input-block">
+            <label for="title">Название: </label>
+            <input type="text" name="title" formControlName="title" />
+        </div>
+        <div class="form__input-block">
+            <label for="description">Описание: </label>
+            <input type="text" name="description" formControlName="description" />
+        </div>
+        <div class="form__input-block">
+            <label for="startDate">Дата начала: </label>
+            <input type="date" name="startDate" formControlName="startDate" />
+        </div>
+        <div class="form__input-block">
+            <label for="deadline">Дата окончания: </label>
+            <input type="date" name="deadline" formControlName="deadline" />
+        </div>
+        <div class="form__input-block">
+            <label for="speciality">Направление: </label>
+            <app-dropdown-select-id [items]="(specialities$ | async) ?? []" [currentItem]="getCurrentSpeciality()" (itemSelected)="onSpecialitySelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="form__input-block">
+            <label for="teacher">Наставник: </label>
+            <app-dropdown-select-id [items]="(teachers$ | async) ?? []" [currentItem]="getCurrentTeacher()" (itemSelected)="onTeacherSelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="text-center">
+            <button class="form__button" (click)="onChangeClicked()" [disabled]="!this.formGroup.valid">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>

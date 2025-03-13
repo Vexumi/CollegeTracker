@@ -38,5 +38,9 @@ export interface DropdownSelectIdItem {
         this.itemSelected.emit(item);
         this.selectedItem = item;
     }
+
+    public getInputId() {
+      return `dropdown-${this.currentItem?.id}`
+    }
   }
   

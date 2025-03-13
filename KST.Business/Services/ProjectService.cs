@@ -62,11 +62,15 @@ public class ProjectService: BaseService<Project>, IProjectService
 
     public async Task<Project> UpdateAsync(ProjectModificationDTO dto, CancellationToken cancellationToken)
     {
-        var group = mapper.Map<Project>(dto);
-        dbContext.Attach(group);
-        dbContext.Entry(group).State = EntityState.Modified;
+        var project = await dbContext.Set<Project>().AsTracking().FirstAsync(x => x.Id == dto.Id, cancellationToken);
+        project.Title = dto.Title;
+        project.Description = dto.Description;
+        project.TeacherId = dto.TeacherId;
+        project.SpecialityId = dto.SpecialityId;
+        project.StartDate = dto.StartDate;
+        project.Deadline = dto.Deadline;
         await dbContext.SaveChangesAsync(cancellationToken);
-        return group;
+        return project;
     }
 
     public async Task<long> ChangeState(long projectId, ProjectState state, CancellationToken cancellationToken)
