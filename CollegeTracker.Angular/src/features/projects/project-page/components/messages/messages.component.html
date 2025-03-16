@@ -1,8 +1,12 @@
 <mat-card appearance="outlined" class="card">
     <mat-card-content class="card__content">
-        <app-message-user *ngFor="let item of messages | async" [message]="item"></app-message-user>
+        @for (message of messages | async; track message.id) {
+            <app-message-user [message]="message"></app-message-user>
+        }
+        <div #chatScroll></div>
     </mat-card-content>
-    <mat-card-footer>
-        <input type="text" class="card__input">
+    <mat-card-footer class="card__footer">
+        <input type="text" class="card__input" [formControl]="formControl">
+        <button class="card__button" (click)="sendMessage()" [disabled]="!formControl.valid">Отправить</button>
     </mat-card-footer>
 </mat-card>

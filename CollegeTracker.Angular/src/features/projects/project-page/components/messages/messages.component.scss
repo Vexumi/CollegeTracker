@@ -17,6 +17,12 @@
         height: 100%;
     }
 
+    &__footer {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
     &__icon {
         margin: 0 5px;
         width: 20px;
@@ -26,6 +32,18 @@
 
     &__input {
         width: 100%;
-        background-color: map-get($theme-color, background-color);
+        background-color: map-get($theme-color, theme-light);
+        border-radius: 10px;
+        border: 2px solid black;
+
+        margin-right: 5px;
+        padding: 0 5px;
+        color: map-get($theme-color, text);
+    }
+
+    &__button {
+        @include button-base;
+
+        border-radius: 10px;
     }
 }

@@ -50,6 +50,7 @@ public class MessageService: BaseService<ProjectTask>, IMessageService
             .AsNoTracking()
             .Include(x => x.Sender)
             .Where(x => x.ProjectId == projectId)
+            .OrderBy(x => x.SendDate)
             .AsQueryable();
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken)

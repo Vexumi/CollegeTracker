@@ -6,4 +6,6 @@ export interface MessageModel extends BaseModel {
     sender: UserModel;
     sendDate: Date;
     systemEvent: boolean;
+    senderId: number;
+    projectId: number;
 }
