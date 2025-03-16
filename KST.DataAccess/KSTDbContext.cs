@@ -33,6 +33,8 @@ public partial class KSTDbContext : DbContext
     
     public DbSet<AuthorizationHistory> AuthorizationHistories { get; set; }
     
+    public DbSet<Message> Messages { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Speciality>().HasData(
