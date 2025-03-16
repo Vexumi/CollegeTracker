@@ -9,6 +9,13 @@
         justify-content: end;
         text-align: right;
     }
+
+    &.center {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 .block {
@@ -35,5 +42,9 @@
     &__footer {
         font-size: xx-small;
         padding: 4px 0;
+    }
+
+    .system-event {
+        background-color: map-get($theme-color, button-background);
     }
 }

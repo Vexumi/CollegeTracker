@@ -1,9 +1,21 @@
-<div class="row" [class.right]="message.sender.id === currentUserId">
-    <div class="block">
-        <span class="block__header">{{ message.sender.fullname }}</span>
-        <span class="block__content">
-            {{ message.content }}
-            <span class="block__footer">{{ message.sendDate | date: "dd.MM.yyyy hh:mm:ss" }}</span>
-        </span>
+@if (message.systemEvent === false) {
+    <div class="row" [class.right]="message.sender.id === currentUserId">
+        <div class="block">
+            <span class="block__header">{{ message.sender.fullname }}</span>
+            <span class="block__content">
+                {{ message.content }}
+                <span class="block__footer">{{ message.sendDate | date: "dd.MM.yyyy hh:mm:ss" }}</span>
+            </span>
+        </div>
     </div>
-</div>
+} @else {
+    <div class="row center">
+        <div class="block">
+            <span class="block__content system-event">
+                {{ message.content }}
+                <span class="block__footer">{{ message.sendDate | date: "dd.MM.yyyy hh:mm:ss" }}</span>
+            </span>
+        </div>
+    </div>
+}
+    

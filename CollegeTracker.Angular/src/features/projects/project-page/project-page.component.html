@@ -6,7 +6,7 @@
     <app-project-main-info-block [project]="project"></app-project-main-info-block>
     <div class="page__row">
         <app-project-attachments-block [project]="project"></app-project-attachments-block>
-        <app-messages-block [project]="project"></app-messages-block>
+        <app-messages-block *ngIf="!readOnlyMode" [project]="project"></app-messages-block>
     </div>
     @if (!readOnlyMode) {
         <app-project-tasks-block [project]="project" (tasksChanged)="onReload()"></app-project-tasks-block>
