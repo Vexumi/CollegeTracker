@@ -1,0 +1,8 @@
+<mat-card appearance="outlined" class="card">
+    <mat-card-content class="card__content">
+        <app-message-user *ngFor="let item of messages | async" [message]="item"></app-message-user>
+    </mat-card-content>
+    <mat-card-footer>
+        <input type="text" class="card__input">
+    </mat-card-footer>
+</mat-card>

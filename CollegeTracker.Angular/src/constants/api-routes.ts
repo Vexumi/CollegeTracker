@@ -4,6 +4,7 @@ export const ApiEndpoints = {
     Group: apiPrefix + "group",
     Subjects: apiPrefix + "subject",
     Specialities: apiPrefix + "speciality",
+    Message: apiPrefix + "message",
     Students: apiPrefix + "student",
     Teachers: apiPrefix + "teacher",
     Users: apiPrefix + "user",

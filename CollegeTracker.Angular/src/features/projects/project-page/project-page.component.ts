@@ -11,13 +11,14 @@ import { ProjectAttachmentsBlockComponent } from './components/attachments/attac
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeStatusComponent } from './components/dialog-change-status/dialog-change-status.component';
 import { DialogEditProjectComponent } from './components/dialog-edit-project/dialog-edit-project.component';
+import { MessagesBlockComponent } from './components/messages/messages.component';
 
 @Component({
     standalone: true,
     selector: 'app-project-page',
     templateUrl: './project-page.component.html',
     styleUrls: ['./project-page.component.scss'],
-    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent, ProjectAttachmentsBlockComponent]
+    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent, ProjectAttachmentsBlockComponent, MessagesBlockComponent]
 })
 export class ProjectPageComponent {
     public project$ = new BehaviorSubject<ProjectModel | null>(null);
