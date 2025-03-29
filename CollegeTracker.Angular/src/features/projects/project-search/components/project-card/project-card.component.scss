@@ -1,0 +1,31 @@
+@import '../../../../../styles.scss';
+
+.card {
+    width: 100%;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid map-get($theme-color, white);
+    border-radius: 15px;
+
+    &__link {
+        @include link;
+    }
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        span {
+            font-size: 20px;
+        }
+    }
+}

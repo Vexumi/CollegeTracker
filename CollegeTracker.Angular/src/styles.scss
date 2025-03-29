@@ -19,6 +19,7 @@ $theme-color: (
     button-background: #bd7946,
     item-selected: #666966,
     green: lightgreen,
+    link: $theme-blue,
     error: red,
     warn: yellow
 );
@@ -44,6 +45,14 @@ body {
         color: black;
         background-color: map-get($theme-color, accent);
         filter: brightness(85%);
+    }
+}
+
+@mixin link {
+    text-decoration: underline;
+
+    &:hover {
+        color: map-get($theme-color, link);
     }
 }
 

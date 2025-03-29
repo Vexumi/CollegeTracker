@@ -31,9 +31,6 @@
                 <div class="side-menu__element">
                     <a href="{{ teacherPrefix +routes.TeacherRoutes.Students }}">Студенты</a>
                 </div>
-                <div class="side-menu__element">
-                    <a href="{{ teacherPrefix +routes.TeacherRoutes.Projects }}">Проекты</a>
-                </div>
             }
 
             @if (authService.isStudent()) {
@@ -41,9 +38,8 @@
                     <a href="{{ studentPrefix + routes.StudentRoutes.MyProjects }}">Мои проекты</a>
                 </div>
             }
-
             <div class="side-menu__element">
-                <a href="{{ routes.AllProjects }}">Все проекты</a>
+                <a href="{{ routes.Projects }}">Все проекты</a>
             </div>
             <div class="side-menu__element">
                 <a href="{{ routes.StudentRoutes.Marks }}">Оценки</a>

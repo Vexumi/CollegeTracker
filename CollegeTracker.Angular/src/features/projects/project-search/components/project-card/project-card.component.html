@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card__block header">
+        <span>{{ project.title }}</span>
+        <app-project-status-indicator [status]="project.state" />
+    </div>
+    <div class="card__block body">
+        <span>Статус {{ getProjectStateString(project.state) }}</span>
+        <span>Специальность: {{ project.speciality.title }}</span>
+        <span>Описание: {{ project.description }}</span>
+    </div>
+    <div class="card__block footer">
+        <a href="{{ projectRoute + '/' + project.id }}" class="card__link">Подробнее</a>
+    </div>
+</div>

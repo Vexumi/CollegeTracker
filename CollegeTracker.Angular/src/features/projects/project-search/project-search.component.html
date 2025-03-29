@@ -1,0 +1,7 @@
+<div class="page">
+    <div class="page__items">
+        @for(project of projects$ | async; track project.id) {
+            <app-project-card [project]="project"></app-project-card>
+        }
+    </div>
+</div>

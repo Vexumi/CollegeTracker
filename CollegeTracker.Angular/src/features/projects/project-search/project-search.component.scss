@@ -1,0 +1,51 @@
+@import '../../../styles.scss';
+
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.page {
+    width: 80%;
+    height: 100%;
+    margin: 20px auto;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: map-get($theme-color, theme-light);
+    border-radius: 15px;
+
+    &__row {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+
+    &__buttons-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__button {
+        @include button-base;
+        width: fit-content;
+        margin-right: 10px;
+
+        background-color: map-get($theme-color, theme-light);
+        border: 2px solid map-get($theme-color, theme);
+    }
+
+    &__items {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+    }
+
+}
+
+
+.loading {
+    margin: 20px;
+}

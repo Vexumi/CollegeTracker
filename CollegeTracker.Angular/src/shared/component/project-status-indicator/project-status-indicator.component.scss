@@ -1,0 +1,20 @@
+.indicator {
+    stroke: black;
+    stroke-width: 2px;
+
+    &.green {
+        fill: green;
+    }
+    
+    &.yellow {
+        fill: yellow;
+    }
+    
+    &.red {
+        fill: red;
+    }
+    
+    &.gray {
+        fill: gray;
+    }
+}
