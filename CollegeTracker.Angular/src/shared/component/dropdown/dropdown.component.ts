@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 
 export interface DropdownSelectIdItem {
     title: string;
-    id: number;
+    id: number | null;
 }
 
 @Component({
@@ -30,9 +30,6 @@ export interface DropdownSelectIdItem {
       if (changes['currentItem'] && changes['currentItem'].currentValue && this.selectedItem == null) {
         this.setElement(changes['currentItem'].currentValue);
       }
-      if (changes['items'] && changes['items'].currentValue.length > 0 && this.selectedItem == null) {
-        this.setElement(changes['items'].currentValue[0]);
-      }
     }
     public setElement(item: DropdownSelectIdItem) {
         this.itemSelected.emit(item);
@@ -40,7 +37,7 @@ export interface DropdownSelectIdItem {
     }
 
     public getInputId() {
-      return `dropdown-${this.currentItem?.id}`
+      return `dropdown-${this.items[0].title}`
     }
   }
   

@@ -1,0 +1,44 @@
+@import '../../../../../styles.scss';
+
+.page {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    border: 1px solid map-get($theme-color, white);
+    border-radius: 15px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__button {
+        @include button-base;
+        margin: 20px 5px 0 5px;
+        border-radius: 5px;
+        padding: 8px 50px;
+
+        grid-column: 4;
+    }
+
+    input {
+        border: 2px solid grey;
+        border-radius: 5px;
+
+        background-color: map-get($theme-color, theme-light);
+        color: map-get($theme-color, text);
+    }
+
+    &__input-select ::ng-deep {
+        label.dropbtn span {
+            color: white !important;
+        }
+    }
+}

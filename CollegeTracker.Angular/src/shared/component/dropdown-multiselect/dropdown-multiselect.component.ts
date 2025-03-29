@@ -1,10 +1,6 @@
 import { NgForOf } from "@angular/common";
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
-
-export interface DropdownSelectIdItem {
-    title: string;
-    id: number;
-}
+import { DropdownSelectIdItem } from "../dropdown/dropdown.component";
 
 @Component({
     standalone: true,

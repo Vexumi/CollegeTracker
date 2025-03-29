@@ -1,0 +1,45 @@
+<div class="page">
+    <form [formGroup]="form" class="card">
+        <div class="card__block">
+            <label class="card__label" for="title">Название:</label>
+            <input class="card__input-text" name="title" type="text" formControlName="title" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="description">Описание:</label>
+            <input class="card__input-text" name="description" type="text" formControlName="description" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="description">Состояние:</label>
+            <app-dropdown-select-id class="card__input-select" [items]="getProjectStateItems()" (itemSelected)="onProjectStateSelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="speciality">Специальность:</label>
+            <app-dropdown-select-id class="card__input-select" [items]="(specialityOptions$ | async) ?? []" (itemSelected)="onSpecialitySelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="startDateFrom">Дата начала с:</label>
+            <input class="card__input-date" name="startDateFrom" type="date" formControlName="startDateFrom" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="stateDateTo">Дата начала по:</label>
+            <input class="card__input-date" name="stateDateTo" type="date" formControlName="startDateTo" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="deadlineFrom">Предполагаемая дата окончания с:</label>
+            <input class="card__input-date" name="deadlineFrom" type="date" formControlName="deadlineFrom" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="deadlineTo">Предполагаемая дата окончания по:</label>
+            <input class="card__input-date" name="deadlineTo" type="date" formControlName="deadlineTo" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="actualEndDateFrom">Фактическая дата окончания с:</label>
+            <input class="card__input-date" name="actualEndDateFrom" type="date" formControlName="actualEndDateFrom" />
+        </div>
+        <div class="card__block">
+            <label class="card__label" for="actualEndDateTo">Фактическая дата окончания по:</label>
+            <input class="card__input-date" name="actualEndDateTo" type="date" formControlName="actualEndDateTo" />
+        </div>
+        <button class="card__button" (click)="onSearchClicked()">Искать</button>
+    </form>
+</div>

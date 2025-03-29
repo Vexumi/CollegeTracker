@@ -68,7 +68,7 @@ export class DialogAddEditTeacherComponent {
     }
 
     public onGroupSelected(selected: DropdownSelectIdItem[]) {
-        this.form.controls.groupIds.setValue(selected.map(x => x.id));
+        this.form.controls.groupIds.setValue(selected.map(x => x.id!));
     }
 
     public onSaveClicked(): void {
