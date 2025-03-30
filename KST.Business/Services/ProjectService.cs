@@ -52,7 +52,7 @@ public class ProjectService: BaseService<Project>, IProjectService
             .AsSplitQuery()
             .AsQueryable();
 
-    public IQueryable<Project> SearchProjects(ProjectSearchParamsDTO searchParams)
+    public async Task<ProjectSearchResponseDTO> SearchProjects(ProjectSearchParamsDTO searchParams, CancellationToken cancellationToken)
     {
         var request = dbContext.Set<Project>().AsNoTracking().AsQueryable();
         request = request.WhereIf(!string.IsNullOrEmpty(searchParams.Title),
@@ -80,9 +80,13 @@ public class ProjectService: BaseService<Project>, IProjectService
         request = request.WhereIf(searchParams.DeadlineTo != null,
             project => project.Deadline <= searchParams.DeadlineTo);
 
-        request = request.Skip(searchParams.Page * searchParams.PageSize).Take(searchParams.PageSize);
-        
-        return request.Include(x => x.Speciality);
+        var result = await request.Include(x => x.Speciality).GroupBy(p => 1).Select(g => new ProjectSearchResponseDTO()
+        {
+            Projects = g.Skip(searchParams.Page * searchParams.PageSize).Take(searchParams.PageSize),
+            TotalPages = (int)Math.Ceiling((double)g.Count() / searchParams.PageSize)
+        }).FirstAsync(cancellationToken);
+
+        return result;
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken)

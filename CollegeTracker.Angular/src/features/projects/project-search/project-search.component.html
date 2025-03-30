@@ -5,4 +5,16 @@
             <app-project-card [project]="project"></app-project-card>
         }
     </div>
+    <div class="page__pagination">
+        <button [class.hidden]="!buttonPrevPageVisible()">Назад</button>
+        {{ page$.value }}/{{ totalPages$.value }}
+        <button [class.hidden]="!buttonNextPageVisible()">Вперед</button>
+        <!-- <mat-form-field class="page__dropdown">
+            <mat-select [formControl]="pageSizeForm">
+              @for (pageSize of pageSizes; track pageSize) {
+                <mat-option [value]="pageSize">{{ pageSize }}</mat-option>
+              }
+            </mat-select>
+        </mat-form-field> -->
+    </div>
 </div>

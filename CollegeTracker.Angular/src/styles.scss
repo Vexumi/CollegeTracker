@@ -36,6 +36,13 @@ body {
     background-color: map-get($theme-color, background-color);
 }
 
+@mixin mat-select-base {
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        background-color: black;
+        color: white;
+    }
+}
+
 @mixin button-base {
     border-radius: 15px;
     padding: 5px 15px;

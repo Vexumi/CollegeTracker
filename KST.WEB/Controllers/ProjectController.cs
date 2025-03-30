@@ -26,9 +26,9 @@ public class ProjectController: BaseController<Project>
     }
 
     [HttpPost]
-    public async Task<IEnumerable<Project>> Search([FromBody] ProjectSearchParamsDTO searchparams, CancellationToken cancellationToken)
+    public async Task<ProjectSearchResponseDTO> Search([FromBody] ProjectSearchParamsDTO searchparams, CancellationToken cancellationToken)
     {
-        return await _service.SearchProjects(searchparams).ToListAsync(cancellationToken);
+        return await _service.SearchProjects(searchparams, cancellationToken);
     }
     
     [HttpGet("{id}")]

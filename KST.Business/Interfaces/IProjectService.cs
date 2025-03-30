@@ -14,7 +14,9 @@ public interface IProjectService: IBaseService
     Task<Project> GetByIdAsync(long id, CancellationToken cancellationToken);
 
     IQueryable<Project> GetAll();
-    IQueryable<Project> SearchProjects(ProjectSearchParamsDTO searchParams);
+
+    Task<ProjectSearchResponseDTO> SearchProjects(ProjectSearchParamsDTO searchParams,
+        CancellationToken cancellationToken);
 
     Task DeleteAsync(long id, CancellationToken cancellationToken);
 

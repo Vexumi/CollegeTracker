@@ -43,8 +43,23 @@
         gap: 15px;
     }
 
-}
+    &__pagination {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 
+    &__dropdown {
+        @include mat-select-base;
+
+        width: 100px;
+    }
+}
+  
+.hidden {
+    display: none;
+}
 
 .loading {
     margin: 20px;
