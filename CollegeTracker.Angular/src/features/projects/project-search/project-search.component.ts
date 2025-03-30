@@ -52,4 +52,12 @@ export class ProjectSearchComponent {
     public buttonNextPageVisible(): boolean {
         return this.totalPages$.value < this.page$.value;
     }
+
+    public prevPage() {
+        this.page$.next(this.page$.value - 1);
+    }
+
+    public nextPage() {
+        this.page$.next(this.page$.value + 1);
+    }
 }

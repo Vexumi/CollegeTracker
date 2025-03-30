@@ -6,9 +6,9 @@
         }
     </div>
     <div class="page__pagination">
-        <button [class.hidden]="!buttonPrevPageVisible()">Назад</button>
+        <button class="page__pagination-button" [class.hidden]="!buttonPrevPageVisible()" (click)="prevPage()">Назад</button>
         {{ page$.value }}/{{ totalPages$.value }}
-        <button [class.hidden]="!buttonNextPageVisible()">Вперед</button>
+        <button class="page__pagination-button" [class.hidden]="!buttonNextPageVisible()" (click)="nextPage()">Вперед</button>
         <!-- <mat-form-field class="page__dropdown">
             <mat-select [formControl]="pageSizeForm">
               @for (pageSize of pageSizes; track pageSize) {

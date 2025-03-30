@@ -50,6 +50,10 @@
         justify-content: center;
     }
 
+    &__pagination-button {
+        margin: 0 10px;
+    }
+
     &__dropdown {
         @include mat-select-base;
 
