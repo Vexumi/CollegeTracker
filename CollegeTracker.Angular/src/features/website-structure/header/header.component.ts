@@ -19,11 +19,14 @@ export class HeaderComponent {
     private getPageName(url: string): string {
         switch (url) {
             case AppRoutes.Profile: return "Профиль пользователя"; 
+            case AppRoutes.ProjectInfo: return "Информация о проекте";
+            case AppRoutes.Projects: return "Все проекты";
+            case AppRoutes.MyProjects: return "Мои проекты";
             case AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
             case AppRoutes.AdminRoutes.Specialities: return "Направления"; 
             case AppRoutes.AdminRoutes.Groups: return "Студенческие группы";
             case AppRoutes.AdminRoutes.Students: return "Студенты"; 
-            case AppRoutes.AdminRoutes.Teachers: return "Наставники"; 
+            case AppRoutes.AdminRoutes.Teachers: return "Наставники";
             default: return "";
         }
     }

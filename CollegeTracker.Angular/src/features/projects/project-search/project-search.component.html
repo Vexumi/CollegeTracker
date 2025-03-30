@@ -5,6 +5,9 @@
             <app-project-card [project]="project"></app-project-card>
         }
     </div>
+    @if (totalPages$.value === 0) {
+        <span class="page__pagination">Ничего не найдено!</span>
+    }
     <div class="page__pagination">
         <button class="page__pagination-button" [class.hidden]="!buttonPrevPageVisible()" (click)="prevPage()">Назад</button>
         {{ getCurrentPage() }}/{{ totalPages$.value }}
