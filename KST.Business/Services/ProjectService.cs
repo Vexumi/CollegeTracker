@@ -52,6 +52,39 @@ public class ProjectService: BaseService<Project>, IProjectService
             .AsSplitQuery()
             .AsQueryable();
 
+    public IQueryable<Project> SearchProjects(ProjectSearchParamsDTO searchParams)
+    {
+        var request = dbContext.Set<Project>().AsNoTracking().AsQueryable();
+        request = request.WhereIf(!string.IsNullOrEmpty(searchParams.Title),
+            project => EF.Functions.ILike(project.Title, searchParams.Title));
+        request = request.WhereIf(!string.IsNullOrEmpty(searchParams.Description),
+            project => EF.Functions.ILike(project.Description, searchParams.Description));
+        
+        request = request.WhereIf(searchParams.State != null,
+            project => project.State == searchParams.State);
+        request = request.WhereIf(searchParams.SpecialityId != null,
+            project => project.SpecialityId == searchParams.SpecialityId);
+        
+        request = request.WhereIf(searchParams.StartDateFrom != null,
+            project => project.StartDate >= searchParams.StartDateFrom);
+        request = request.WhereIf(searchParams.StartDateTo != null,
+            project => project.StartDate <= searchParams.StartDateTo);
+        
+        request = request.WhereIf(searchParams.ActualEndDateFrom != null,
+            project => project.ActualEndDate >= searchParams.ActualEndDateFrom);
+        request = request.WhereIf(searchParams.ActualEndDateTo != null,
+            project => project.ActualEndDate <= searchParams.ActualEndDateTo);
+        
+        request = request.WhereIf(searchParams.DeadlineFrom != null,
+            project => project.Deadline >= searchParams.DeadlineFrom);
+        request = request.WhereIf(searchParams.DeadlineTo != null,
+            project => project.Deadline <= searchParams.DeadlineTo);
+
+        request = request.Skip(searchParams.Page * searchParams.PageSize).Take(searchParams.PageSize);
+        
+        return request.Include(x => x.Speciality);
+    }
+
     public async Task DeleteAsync(long id, CancellationToken cancellationToken)
     {
         var entity = await dbContext.Projects.FirstAsync(x => x.Id == id, cancellationToken);

@@ -40,6 +40,7 @@
             <label class="card__label" for="actualEndDateTo">Фактическая дата окончания по:</label>
             <input class="card__input-date" name="actualEndDateTo" type="date" formControlName="actualEndDateTo" />
         </div>
+        <button class="card__button" (click)="onClearClicked()">Очистить</button>
         <button class="card__button" (click)="onSearchClicked()">Искать</button>
     </form>
 </div>

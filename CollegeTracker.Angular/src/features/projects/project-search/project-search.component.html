@@ -1,5 +1,5 @@
 <div class="page">
-    <app-project-search-params></app-project-search-params>
+    <app-project-search-params (searchClicked)="onSearchClicked($event)" />
     <div class="page__items">
         @for(project of projects$ | async; track project.id) {
             <app-project-card [project]="project"></app-project-card>

@@ -4,6 +4,7 @@ using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KST.WEB.Controllers;
 
@@ -17,11 +18,17 @@ public class ProjectController: BaseController<Project>
     {
         _service = service;
     }
-
+    
     [HttpGet]
     public IEnumerable<Project> GetAll()
     {
         return _service.GetAll();
+    }
+
+    [HttpPost]
+    public async Task<IEnumerable<Project>> Search([FromBody] ProjectSearchParamsDTO searchparams, CancellationToken cancellationToken)
+    {
+        return await _service.SearchProjects(searchparams).ToListAsync(cancellationToken);
     }
     
     [HttpGet("{id}")]

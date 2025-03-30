@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { ApiEndpoints } from '../../../constants/api-routes';
 import { BaseService } from '../base.service';
 import { ProjectModel } from './project.model';
-import { Observable } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { ProjectAttachmentModel } from './project-attachment.model';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ProjectStateEnum } from './project-state.enum';
 import { UserRole } from '../user/user-role.model';
+import { ProjectSearchParamsModel } from './project-search-params.model';
 
 
 type StateTransitionsType = Record<ProjectStateEnum, ProjectStateEnum[]>;
@@ -38,6 +39,10 @@ export class ProjectService extends BaseService<ProjectModel> {
 
     constructor(private readonly authService: AuthService) {
         super(ApiEndpoints.Projects);
+    }
+
+    public searchProjects(searchParams?: ProjectSearchParamsModel): Observable<ProjectModel[]> {
+        return this.http.post<ProjectModel[]>(`${this.baseControllerUrl}/Search`, searchParams).pipe(startWith([]));
     }
 
     public changeState(projectId: number, state: ProjectStateEnum) {

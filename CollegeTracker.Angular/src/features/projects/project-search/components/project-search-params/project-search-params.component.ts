@@ -65,6 +65,10 @@ export class ProjectSearchParamsComponent {
         this.form.controls.specialityId.setValue(item?.id ?? null);
     }
 
+    public onClearClicked() {
+        this.form.reset();
+    }
+
     public onSearchClicked() {
         this.searchClicked.emit(this.form.value as ProjectSearchParamsModel);
     }
