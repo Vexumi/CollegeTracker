@@ -33,6 +33,12 @@ export const routes: Routes = [
                 canActivate: [SignedInGuard],
                 component: ProjectSearchComponent
             },
+            {
+                path: AppRoutes.MyProjects,
+                pathMatch: 'full',
+                canActivate: [SignedInGuard],
+                component: ProjectSearchComponent
+            },
             ...AdminRoutes
         ]
     },

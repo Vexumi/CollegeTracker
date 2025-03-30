@@ -4,11 +4,9 @@ export const AppRoutes = {
     Logout: "logout",
     ProjectInfo: "projects/:id",
     Projects: "projects",
+    MyProjects: "my-projects",
 
-    StudentRoutes: {
-        MyProjects: "my-projects",
-        Marks: "marks",
-    },
+    StudentRoutes: {},
     AdminRoutes: {
         Students: "students",
         Teachers: "teachers",
@@ -17,10 +15,7 @@ export const AppRoutes = {
         Reports: "reports",
         Specialities: "specialities"
     },
-    TeacherRoutes: {
-        MyProjects: "my-projects",
-        Students: "students"
-    },
+    TeacherRoutes: {},
 
     Student: "student",
     Teacher: "teacher",

@@ -14,6 +14,8 @@ public class ProjectSearchParamsDTO
     public DateOnly? ActualEndDateTo { get; set; }
     public DateOnly? DeadlineFrom { get; set; }
     public DateOnly? DeadlineTo { get; set; }
+    
+    public long? CurrentUserId { get; set; }
 
     public int PageSize { get; set; }
     public int Page { get; set; }

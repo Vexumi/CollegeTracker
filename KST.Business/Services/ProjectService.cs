@@ -80,13 +80,17 @@ public class ProjectService: BaseService<Project>, IProjectService
         request = request.WhereIf(searchParams.DeadlineTo != null,
             project => project.Deadline <= searchParams.DeadlineTo);
 
+        request = request.WhereIf(searchParams.CurrentUserId != null,
+            project => project.Teacher.UserInfoId == searchParams.CurrentUserId ||
+                       project.Students.Select(x => x.UserInfoId).Contains(searchParams.CurrentUserId.Value));
+
         var result = await request.Include(x => x.Speciality).GroupBy(p => 1).Select(g => new ProjectSearchResponseDTO()
         {
             Projects = g.Skip(searchParams.Page * searchParams.PageSize).Take(searchParams.PageSize),
             TotalPages = (int)Math.Ceiling((double)g.Count() / searchParams.PageSize)
-        }).FirstAsync(cancellationToken);
+        }).FirstOrDefaultAsync(cancellationToken);
 
-        return result;
+        return result ?? new ProjectSearchResponseDTO{ Projects = [], TotalPages = 0 };
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken)

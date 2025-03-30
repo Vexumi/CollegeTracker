@@ -7,7 +7,7 @@
     </div>
     <div class="page__pagination">
         <button class="page__pagination-button" [class.hidden]="!buttonPrevPageVisible()" (click)="prevPage()">Назад</button>
-        {{ page$.value }}/{{ totalPages$.value }}
+        {{ getCurrentPage() }}/{{ totalPages$.value }}
         <button class="page__pagination-button" [class.hidden]="!buttonNextPageVisible()" (click)="nextPage()">Вперед</button>
         <!-- <mat-form-field class="page__dropdown">
             <mat-select [formControl]="pageSizeForm">

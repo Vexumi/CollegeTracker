@@ -12,6 +12,8 @@ export interface ProjectSearchParamsModel {
     deadlineFrom: Date | null,
     deadlineTo: Date | null,
 
+    currentUserId: number | null,
+
     pageSize: number,
     page: number
 }

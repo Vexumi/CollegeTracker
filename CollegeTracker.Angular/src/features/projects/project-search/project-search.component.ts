@@ -9,6 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { AppRoutes } from '../../../constants/app-routes';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
     standalone: true,
@@ -19,6 +22,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     imports: [CommonModule, ProjectCardComponent, ProjectSearchParamsComponent, MatFormFieldModule, MatSelectModule, ReactiveFormsModule]
 })
 export class ProjectSearchComponent {
+    private readonly userOnlyProjects: boolean;
+    private readonly currentUserId: number;
+
     public readonly pageSizes = [6, 12, 18];
 
     public pageSize$ = new BehaviorSubject<number>(this.pageSizes[0]);
@@ -30,6 +36,9 @@ export class ProjectSearchComponent {
             const [pageSize, page, params] = request;
             params.pageSize = pageSize;
             params.page = page - 1;
+
+            params.currentUserId = this.userOnlyProjects ? this.currentUserId : null;
+
             return params;
         }),
         switchMap((params) => this.projectService.searchProjects(params).pipe(tap((x) => this.totalPages$.next(x.totalPages)), map((x) => x.projects)))
@@ -37,7 +46,13 @@ export class ProjectSearchComponent {
 
     public pageSizeForm = new FormControl<number>(this.pageSizes[0]);
 
-    constructor(private readonly projectService: ProjectService) {
+    constructor(
+        private readonly projectService: ProjectService,
+        private readonly route: ActivatedRoute,
+        private readonly authService: AuthService
+    ) {
+        this.userOnlyProjects = this.route.snapshot.url[0].path === AppRoutes.MyProjects;
+        this.currentUserId = this.authService.getCurrentUser().id;
         this.pageSizeForm.valueChanges.pipe(takeUntilDestroyed()).subscribe((() => this.pageSize$.next(this.pageSizeForm.value!)))
     }
 
@@ -50,7 +65,7 @@ export class ProjectSearchComponent {
     }
     
     public buttonNextPageVisible(): boolean {
-        return this.totalPages$.value < this.page$.value;
+        return this.totalPages$.value > this.page$.value;
     }
 
     public prevPage() {
@@ -59,5 +74,9 @@ export class ProjectSearchComponent {
 
     public nextPage() {
         this.page$.next(this.page$.value + 1);
+    }
+
+    public getCurrentPage() {
+        return this.totalPages$.value != 0 ? this.page$.value : 0;
     }
 }
