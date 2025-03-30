@@ -17,16 +17,19 @@ public class ProjectService: BaseService<Project>, IProjectService
     private readonly KSTDbContext dbContext;
     private readonly IMapper mapper;
     private readonly IFileUploadService fileUploadService;
+    private readonly IMessageService messageService;
 
     public ProjectService(
         KSTDbContext dbContext,
         IMapper mapper,
-        IFileUploadService fileUploadService
+        IFileUploadService fileUploadService,
+        IMessageService messageService
     ): base(dbContext)
     {
         this.dbContext = dbContext;
         this.mapper = mapper;
         this.fileUploadService = fileUploadService;
+        this.messageService = messageService;
     }
 
     public async Task<long> CreateAsync(ProjectModificationDTO dto, CancellationToken cancellationToken)
@@ -111,6 +114,8 @@ public class ProjectService: BaseService<Project>, IProjectService
         project.StartDate = dto.StartDate;
         project.Deadline = dto.Deadline;
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        await messageService.CreateSystemActionLog(project.Id, MessageFormats.ProjectInfoChanged, cancellationToken);
         return project;
     }
 
@@ -119,6 +124,11 @@ public class ProjectService: BaseService<Project>, IProjectService
         var project = await dbContext.Projects.AsTracking().FirstAsync(x => x.Id == projectId, cancellationToken);
         project.State = state;
         await dbContext.SaveChangesAsync(cancellationToken);
+
+        await messageService.CreateSystemActionLog(projectId, string.Format(
+                MessageFormats.ProjectStateChanged, 
+                ProjectExtensions.GetLocalizedProjectState(state)),
+            cancellationToken);
         return projectId;
     }
 
@@ -131,6 +141,11 @@ public class ProjectService: BaseService<Project>, IProjectService
     {
         await dbContext.ProjectAttachment.AddAsync(attachment, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        await messageService.CreateSystemActionLog(attachment.ProjectId, string.Format(
+                MessageFormats.AddedLink, 
+                attachment.Name),
+            cancellationToken);
         return attachment.Id;
     }
 
@@ -146,6 +161,11 @@ public class ProjectService: BaseService<Project>, IProjectService
         };
         await dbContext.ProjectAttachment.AddAsync(attachment, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        await messageService.CreateSystemActionLog(attachment.ProjectId, string.Format(
+                MessageFormats.AddedFile, 
+                attachment.Name),
+            cancellationToken);
     }
     
     public async Task<bool> DeleteFile(long attachmentId, CancellationToken cancellationToken)
@@ -153,6 +173,11 @@ public class ProjectService: BaseService<Project>, IProjectService
         var attachment = await dbContext.ProjectAttachment.FirstAsync(x => x.Id == attachmentId, cancellationToken);
         dbContext.ProjectAttachment.Remove(attachment);
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        await messageService.CreateSystemActionLog(attachment.ProjectId, string.Format(
+                MessageFormats.RemovedFile, 
+                attachment.Name),
+            cancellationToken);
         
         return fileUploadService.DeleteFile(attachment.FilePath!);
     }
