@@ -61,6 +61,13 @@ public class ProjectController: BaseController<Project>
         return await _service.ChangeState(projectId, state, cancellationToken);
     }
     
+    [HttpPost("{projectId}")]
+    public async Task<long> Evaluate(long projectId, [FromBody] int mark, CancellationToken cancellationToken)
+    {
+        return await _service.Evaluate(projectId, mark, cancellationToken);
+    }
+
+    
     [HttpGet("{projectId}")]
     public IQueryable<ProjectAttachment> GetAttachments(long projectId, CancellationToken cancellationToken)
     {

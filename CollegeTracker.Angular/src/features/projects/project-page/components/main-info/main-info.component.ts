@@ -20,7 +20,7 @@ export class ProjectMainInfoBlockComponent {
     public getCompletedTasks() {
         const completedTasks = this.project.tasks.filter((t) => t.state == ProjectTaskStateEnum.Closed).length;
         const totalTasks = this.project.tasks.length;
-        return completedTasks * 100 / totalTasks;
+        return Math.round(completedTasks * 100 / totalTasks);
     }
 
     public getEstimatedHumanHours() {

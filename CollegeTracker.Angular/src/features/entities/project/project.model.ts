@@ -14,6 +14,7 @@ export interface ProjectModel extends BaseModel {
     startDate: Date,
     actualEndDate: Date | null,
     deadline: Date,
+    mark: number | null,
     tasks: ProjectTaskModel[],
     students: StudentModel[]
 }

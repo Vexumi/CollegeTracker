@@ -79,7 +79,11 @@ public class ProjectTaskService: BaseService<ProjectTask>, IProjectTaskService
             var actualTime = (actualDeltaDays - targetDays) * 8 + (actualDeltaHours - targetHours);
 
             task.ActualHours = task.EstimatedHours + actualTime;
+        } else if (state == TaskState.Closed && task.InProgressSince == null)
+        {
+            task.ActualHours = 0;
         }
+        
         task.State = state;
 
         await dbContext.SaveChangesAsync(cancellationToken);

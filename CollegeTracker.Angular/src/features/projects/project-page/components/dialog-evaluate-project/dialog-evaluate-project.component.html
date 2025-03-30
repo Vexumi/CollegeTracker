@@ -1,0 +1,11 @@
+<div class="card">
+    <h1>Оценка проекта</h1>
+    <hr>
+    <div class="form__input-block">
+        <input type="number" name="mark" [formControl]="form" />
+    </div>
+    <div class="text-center">
+        <button class="form__button" (click)="onSaveClicked()" [disabled]="!form.valid">Оценить</button>
+        <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+    </div>
+</div>

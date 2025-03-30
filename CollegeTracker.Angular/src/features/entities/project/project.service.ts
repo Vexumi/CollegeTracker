@@ -23,7 +23,7 @@ export class ProjectService extends BaseService<ProjectModel> {
     private readonly StateTransitions: StateTransitionsType = {
         [ProjectStateEnum.Created]: [ProjectStateEnum.InProgress],
         [ProjectStateEnum.InProgress]: [ProjectStateEnum.OnReview],
-        [ProjectStateEnum.OnReview]: [ProjectStateEnum.Rejected, ProjectStateEnum.Reviewed],
+        [ProjectStateEnum.OnReview]: [ProjectStateEnum.Rejected],
         [ProjectStateEnum.Reviewed]: [ProjectStateEnum.Rejected, ProjectStateEnum.Completed],
         [ProjectStateEnum.Rejected]: [ProjectStateEnum.InProgress],
         [ProjectStateEnum.Completed]: [],
@@ -44,6 +44,10 @@ export class ProjectService extends BaseService<ProjectModel> {
 
     public searchProjects(searchParams?: ProjectSearchParamsModel): Observable<ProjectSearchResponseModel> {
         return this.http.post<ProjectSearchResponseModel>(`${this.baseControllerUrl}/Search`, searchParams);
+    }
+
+    public evaluateProject(projectId: number, mark: number) {
+        return this.http.post(`${this.baseControllerUrl}/Evaluate/${projectId}`, mark);
     }
 
     public changeState(projectId: number, state: ProjectStateEnum) {

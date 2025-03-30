@@ -24,6 +24,8 @@ public class Project : BaseEntity
 
     public DateOnly? Deadline { get; set; }
     
+    public int? Mark { get; set; }
+    
     public virtual ICollection<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
 
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();

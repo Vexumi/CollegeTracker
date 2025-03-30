@@ -132,6 +132,19 @@ public class ProjectService: BaseService<Project>, IProjectService
         return projectId;
     }
 
+    public async Task<long> Evaluate(long projectId, int mark, CancellationToken cancellationToken)
+    {
+        var project = await dbContext.Projects.AsTracking().FirstAsync(x => x.Id == projectId, cancellationToken);
+        project.Mark = mark;
+        project.ActualEndDate = DateOnly.FromDateTime(DateTime.UtcNow);
+        project.State = ProjectState.Reviewed;
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        await messageService.CreateSystemActionLog(projectId, string.Format(MessageFormats.Reviewed, mark),
+            cancellationToken);
+        return projectId;
+    }
+
     public IQueryable<ProjectAttachment> GetAttachments(long projectId)
     {
         return dbContext.ProjectAttachment.Where(x => x.ProjectId == projectId);

@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
 import { Component, DestroyRef } from '@angular/core';
 import { BehaviorSubject, EMPTY, map, switchMap, tap } from 'rxjs';
 import { ProjectService } from '../../entities/project/project.service';
@@ -12,13 +12,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogChangeStatusComponent } from './components/dialog-change-status/dialog-change-status.component';
 import { DialogEditProjectComponent } from './components/dialog-edit-project/dialog-edit-project.component';
 import { MessagesBlockComponent } from './components/messages/messages.component';
+import { ProjectStateEnum } from '../../entities/project/project-state.enum';
+import { DialogEvaluateProjectComponent } from './components/dialog-evaluate-project/dialog-evaluate-project.component';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
     standalone: true,
     selector: 'app-project-page',
     templateUrl: './project-page.component.html',
     styleUrls: ['./project-page.component.scss'],
-    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent, ProjectAttachmentsBlockComponent, MessagesBlockComponent]
+    imports: [AsyncPipe, ProjectMainInfoBlockComponent, CommonModule, ProjectTasksBlockComponent, ProjectAttachmentsBlockComponent, MessagesBlockComponent, NgIf]
 })
 export class ProjectPageComponent {
     public project$ = new BehaviorSubject<ProjectModel | null>(null);
@@ -29,7 +32,8 @@ export class ProjectPageComponent {
         private readonly projectService: ProjectService,
         private readonly router: Router,
         private readonly destroyRef: DestroyRef,
-        private readonly dialogService: MatDialog
+        private readonly dialogService: MatDialog,
+        private readonly authService: AuthService
     ) {
         const lastChar = this.router.url.split('/').reverse()[0];
         this.projectId = Number(lastChar);
@@ -75,6 +79,25 @@ export class ProjectPageComponent {
             )
             .subscribe(() => this.onReload());
     }
+
+    public buttonEvaluateProjectVisible(project: ProjectModel) {
+        return project.state == ProjectStateEnum.OnReview && this.authService.isTeacher();
+    }
+
+    public onEvaluateProjectClicked() {
+        const dialogRef = this.dialogService.open(DialogEvaluateProjectComponent);
+        
+        dialogRef.afterClosed()
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    return this.projectService.evaluateProject(this.projectId, result);
+                })
+            )
+            .subscribe(() => this.onReload());
+    }
+
 
     private loadProject() {
         this.projectService.getById(this.projectId)

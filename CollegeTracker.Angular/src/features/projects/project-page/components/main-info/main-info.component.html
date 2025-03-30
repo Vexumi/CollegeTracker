@@ -1,8 +1,12 @@
 <div class="block">
     <h1 class="block__title">{{ project.title }}</h1>
     <h2 class="block__title">Статус: {{ getProjectStateString(project.state) }}</h2>
+    @if (project.mark) {
+        <h2 class="block__title">Оценка: {{ project.mark }}</h2>
+    }
     <hr>
     <div class="card">
+
         <div class="card__item">
             <span class="card__label">Специальность:</span>
             <span>{{ project.speciality.title }}</span>

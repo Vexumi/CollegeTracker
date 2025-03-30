@@ -24,6 +24,8 @@ public interface IProjectService: IBaseService
 
     Task<long> ChangeState(long projectId, ProjectState state, CancellationToken cancellationToken);
 
+    Task<long> Evaluate(long projectId, int mark, CancellationToken cancellationToken);
+
     IQueryable<ProjectAttachment> GetAttachments(long projectId);
     
     Task<long> AddLink(ProjectAttachment attachment, CancellationToken cancellationToken);
