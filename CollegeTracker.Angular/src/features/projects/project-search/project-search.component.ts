@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { AppRoutes } from '../../../constants/app-routes';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ReportsService } from '../../entities/reports/reports.service';
 
 @Component({
     standalone: true,
@@ -26,6 +27,8 @@ export class ProjectSearchComponent {
     private readonly currentUserId: number;
 
     public readonly pageSizes = [6, 12, 18];
+
+    public readonly buttonExportToExcelVisible = this.authService.isAdmin();
 
     public pageSize$ = new BehaviorSubject<number>(this.pageSizes[0]);
     public page$ = new BehaviorSubject<number>(1);
@@ -49,7 +52,8 @@ export class ProjectSearchComponent {
     constructor(
         private readonly projectService: ProjectService,
         private readonly route: ActivatedRoute,
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
+        private readonly reportsService: ReportsService
     ) {
         this.userOnlyProjects = this.route.snapshot.url[0].path === AppRoutes.MyProjects;
         this.currentUserId = this.authService.getCurrentUser().id;
@@ -78,5 +82,9 @@ export class ProjectSearchComponent {
 
     public getCurrentPage() {
         return this.totalPages$.value != 0 ? this.page$.value : 0;
+    }
+
+    public exportToExcel() {
+        this.reportsService.exportProjects(this.searchParams$.value);
     }
 }

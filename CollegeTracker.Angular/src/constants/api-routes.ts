@@ -10,4 +10,5 @@ export const ApiEndpoints = {
     Users: apiPrefix + "user",
     Projects: apiPrefix + "project",
     ProjectTasks: apiPrefix + "projectTask",
+    Reports: apiPrefix + "report",
 }

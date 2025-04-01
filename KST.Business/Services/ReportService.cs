@@ -15,7 +15,6 @@ public class ReportService(KSTDbContext context, IExcelExportService excelExport
         var projects = await context.Set<Project>()
             .AsNoTracking()
             .ApplySearchFilter(exportParams)
-            .Skip(exportParams.Page * exportParams.PageSize).Take(exportParams.PageSize)
             .Include(x => x.Teacher).ThenInclude(y => y.UserInfo)
             .Include(x => x.Students).ThenInclude(y => y.UserInfo)
             .Include(x => x.Speciality)

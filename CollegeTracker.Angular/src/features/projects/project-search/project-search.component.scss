@@ -17,6 +17,23 @@
     background-color: map-get($theme-color, theme-light);
     border-radius: 15px;
 
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        padding: 0 10px;
+        margin-bottom: 10px;
+        
+        .title {
+            font-size: 18px;
+        }
+
+        .export-button:hover {
+            color: map-get($theme-color, button-background);
+        }
+    }
+
     &__button {
         @include button-base;
         width: fit-content;
