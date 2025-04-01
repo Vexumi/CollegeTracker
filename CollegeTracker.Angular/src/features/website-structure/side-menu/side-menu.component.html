@@ -8,13 +8,10 @@
             </div>
             @if (authService.isAdmin()) {
                 <div class="side-menu__element">
-                    <a href="{{ adminPrefix + routes.AdminRoutes.Students }}">Студенты</a>
+                    <a href="{{ adminPrefix + routes.AdminRoutes.Students }}">Практиканты</a>
                 </div>
                 <div class="side-menu__element">
                     <a href="{{ adminPrefix + routes.AdminRoutes.Teachers }}">Наставники</a>
-                </div>
-                <div class="side-menu__element">
-                    <a href="{{ adminPrefix + routes.AdminRoutes.Subjects }}">Предметы</a>
                 </div>
                 <div class="side-menu__element">
                     <a href="{{ adminPrefix + routes.AdminRoutes.Specialities }}">Направления</a>
@@ -26,9 +23,11 @@
                     <a href="{{ adminPrefix + routes.AdminRoutes.Reports }}">Отчеты</a>
                 </div>
             }
-            <div class="side-menu__element">
-                <a href="{{ routes.MyProjects }}">Мои проекты</a>
-            </div>
+            @if (!authService.isAdmin()) {
+                <div class="side-menu__element">
+                    <a href="{{ routes.MyProjects }}">Мои проекты</a>
+                </div>
+            }
             <div class="side-menu__element">
                 <a href="{{ routes.Projects }}">Все проекты</a>
             </div>
