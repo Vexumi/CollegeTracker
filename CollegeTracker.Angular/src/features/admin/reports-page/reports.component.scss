@@ -1,0 +1,29 @@
+@import '../../../styles.scss';
+
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.page {
+    width: 80%;
+    height: 100%;
+    margin: 20px auto;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: map-get($theme-color, theme-light);
+    border-radius: 15px;
+
+    &__button {
+        @include link;
+        width: fit-content;
+        margin-top: 10px;
+    }
+}
+  
+.hidden {
+    display: none;
+}

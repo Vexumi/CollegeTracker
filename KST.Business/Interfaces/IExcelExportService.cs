@@ -2,5 +2,6 @@ namespace KST.Business.Interfaces;
 
 public interface IExcelExportService
 {
-    Stream ExportToExcel<T>(IEnumerable<T> data, string worksheetName = "Data");
+    Stream ExportToExcel(IEnumerable<object> data, string worksheetName = "List 1");
+    Stream ExportToExcel(Dictionary<string, IEnumerable<object>> data);
 }

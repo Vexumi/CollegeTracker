@@ -7,7 +7,7 @@ namespace KST.Business.Services;
 
 public class ExcelExportService : IExcelExportService
 {
-    public Stream ExportToExcel<T>(IEnumerable<T> data, string worksheetName = "Data")
+    public Stream ExportToExcel(IEnumerable<object> data, string worksheetName = "Data")
     {
         try
         {
@@ -15,27 +15,23 @@ public class ExcelExportService : IExcelExportService
             {
                 var worksheet = workbook.Worksheets.Add(worksheetName);
 
-                var properties = typeof(T).GetProperties();
+                var properties = data.First().GetType().GetProperties();
 
-                // Write headers
                 for (int i = 0; i < properties.Length; i++)
                 {
                     var displayNameAttribute = properties[i].GetCustomAttribute<DisplayNameAttribute>();
                     worksheet.Cell(1, i + 1).Value = displayNameAttribute?.DisplayName ?? properties[i].Name;
                 }
 
-                // Write data
                 int row = 2;
                 foreach (var item in data)
                 {
                     for (int i = 0; i < properties.Length; i++)
                     {
-                        // Use a try-catch block for each cell to handle potential type conversion errors
                         try
                         {
                             var value = properties[i].GetValue(item);
 
-                            //Handle Nullable<DateOnly>
                             var nullableDateOnly = value as DateOnly?;
                             if (nullableDateOnly != null)
                             {
@@ -46,12 +42,11 @@ public class ExcelExportService : IExcelExportService
                                 value = dateOnly.ToDateTime(TimeOnly.MinValue);
                             }
 
-                            // Явное преобразование в строку, чтобы избежать ошибок типов
                             worksheet.Cell(row, i + 1).Value = value == null ? string.Empty : Convert.ToString(value);
                         }
                         catch (Exception ex)
                         {
-                            worksheet.Cell(row, i + 1).Value = "Error"; // Indicate an error in the cell
+                            worksheet.Cell(row, i + 1).Value = "Error";
                         }
                     }
                     row++;
@@ -61,7 +56,78 @@ public class ExcelExportService : IExcelExportService
 
                 var stream = new MemoryStream();
                 workbook.SaveAs(stream);
-                stream.Seek(0, SeekOrigin.Begin); // Reset stream position to the beginning
+                stream.Seek(0, SeekOrigin.Begin);
+                return stream;
+            }
+        }
+        catch
+        {
+            return Stream.Null;
+        }
+    }
+    
+    public Stream ExportToExcel(Dictionary<string, IEnumerable<object>> data)
+    {
+        try
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                foreach (var sheetData in data)
+                {
+                    var worksheetName = sheetData.Key;
+                    var items = sheetData.Value;
+
+                    var worksheet = workbook.Worksheets.Add(worksheetName);
+
+                    if (items == null || !items.Any())
+                    {
+                        continue;
+                    }
+
+                    var firstItem = items.First();
+                    var properties = firstItem.GetType().GetProperties();
+
+                    for (int i = 0; i < properties.Length; i++)
+                    {
+                        var displayNameAttribute = properties[i].GetCustomAttribute<DisplayNameAttribute>();
+                        worksheet.Cell(1, i + 1).Value = displayNameAttribute?.DisplayName ?? properties[i].Name;
+                    }
+
+                    int row = 2;
+                    foreach (var item in items)
+                    {
+                        for (int i = 0; i < properties.Length; i++)
+                        {
+                            try
+                            {
+                                var value = properties[i].GetValue(item);
+
+                                var nullableDateOnly = value as DateOnly?;
+                                if (nullableDateOnly != null)
+                                {
+                                    value = nullableDateOnly?.ToDateTime(TimeOnly.MinValue);
+                                }
+                                else if (value is DateOnly dateOnly)
+                                {
+                                    value = dateOnly.ToDateTime(TimeOnly.MinValue);
+                                }
+
+                                worksheet.Cell(row, i + 1).Value = value == null ? string.Empty : Convert.ToString(value);
+                            }
+                            catch (Exception ex)
+                            {
+                                worksheet.Cell(row, i + 1).Value = "Error";
+                            }
+                        }
+                        row++;
+                    }
+
+                    worksheet.Columns().AdjustToContents();
+                }
+
+                var stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                stream.Seek(0, SeekOrigin.Begin);
                 return stream;
             }
         }

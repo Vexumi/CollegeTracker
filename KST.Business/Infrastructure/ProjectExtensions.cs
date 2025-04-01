@@ -19,6 +19,17 @@ public static class ProjectExtensions
         }
         return "Неизвестно";
     }
+    
+    public static string GetLocalizedProjectTaskState(TaskState state)
+    {
+        switch (state) {
+            case TaskState.Opened: return "Открыт";
+            case TaskState.Blocked: return "Отложен";
+            case TaskState.InProgress: return "В процессе";
+            case TaskState.Closed: return "Закрыт";
+        }
+        return "Неизвестно";
+    }
 
     public static IQueryable<Project> ApplySearchFilter(this IQueryable<Project> request,
         ProjectSearchParamsDTO searchParams)

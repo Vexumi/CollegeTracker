@@ -6,6 +6,7 @@ import { SpecialitiesPageComponent } from "./specialities-page/specialities.comp
 import { StudentsPageComponent } from "./students-page/students.component";
 import { SubjectsPageComponent } from "./subjects-page/subjects.component";
 import { TeachersPageComponent } from "./teachers-page/teachers.component";
+import { ReportsComponent as ReportsPageComponent } from "./reports-page/reports.component";
 
 export const AdminRoutes: Routes = [
     {
@@ -36,6 +37,11 @@ export const AdminRoutes: Routes = [
                 path: AppRoutes.AdminRoutes.Teachers,
                 pathMatch: 'full',
                 component: TeachersPageComponent
+            },
+            {
+                path: AppRoutes.AdminRoutes.Reports,
+                pathMatch: 'full',
+                component: ReportsPageComponent
             },
         ]
     }
