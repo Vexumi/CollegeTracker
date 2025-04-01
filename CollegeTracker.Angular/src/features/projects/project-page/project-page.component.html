@@ -2,6 +2,7 @@
     <div class="page__buttons-wrapper" *ngIf="!readOnlyMode">
         <div>
             <button class="page__button" (click)="onChangeStatusClicked()">Сменить статус</button>
+            <button class="page__button" [class.hidden]="!buttonExportProjectTasksVisible()" (click)="onExportProjectTasksClicked(project.id)">Выгрузить задачи в Excel</button>
             <button class="page__button" [class.hidden]="!buttonEvaluateProjectVisible(project)" (click)="onEvaluateProjectClicked()">Оценить</button>
         </div>
         <button class="page__button" (click)="onEditClicked()">Редактировать</button>

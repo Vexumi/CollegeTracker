@@ -22,6 +22,36 @@ export class ReportsService {
         this.saveBlobToFile(result);
     }
 
+    public async exportSpecialitiesWithProjects() {
+        const result = await firstValueFrom(
+            this.http.get(`${this.baseControllerUrl}/ExportSpecialitiesWithProjects`, {
+                responseType: 'blob',
+                observe: 'response'
+            })
+        );
+        this.saveBlobToFile(result);
+    }
+
+    public async exportProjectTasks(projectId: number) {
+        const result = await firstValueFrom(
+            this.http.get(`${this.baseControllerUrl}/ExportProjectTasks/${projectId}`, {
+                responseType: 'blob',
+                observe: 'response'
+            })
+        );
+        this.saveBlobToFile(result);
+    }
+
+    public async exportLateProjects() {
+        const result = await firstValueFrom(
+            this.http.get(`${this.baseControllerUrl}/ExportLateProjects`, {
+                responseType: 'blob',
+                observe: 'response'
+            })
+        );
+        this.saveBlobToFile(result);
+    }
+
     private saveBlobToFile(result: HttpResponse<Blob>) {
         if (!result.body || result.body.size == 0) {
             console.error("No data received from export endpoint.");

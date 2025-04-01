@@ -28,24 +28,30 @@ public class ReportService(KSTDbContext context, IExcelExportService excelExport
     
     public async Task<Stream> ExportSpecialitiesWithProjects(CancellationToken cancellationToken)
     {
-        var activeProjectStates = new [] { ProjectState.Created, ProjectState.InProgress };
-        var reviewProjectStates = new [] { ProjectState.OnReview, ProjectState.Reviewed };
-
-        var specialities = await context.Set<Speciality>()
-            .AsNoTracking()
-            .Include(x => x.Projects)
-            .Select(x => new
+        var specialities = await (
+            from s in context.Set<Speciality>().AsNoTracking()
+            join p in context.Set<Project>().AsNoTracking()
+                on s.Id equals p.SpecialityId into projectGroup
+            from pg in projectGroup.DefaultIfEmpty()
+            group pg by new
             {
-                Title = x.Title,
-                Description = x.Description,
-                TotalProjects = x.Projects.Count,
-                ActiveStateProjects = x.Projects.Count(p => activeProjectStates.Contains(p.State)),
-                ReviewStateProjects = x.Projects.Count(p => reviewProjectStates.Contains(p.State)),
-                RejectedStateProjects = x.Projects.Count(p => p.State == ProjectState.Rejected),
-                CompletedStateProjects = x.Projects.Count(p => p.State == ProjectState.Completed)
-            })
-            .ToListAsync(cancellationToken);
-        return excelExportService.ExportToExcel(specialities, "Информация о специальностях и проектах");
+                s.Id,
+                s.Title,
+                s.Description
+            } into g
+            select new
+            {
+                Title = g.Key.Title,
+                Description = g.Key.Description,
+                TotalProjects = g.Count(p => p != null),
+                ActiveStateProjects = g.Count(p => p != null && (p.State == ProjectState.Created || p.State == ProjectState.InProgress)),
+                ReviewStateProjects = g.Count(p => p != null && (p.State == ProjectState.OnReview || p.State == ProjectState.Reviewed)),
+                RejectedStateProjects = g.Count(p => p != null && p.State == ProjectState.Rejected),
+                CompletedStateProjects = g.Count(p => p != null && p.State == ProjectState.Completed)
+            }
+        ).ToListAsync(cancellationToken);
+        
+        return excelExportService.ExportToExcel(specialities, "Информация о специальностях");
     }
     
     public async Task<Stream> ExportProjectTasks(long projectId, CancellationToken cancellationToken)
@@ -86,7 +92,7 @@ public class ReportService(KSTDbContext context, IExcelExportService excelExport
             .AsNoTracking()
             .Where(x => 
                 x.Tasks.Sum(t => t.ActualHours ?? t.EstimatedHours) > x.Tasks.Sum(t => t.EstimatedHours) || 
-                x.Deadline >= DateOnly.FromDateTime(DateTime.UtcNow))
+                x.Deadline <= DateOnly.FromDateTime(DateTime.UtcNow))
             .Include(x => x.Teacher).ThenInclude(y => y.UserInfo)
             .Include(x => x.Students).ThenInclude(y => y.UserInfo)
             .Include(x => x.Speciality)
@@ -95,7 +101,7 @@ public class ReportService(KSTDbContext context, IExcelExportService excelExport
             .ToListAsync(cancellationToken);
 
         var data = projects.Select(GetProjectLateInfo);
-        return excelExportService.ExportToExcel(data, "Информация о проектах отстающих от срока выполнения");
+        return excelExportService.ExportToExcel(data, "Отстающие проекты");
     }
 
     private object GetProjectInfo(Project x)

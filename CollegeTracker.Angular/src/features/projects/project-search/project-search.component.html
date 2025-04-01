@@ -5,7 +5,7 @@
             (click)="exportToExcel()" 
             class="export-button" 
             [class.hidden]="!buttonExportToExcelVisible"
-            [disabled]="totalPages$.value === 0">Сохранить в Excel</button>
+            [disabled]="totalPages$.value === 0">Выгрузить в Excel</button>
     </div>
     <app-project-search-params (searchClicked)="onSearchClicked($event)" />
     <div class="page__items">

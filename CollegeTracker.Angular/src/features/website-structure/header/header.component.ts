@@ -24,7 +24,8 @@ export class HeaderComponent {
             case AppRoutes.MyProjects: return "Мои проекты";
             case AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
             case AppRoutes.AdminRoutes.Specialities: return "Направления"; 
-            case AppRoutes.AdminRoutes.Groups: return "Студенческие группы";
+            case AppRoutes.AdminRoutes.Groups: return "Группы практикантов";
+            case AppRoutes.AdminRoutes.Reports: return "Отчеты";
             case AppRoutes.AdminRoutes.Students: return "Практиканты"; 
             case AppRoutes.AdminRoutes.Teachers: return "Наставники";
             default: return "";

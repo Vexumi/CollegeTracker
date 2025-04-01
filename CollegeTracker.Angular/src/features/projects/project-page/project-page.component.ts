@@ -15,6 +15,7 @@ import { MessagesBlockComponent } from './components/messages/messages.component
 import { ProjectStateEnum } from '../../entities/project/project-state.enum';
 import { DialogEvaluateProjectComponent } from './components/dialog-evaluate-project/dialog-evaluate-project.component';
 import { AuthService } from '../../../shared/services/auth.service';
+import { ReportsService } from '../../entities/reports/reports.service';
 
 @Component({
     standalone: true,
@@ -33,7 +34,8 @@ export class ProjectPageComponent {
         private readonly router: Router,
         private readonly destroyRef: DestroyRef,
         private readonly dialogService: MatDialog,
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
+        private readonly reportService: ReportsService
     ) {
         const lastChar = this.router.url.split('/').reverse()[0];
         this.projectId = Number(lastChar);
@@ -84,6 +86,10 @@ export class ProjectPageComponent {
         return project.state == ProjectStateEnum.OnReview && this.authService.isTeacher();
     }
 
+    public buttonExportProjectTasksVisible() {
+        return this.authService.isAdmin();
+    }
+
     public onEvaluateProjectClicked() {
         const dialogRef = this.dialogService.open(DialogEvaluateProjectComponent);
         
@@ -96,6 +102,10 @@ export class ProjectPageComponent {
                 })
             )
             .subscribe(() => this.onReload());
+    }
+
+    public onExportProjectTasksClicked(projectId: number) {
+        this.reportService.exportProjectTasks(projectId);
     }
 
 
