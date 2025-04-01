@@ -67,16 +67,20 @@ public static class DependencyRegister
         
         // Custom Services
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<IUserService, UserService>();
-        builder.Services.AddTransient<IAuthorizationService, AuthorizationService>();
-        builder.Services.AddTransient<ISpecialityService, SpecialityService>();
-        builder.Services.AddTransient<IGroupService, GroupService>();
-        builder.Services.AddTransient<ISubjectService, SubjectService>();
-        builder.Services.AddTransient<IStudentService, StudentService>();
-        builder.Services.AddTransient<ITeacherService, TeacherService>();
-        builder.Services.AddTransient<IProjectTaskService, ProjectTaskService>();
-        builder.Services.AddTransient<IProjectService, ProjectService>();
-        builder.Services.AddTransient<IMessageService, MessageService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
+        builder.Services.AddScoped<ISpecialityService, SpecialityService>();
+        builder.Services.AddScoped<IGroupService, GroupService>();
+        builder.Services.AddScoped<ISubjectService, SubjectService>();
+        builder.Services.AddScoped<IStudentService, StudentService>();
+        builder.Services.AddScoped<ITeacherService, TeacherService>();
+        builder.Services.AddScoped<IProjectTaskService, ProjectTaskService>();
+        builder.Services.AddScoped<IProjectService, ProjectService>();
+        builder.Services.AddScoped<IMessageService, MessageService>();
+        
+        // Reports
+        builder.Services.AddScoped<IExcelExportService, ExcelExportService>();
+        builder.Services.AddScoped<IReportService, ReportService>();
         
         // Main Services
         builder.Services.AddControllers();

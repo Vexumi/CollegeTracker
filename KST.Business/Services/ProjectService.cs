@@ -57,36 +57,7 @@ public class ProjectService: BaseService<Project>, IProjectService
 
     public async Task<ProjectSearchResponseDTO> SearchProjects(ProjectSearchParamsDTO searchParams, CancellationToken cancellationToken)
     {
-        var request = dbContext.Set<Project>().AsNoTracking().AsQueryable();
-        request = request.WhereIf(!string.IsNullOrEmpty(searchParams.Title),
-            project => EF.Functions.ILike(project.Title, searchParams.Title));
-        request = request.WhereIf(!string.IsNullOrEmpty(searchParams.Description),
-            project => EF.Functions.ILike(project.Description, searchParams.Description));
-        
-        request = request.WhereIf(searchParams.State != null,
-            project => project.State == searchParams.State);
-        request = request.WhereIf(searchParams.SpecialityId != null,
-            project => project.SpecialityId == searchParams.SpecialityId);
-        
-        request = request.WhereIf(searchParams.StartDateFrom != null,
-            project => project.StartDate >= searchParams.StartDateFrom);
-        request = request.WhereIf(searchParams.StartDateTo != null,
-            project => project.StartDate <= searchParams.StartDateTo);
-        
-        request = request.WhereIf(searchParams.ActualEndDateFrom != null,
-            project => project.ActualEndDate >= searchParams.ActualEndDateFrom);
-        request = request.WhereIf(searchParams.ActualEndDateTo != null,
-            project => project.ActualEndDate <= searchParams.ActualEndDateTo);
-        
-        request = request.WhereIf(searchParams.DeadlineFrom != null,
-            project => project.Deadline >= searchParams.DeadlineFrom);
-        request = request.WhereIf(searchParams.DeadlineTo != null,
-            project => project.Deadline <= searchParams.DeadlineTo);
-
-        request = request.WhereIf(searchParams.CurrentUserId != null,
-            project => project.Teacher.UserInfoId == searchParams.CurrentUserId ||
-                       project.Students.Select(x => x.UserInfoId).Contains(searchParams.CurrentUserId.Value));
-
+        var request = dbContext.Set<Project>().AsNoTracking().AsQueryable().ApplySearchFilter(searchParams);
         var result = await request.Include(x => x.Speciality).GroupBy(p => 1).Select(g => new ProjectSearchResponseDTO()
         {
             Projects = g.Skip(searchParams.Page * searchParams.PageSize).Take(searchParams.PageSize),
