@@ -22,12 +22,12 @@ export class HeaderComponent {
             case AppRoutes.ProjectInfo: return "Информация о проекте";
             case AppRoutes.Projects: return "Все проекты";
             case AppRoutes.MyProjects: return "Мои проекты";
-            case AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
-            case AppRoutes.AdminRoutes.Specialities: return "Направления"; 
-            case AppRoutes.AdminRoutes.Groups: return "Группы практикантов";
-            case AppRoutes.AdminRoutes.Reports: return "Отчеты";
-            case AppRoutes.AdminRoutes.Students: return "Практиканты"; 
-            case AppRoutes.AdminRoutes.Teachers: return "Наставники";
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Subjects: return "Предметы"; 
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Specialities: return "Направления"; 
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Groups: return "Группы практикантов";
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Reports: return "Отчеты";
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Students: return "Практиканты"; 
+            case AppRoutes.Admin + "/" + AppRoutes.AdminRoutes.Teachers: return "Наставники";
             default: return "";
         }
     }
