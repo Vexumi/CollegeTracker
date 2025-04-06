@@ -38,7 +38,7 @@ public class UserService: IUserService
 
     public async Task<bool> ChangePassword(string newPassword, string oldPassword, CancellationToken cancellationToken)
     {
-        var currentUser = authorizationService.GetCurrentUser();
+        var currentUser = await authorizationService.GetCurrentUserAsync(cancellationToken);
         if (currentUser == null) return false;
         
         var dbUser =

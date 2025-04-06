@@ -1,5 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Hangfire;
+using Hangfire.PostgreSql;
 using KST.Business.Infrastructure;
 using KST.Business.Interfaces;
 using KST.Business.Services;
@@ -13,6 +15,28 @@ namespace KST.WEB.Infrastructure;
 
 public static class DependencyRegister
 {
+    public static WebApplicationBuilder AddHangfire(this WebApplicationBuilder builder)
+    {
+        var connectionString = builder.Configuration.GetConnectionString("HangfireConnection");
+
+        builder.Services.AddHangfire(options =>
+        {
+            options.UseSimpleAssemblyNameTypeSerializer()
+                .UseDefaultTypeSerializer()
+                .UsePostgreSqlStorage(opt => opt.UseNpgsqlConnection(connectionString));
+        });
+        
+        builder.Services.AddHangfireServer(serverOptions => { serverOptions.WorkerCount = 1; });
+        builder.Services.Configure<HangfireOptions>(builder.Configuration.GetSection("HangfireSettings"));
+        return builder;
+    }
+    
+    public static void UseHangfireUi(this IApplicationBuilder app)
+    {
+        var options = new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } };
+        app.UseHangfireDashboard("/hangfire", options);
+    }
+    
     public static WebApplicationBuilder RegisterDependencies(this WebApplicationBuilder builder)
     {
         // Register Configuration
@@ -28,7 +52,7 @@ public static class DependencyRegister
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddProblemDetails();
         builder.Services.AddAutoMapper(MapperConfigurator.Configure);
-        // builder.Services.AddHangfire(); //TODO add hangfire
+        builder.AddHangfire();
         
         // Add File attachments
         builder.Services.Configure<AttachmentsOptions>(builder.Configuration.GetSection("AttachmentsSettings"));
@@ -57,7 +81,7 @@ public static class DependencyRegister
         // Add Cors
         builder.Services.AddCors(options =>
         {
-            //var host = builder.Configuration.GetValue<string>("FrontendOrigin"); //TODO: doesnt working
+            //var host = builder.Configuration.GetValue<string>("FrontendOrigin"); //TODO: doesnt work
             options.AddPolicy("AllowSpecificOrigin",
                 builder => builder.AllowAnyOrigin()//.WithOrigins(host)
                     .AllowAnyHeader()

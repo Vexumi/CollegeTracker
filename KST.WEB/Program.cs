@@ -16,6 +16,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseHangfireUi();
 app.MapControllers();
 
 app.Run();

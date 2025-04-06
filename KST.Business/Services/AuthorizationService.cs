@@ -8,6 +8,7 @@ using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess;
 using KST.DataAccess.Enums;
+using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace KST.Business.Services;
 public class AuthorizationService(
     IHttpContextAccessor httpContextAccessor, 
     IOptions<AuthOptions> authOptions,
+    IOptions<HangfireOptions> hangfireOptions,
     KSTDbContext context,
     IMapper mapper): IAuthorizationService
 {
@@ -64,13 +66,25 @@ public class AuthorizationService(
         return password.Equals(translatedPassword);
     }
 
-    public UserViewModel? GetCurrentUser()
+    public async Task<UserViewModel?> GetCurrentUserAsync(CancellationToken cancellationToken)
     {
+        var backdoor = hangfireOptions.Value.Backdoor;
+        if (!string.IsNullOrEmpty(backdoor))
+        {
+            var cookieUserName = "";
+            var hasBackdoor = httpContextAccessor.HttpContext?.Request.Cookies.TryGetValue(backdoor, out cookieUserName) ?? false;
+            if (hasBackdoor)
+            {
+                var user = await context.Set<User>().FirstAsync(x => x.Username == cookieUserName, cancellationToken);
+                return mapper.Map<UserViewModel>(user);
+            }
+        }
+        
         var claims = httpContextAccessor.HttpContext.User.Claims;
         if (!claims.Any()) return null;
         
         UserRoles.TryParse(claims.First(x => x.Type == ClaimTypes.Role).Value, out UserRoles role); 
-        var user = new UserViewModel()
+        var userModel = new UserViewModel()
         {
             Id = long.Parse(claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value as string),
             Username = claims.First(x => x.Type == "name").Value,
@@ -79,7 +93,7 @@ public class AuthorizationService(
             Role = role
         };
 
-        return user;
+        return userModel;
     }
     
     private JwtTokenResponse TokenForAuth(List<Claim> claims)
