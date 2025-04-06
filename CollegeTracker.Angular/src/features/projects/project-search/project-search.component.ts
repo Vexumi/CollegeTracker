@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ProjectService } from '../../entities/project/project.service';
-import { BehaviorSubject, combineLatest, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, EMPTY, map, switchMap, tap } from 'rxjs';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { ProjectSearchParamsComponent } from './components/project-search-params/project-search-params.component';
 import { ProjectSearchParamsModel } from '../../entities/project/project-search-params.model';
@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AppRoutes } from '../../../constants/app-routes';
 import { AuthService } from '../../../shared/services/auth.service';
 import { ReportsService } from '../../entities/reports/reports.service';
+import { DialogCreateProjectComponent } from './components/dialog-create-project/dialog-create-project.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     standalone: true,
@@ -53,7 +55,8 @@ export class ProjectSearchComponent {
         private readonly projectService: ProjectService,
         private readonly route: ActivatedRoute,
         private readonly authService: AuthService,
-        private readonly reportsService: ReportsService
+        private readonly reportsService: ReportsService,
+        private readonly dialogService: MatDialog
     ) {
         this.userOnlyProjects = this.route.snapshot.url[0].path === AppRoutes.MyProjects;
         this.currentUserId = this.authService.getCurrentUser().id;
@@ -86,5 +89,20 @@ export class ProjectSearchComponent {
 
     public exportToExcel() {
         this.reportsService.exportProjects(this.searchParams$.value);
+    }
+
+    public createProject() {
+        const dialogRef = this.dialogService.open(DialogCreateProjectComponent);
+        dialogRef.afterClosed()
+            .pipe(
+                switchMap((result) => {
+                    if (!result) return EMPTY;
+                    return this.projectService.create(result)
+                        .pipe(
+                            tap(() => this.page$.next(1))
+                        );
+                })
+            )
+            .subscribe();
     }
 }

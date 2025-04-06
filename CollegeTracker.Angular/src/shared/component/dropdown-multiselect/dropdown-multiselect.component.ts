@@ -1,7 +1,7 @@
 import { NgForOf } from "@angular/common";
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
 import { DropdownSelectIdItem } from "../dropdown/dropdown.component";
-
+import _ from 'lodash';
 @Component({
     standalone: true,
     selector: "app-dropdown-multiselect-ids",
@@ -10,6 +10,7 @@ import { DropdownSelectIdItem } from "../dropdown/dropdown.component";
     imports: [NgForOf]
   })
   export class DropdownMultiSelectIdsComponent implements OnChanges {
+    public inputId = `dropdown-${_.random(1, 99999)}`;
 
     @Input({ required: true })
     public items: DropdownSelectIdItem[] = [];

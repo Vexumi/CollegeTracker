@@ -1,4 +1,5 @@
 using AutoMapper;
+using DocumentFormat.OpenXml.InkML;
 using KST.Business.Infrastructure;
 using KST.DataAccess;
 using KST.Business.Interfaces;
@@ -32,12 +33,17 @@ public class ProjectService: BaseService<Project>, IProjectService
         this.messageService = messageService;
     }
 
-    public async Task<long> CreateAsync(ProjectModificationDTO dto, CancellationToken cancellationToken)
+    public async Task<long> CreateAsync(ProjectCreateDTO dto, CancellationToken cancellationToken)
     {
         var project = mapper.Map<Project>(dto);
-        var entity = await dbContext.Projects.AddAsync(project, cancellationToken);
+        await dbContext.Projects.AddAsync(project, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
-        return entity.Entity.Id;
+
+        await dbContext.Set<Student>()
+            .Where(x => dto.GroupIds.Contains(x.GroupId) || dto.StudentIds.Contains(x.Id))
+            .ExecuteUpdateAsync(x => x.SetProperty(p => p.ProjectId, project.Id), cancellationToken);
+
+        return project.Id;
     }
 
     public async Task<Project> GetByIdAsync(long id, CancellationToken cancellationToken)

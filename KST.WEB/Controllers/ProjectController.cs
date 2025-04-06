@@ -38,7 +38,7 @@ public class ProjectController: BaseController<Project>
     }
 
     [HttpPost]
-    public async Task<long> Create(ProjectModificationDTO viewModel, CancellationToken cancellationToken)
+    public async Task<long> Create(ProjectCreateDTO viewModel, CancellationToken cancellationToken)
     {
         return await _service.CreateAsync(viewModel, cancellationToken);
     }

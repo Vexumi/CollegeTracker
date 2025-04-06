@@ -29,8 +29,11 @@
             font-size: 18px;
         }
 
-        .export-button:hover {
-            color: map-get($theme-color, button-background);
+        .export-button {
+            margin: 0 5px;
+            &:hover {
+                color: map-get($theme-color, button-background);
+            }
         }
     }
 

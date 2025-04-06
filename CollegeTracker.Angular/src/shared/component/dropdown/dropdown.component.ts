@@ -1,5 +1,6 @@
 import { NgForOf } from "@angular/common";
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
+import _ from 'lodash';
 
 export interface DropdownSelectIdItem {
     title: string;
@@ -36,8 +37,6 @@ export interface DropdownSelectIdItem {
         this.selectedItem = item;
     }
 
-    public getInputId() {
-      return `dropdown-${this.items[0].title}`
-    }
+    public inputId = `dropdown-${_.random(1, 99999)}`;
   }
   

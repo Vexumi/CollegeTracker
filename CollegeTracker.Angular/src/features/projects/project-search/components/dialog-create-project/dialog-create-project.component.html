@@ -1,0 +1,46 @@
+<div class="card">
+    <h1>Создание проекта</h1>
+    <hr>
+    <form class="form" [formGroup]="formGroup">
+        <div class="form__input-block">
+            <label for="title">Название: </label>
+            <input type="text" name="title" formControlName="title" />
+        </div>
+        <div class="form__input-block">
+            <label for="description">Описание: </label>
+            <input type="text" name="description" formControlName="description" />
+        </div>
+        <div class="form__input-block">
+            <label for="startDate">Дата начала: </label>
+            <input type="date" name="startDate" formControlName="startDate" />
+        </div>
+        <div class="form__input-block">
+            <label for="deadline">Дата окончания: </label>
+            <input type="date" name="deadline" formControlName="deadline" />
+        </div>
+        <div class="form__input-block">
+            <label for="speciality">Направление: </label>
+            <app-dropdown-select-id *ngIf="specialities$ | async as specialities else loading" [items]="specialities" (itemSelected)="onSpecialitySelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="form__input-block">
+            <label for="teacher">Наставник: </label>
+            <app-dropdown-select-id *ngIf="teachers$ | async as teachers else loading" [items]="teachers" (itemSelected)="onTeacherSelected($event)"></app-dropdown-select-id>
+        </div>
+        <div class="form__input-block">
+            <label for="teacher">Практиканты: </label>
+            <app-dropdown-multiselect-ids *ngIf="students$ | async as students else loading" [items]="students" (itemSelected)="onStudentsSelected($event)"></app-dropdown-multiselect-ids >
+        </div>
+        <div class="form__input-block">
+            <label for="teacher">Код группы: </label>
+            <app-dropdown-multiselect-ids *ngIf="groups$ | async as groups else loading" [items]="getGroupsBySpeciality(groups)" (itemSelected)="onGroupsSelected($event)"></app-dropdown-multiselect-ids >
+        </div>            
+        <div class="text-center">
+            <button class="form__button" (click)="onChangeClicked()" [disabled]="buttonSaveDisabled()">Сохранить</button>
+            <button class="form__button" (click)="onCancelClicked()">Отмена</button>
+        </div>
+    </form>
+</div>
+
+<ng-template #loading>
+    Загрузка...
+</ng-template>

@@ -1,16 +1,16 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="container-dropdown">
-	<input style="display:none;" id="{{getInputId()}}" type="checkbox"/>
+	<input style="display:none;" id="{{inputId}}" type="checkbox"/>
 	<div class="dropdown">
-        <label class="dropbtn" for="{{getInputId()}}">
+        <label class="dropbtn" for="{{inputId}}">
             <span class="m-auto ml1 small-font">{{ selectedItem?.title ?? 'Невыбранно' }} ↓</span>
 		</label>
 		<div class="dropdown-content">
 			<p *ngFor="let item of items" (click)="setElement(item)">
-				<label for="{{getInputId()}}">{{ item.title }}</label>
+				<label for="{{inputId}}">{{ item.title }}</label>
 			</p>
 		</div>
-		<label for="{{getInputId()}}" class="overlay"></label>
+		<label for="{{inputId}}" class="overlay"></label>
 	</div>
 </div>

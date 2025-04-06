@@ -9,7 +9,7 @@ namespace KST.Business.Interfaces;
 
 public interface IProjectService: IBaseService
 {
-    Task<long> CreateAsync(ProjectModificationDTO dto, CancellationToken cancellationToken);
+    Task<long> CreateAsync(ProjectCreateDTO dto, CancellationToken cancellationToken);
 
     Task<Project> GetByIdAsync(long id, CancellationToken cancellationToken);
 

@@ -1,11 +1,17 @@
 <div class="page">
     <div class="page__header">
         <h1 class="title">Поиск проектов</h1>
-        <button 
-            (click)="exportToExcel()" 
-            class="export-button" 
-            [class.hidden]="!buttonExportToExcelVisible"
-            [disabled]="totalPages$.value === 0">Выгрузить в Excel</button>
+        <div>
+            <button 
+                (click)="createProject()" 
+                class="export-button" 
+                [class.hidden]="!buttonExportToExcelVisible">Создать проект</button>
+            <button 
+                (click)="exportToExcel()" 
+                class="export-button" 
+                [class.hidden]="!buttonExportToExcelVisible"
+                [disabled]="totalPages$.value === 0">Выгрузить в Excel</button>
+        </div>
     </div>
     <app-project-search-params (searchClicked)="onSearchClicked($event)" />
     <div class="page__items">
@@ -20,12 +26,5 @@
         <button class="page__pagination-button" [class.hidden]="!buttonPrevPageVisible()" (click)="prevPage()">Назад</button>
         {{ getCurrentPage() }}/{{ totalPages$.value }}
         <button class="page__pagination-button" [class.hidden]="!buttonNextPageVisible()" (click)="nextPage()">Вперед</button>
-        <!-- <mat-form-field class="page__dropdown">
-            <mat-select [formControl]="pageSizeForm">
-              @for (pageSize of pageSizes; track pageSize) {
-                <mat-option [value]="pageSize">{{ pageSize }}</mat-option>
-              }
-            </mat-select>
-        </mat-form-field> -->
     </div>
 </div>

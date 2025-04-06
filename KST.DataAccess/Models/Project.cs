@@ -1,4 +1,3 @@
-using System.Collections;
 using KST.DataAccess.Enums;
 
 namespace KST.DataAccess.Models;
