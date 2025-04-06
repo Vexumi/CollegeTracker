@@ -1,0 +1,13 @@
+@using KST.Business.Notifications.Models;
+@model UserAddedNotification;
+
+<div>
+    <text>Уважаемый(ая) @Model.Fullname, для вас создана учетная запись в системе "StudentTracker"</text>
+    <br/>
+    <text>Имя пользователя: @Model.UserName</text>
+    <text>Электронная почта: @Model.Email</text>
+    <text>Пароль: @Model.Password</text>
+    <text>Ссылка: @Model.FrontendLink</text>
+    <br/>
+    <text>Внимание! При первой авторизации в систему рекомендуется сменить пароль на странице профиля!</text>
+</div>

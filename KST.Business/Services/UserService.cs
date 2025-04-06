@@ -1,6 +1,7 @@
 using AutoMapper;
 using KST.DataAccess;
 using KST.Business.Interfaces;
+using KST.Business.Notifications.Services;
 using KST.Business.ViewModels;
 using KST.DataAccess;
 using KST.DataAccess.Models;
@@ -8,23 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
 
-public class UserService: IUserService
+public class UserService(
+    KSTDbContext dbContext,
+    IMapper mapper,
+    IAuthorizationService authorizationService,
+    IHangfireNotificationService hangfireNotificationService
+    ): IUserService
 {
-    private readonly KSTDbContext dbContext;
-    private readonly IMapper mapper;
-    private readonly IAuthorizationService authorizationService;
-
-    public UserService(
-        KSTDbContext dbContext,
-        IMapper mapper,
-        IAuthorizationService authorizationService
-        )
-    {
-        this.dbContext = dbContext;
-        this.mapper = mapper;
-        this.authorizationService = authorizationService;
-    }
-
     public async Task<long> CreateAsync(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         var user = mapper.Map<User>(userViewModel);
@@ -32,8 +23,10 @@ public class UserService: IUserService
             
         var entity = await dbContext.Users.AddAsync(user, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
+        
+        hangfireNotificationService.SendUserAddedNotification(user.Id, userViewModel.Password);
 
-        return entity.Entity.Id;
+        return user.Id;
     }
 
     public async Task<bool> ChangePassword(string newPassword, string oldPassword, CancellationToken cancellationToken)

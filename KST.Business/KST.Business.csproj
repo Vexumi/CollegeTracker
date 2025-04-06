@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <UserSecretsId>7fba6fdc-7dba-4edd-a576-ed2587bb8868</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +14,9 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="13.0.1" />
       <PackageReference Include="ClosedXML" Version="0.105.0-rc" />
+      <PackageReference Include="Hangfire.Core" Version="1.8.18" />
       <PackageReference Include="Inferno" Version="1.6.6" />
+      <PackageReference Include="MailKit" Version="4.11.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>

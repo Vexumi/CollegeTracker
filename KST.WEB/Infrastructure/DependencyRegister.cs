@@ -4,6 +4,7 @@ using Hangfire;
 using Hangfire.PostgreSql;
 using KST.Business.Infrastructure;
 using KST.Business.Interfaces;
+using KST.Business.Notifications.Services;
 using KST.Business.Services;
 using KST.DataAccess;
 using KST.WEB.Infrastructure.ExceptionHandlers;
@@ -36,6 +37,17 @@ public static class DependencyRegister
         var options = new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } };
         app.UseHangfireDashboard("/hangfire", options);
     }
+
+    public static void AddEmailNotifications(this WebApplicationBuilder builder)
+    {
+        builder.Services.Configure<EmailNotificationOptions>(builder.Configuration.GetSection("EmailNotificationSettings"));
+        builder.Services.AddMvc().AddRazorRuntimeCompilation();
+        builder.Services.AddSingleton<ISmtpService, SmtpService>();
+        builder.Services.AddScoped<RazorTemplateRenderer>();
+        builder.Services.AddScoped<INotificationTemplateRendererService, NotificationTemplateRendererService>();
+        builder.Services.AddScoped<INotificationService, NotificationService>();
+        builder.Services.AddScoped<IHangfireNotificationService, HangfireNotificationService>();
+    }
     
     public static WebApplicationBuilder RegisterDependencies(this WebApplicationBuilder builder)
     {
@@ -53,6 +65,7 @@ public static class DependencyRegister
         builder.Services.AddProblemDetails();
         builder.Services.AddAutoMapper(MapperConfigurator.Configure);
         builder.AddHangfire();
+        builder.AddEmailNotifications();
         
         // Add File attachments
         builder.Services.Configure<AttachmentsOptions>(builder.Configuration.GetSection("AttachmentsSettings"));
