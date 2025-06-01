@@ -71,8 +71,8 @@ export class ProfilePageComponent {
     public getUserType(): string {
         switch(this.currentUser.role) {
             case UserRole.Admin: return 'Администратор';
-            case UserRole.Student: return 'Студент';
-            case UserRole.Teacher: return 'Преподаватель';
+            case UserRole.Student: return 'Практикант';
+            case UserRole.Teacher: return 'Наставник';
             default: return 'Гость'
         }
     }

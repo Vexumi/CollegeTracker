@@ -1,6 +1,6 @@
 <div class="page">
     Выгрузить в Excel информацию о:
     <a [routerLink]="'/' + appRoutes.Projects" class="page__button">проектах</a>
-    <button (click)="reportService.exportSpecialitiesWithProjects()" class="page__button">направлениям и их проектам (выгрузка начнется сразу)</button>
+    <button (click)="reportService.exportSpecialitiesWithProjects()" class="page__button">направлениях и их проектах (выгрузка начнется сразу)</button>
     <button (click)="reportService.exportLateProjects()" class="page__button">проектах отстающих от сроков выполнения (выгрузка начнется сразу)</button>
 </div>

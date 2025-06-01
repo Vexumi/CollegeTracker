@@ -23,7 +23,7 @@ public class FileUploadService: IFileUploadService
     {
         if (file == null || file.Length == 0)
         {
-            return null; // Or throw an exception if you prefer
+            return null;
         }
 
         string projectDirectoryPath = Path.Combine(_rootPath, projectId.ToString());
@@ -70,13 +70,13 @@ public class FileUploadService: IFileUploadService
             }
             else
             {
-                Console.WriteLine($"File not found: {fullPath}"); // Log this
+                Console.WriteLine($"File not found: {fullPath}");
                 return false;
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error deleting file: {ex}"); // Log this
+            Console.WriteLine($"Error deleting file: {ex}");
             return false;
         }
     }
