@@ -11,7 +11,4 @@ public class TeacherViewModel: BaseViewModel
 
     // группы избранные учителем
     public virtual ICollection<Group> Groups { get; set; } = new List<Group>();
-    
-    // предметы которые ведет учитель
-    public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>(); 
 }

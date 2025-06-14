@@ -21,8 +21,6 @@ public partial class KSTDbContext : DbContext
     
     public DbSet<Group> Groups { get; set; }
     
-    public DbSet<Subject> Subjects { get; set; }
-    
     public DbSet<Speciality> Specialities { get; set; }
     
     public DbSet<Project> Projects { get; set; }

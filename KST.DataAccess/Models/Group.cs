@@ -12,10 +12,6 @@ public class Group: BaseEntity
     
     public long SpecialityId { get; set; }
     public Speciality Speciality { get; set; } = null!;
-    
-    [JsonIgnore]
-    // предметы которые проходят у группы
-    public virtual ICollection<Subject> Subjects { get; set; } = new List<Subject>();
 
     [JsonIgnore]
     public virtual ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();

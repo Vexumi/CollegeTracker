@@ -41,7 +41,6 @@ public class GroupService: BaseService<Group>, IGroupService
         => dbContext.Groups
             .AsNoTracking()
             .Include(x => x.Speciality)
-            .Include(x => x.Subjects)
             .Include(x => x.Teachers)
             .AsSplitQuery()
             .AsQueryable();
