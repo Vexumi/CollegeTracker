@@ -1,11 +1,13 @@
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize(Roles = "Admin")]
 public class ReportController(IReportService reportService): ControllerBase
 {
     [HttpPost]

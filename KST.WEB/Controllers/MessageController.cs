@@ -2,12 +2,14 @@ using KST.Business.Interfaces;
 using KST.Business.ViewModels;
 using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize]
 public class MessageController: BaseController<Message>
 {
     private readonly IMessageService _service;

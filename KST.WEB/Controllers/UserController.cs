@@ -9,6 +9,7 @@ namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize]
 public class UserController(IUserService userService): ControllerBase
 {
     [HttpGet]
@@ -18,12 +19,14 @@ public class UserController(IUserService userService): ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<long> Create(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         return await userService.CreateAsync(userViewModel, cancellationToken);
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<UserViewModel> Update(UserViewModel userViewModel, CancellationToken cancellationToken)
     {
         return await userService.UpdateAsync(userViewModel, cancellationToken);
@@ -38,6 +41,7 @@ public class UserController(IUserService userService): ControllerBase
     }
     
     [HttpDelete]
+    [Authorize(Roles = "Admin")]
     public async Task Delete(long id, CancellationToken cancellationToken)
     {
         await userService.DeleteAsync(id, cancellationToken);

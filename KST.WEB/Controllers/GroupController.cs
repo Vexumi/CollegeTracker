@@ -1,13 +1,16 @@
 using KST.Business.Interfaces;
 using KST.Business.ViewModels;
+using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize(Roles = "Admin")]
 public class GroupController: BaseController<Group>
 {
     private readonly IGroupService _groupService;

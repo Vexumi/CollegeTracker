@@ -3,6 +3,7 @@ using KST.Business.ViewModels;
 using KST.DataAccess.Enums;
 using KST.DataAccess.Models;
 using KST.WEB.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace KST.WEB.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[Authorize]
 public class ProjectController: BaseController<Project>
 {
     private readonly IProjectService _service;
