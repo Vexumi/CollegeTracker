@@ -18,6 +18,7 @@ public static class DependencyRegister
 {
     public static WebApplicationBuilder AddHangfire(this WebApplicationBuilder builder)
     {
+#if !DEBUG
         var connectionString = builder.Configuration.GetConnectionString("HangfireConnection");
 
         builder.Services.AddHangfire(options =>
@@ -29,13 +30,19 @@ public static class DependencyRegister
         
         builder.Services.AddHangfireServer(serverOptions => { serverOptions.WorkerCount = 1; });
         builder.Services.Configure<HangfireOptions>(builder.Configuration.GetSection("HangfireSettings"));
+
+#else
+        builder.Services.AddSingleton<IBackgroundJobClient, FakeBackgroundJobClient>();
+#endif
         return builder;
     }
     
     public static void UseHangfireUi(this IApplicationBuilder app)
     {
+#if !DEBUG
         var options = new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } };
         app.UseHangfireDashboard("/hangfire", options);
+#endif
     }
 
     public static void AddEmailNotifications(this WebApplicationBuilder builder)
