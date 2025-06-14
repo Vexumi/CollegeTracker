@@ -1,0 +1,10 @@
+@using KST.Business.Notifications.Models;
+@model ProjectStateChangedNotification;
+
+<div>
+    <text>Статус проекта в системе "Student Tracker" изменен!</text><br/>
+    <br/>
+    <text>Название проекта: @Model.ProjectName</text><br/>
+    <text>Новый статус: @Model.NewStatus</text><br/>
+    <text>Ссылка: @Model.FrontendLink/projects/@Model.ProjectId</text>
+</div>

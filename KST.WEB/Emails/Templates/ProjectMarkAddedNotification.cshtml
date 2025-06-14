@@ -1,0 +1,10 @@
+@using KST.Business.Notifications.Models;
+@model ProjectMarkAddedNotification;
+
+<div>
+    <text>Добавлена оценка для проекта в системе "Student Tracker"!</text><br/>
+    <br/>
+    <text>Название проекта: @Model.ProjectName</text><br/>
+    <text>Оценка: @Model.Mark</text><br/>
+    <text>Ссылка: @Model.FrontendLink/projects/@Model.ProjectId</text>
+</div>

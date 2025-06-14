@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.InkML;
 using KST.Business.Infrastructure;
 using KST.DataAccess;
 using KST.Business.Interfaces;
+using KST.Business.Notifications.Services;
 using KST.Business.ViewModels;
 using KST.DataAccess;
 using KST.DataAccess.Enums;
@@ -13,26 +14,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KST.Business.Services;
 
-public class ProjectService: BaseService<Project>, IProjectService
+public class ProjectService(
+    KSTDbContext dbContext,
+    IMapper mapper,
+    IFileUploadService fileUploadService,
+    IMessageService messageService,
+    IHangfireNotificationService hangfireNotificationService
+    ): BaseService<Project>(dbContext), IProjectService
 {
-    private readonly KSTDbContext dbContext;
-    private readonly IMapper mapper;
-    private readonly IFileUploadService fileUploadService;
-    private readonly IMessageService messageService;
-
-    public ProjectService(
-        KSTDbContext dbContext,
-        IMapper mapper,
-        IFileUploadService fileUploadService,
-        IMessageService messageService
-    ): base(dbContext)
-    {
-        this.dbContext = dbContext;
-        this.mapper = mapper;
-        this.fileUploadService = fileUploadService;
-        this.messageService = messageService;
-    }
-
     public async Task<long> CreateAsync(ProjectCreateDTO dto, CancellationToken cancellationToken)
     {
         var project = mapper.Map<Project>(dto);
@@ -98,7 +87,11 @@ public class ProjectService: BaseService<Project>, IProjectService
 
     public async Task<long> ChangeState(long projectId, ProjectState state, CancellationToken cancellationToken)
     {
-        var project = await dbContext.Projects.AsTracking().FirstAsync(x => x.Id == projectId, cancellationToken);
+        var project = await dbContext.Projects
+            .AsTracking()
+            .Include(x => x.Students).ThenInclude(x => x.UserInfo)
+            .Include(x => x.Teacher).ThenInclude(x => x.UserInfo)
+            .FirstAsync(x => x.Id == projectId, cancellationToken);
         project.State = state;
         await dbContext.SaveChangesAsync(cancellationToken);
 
@@ -106,12 +99,18 @@ public class ProjectService: BaseService<Project>, IProjectService
                 MessageFormats.ProjectStateChanged, 
                 ProjectExtensions.GetLocalizedProjectState(state)),
             cancellationToken);
+        
+        hangfireNotificationService.SendProjectStateChangedNotification(project.Id);
         return projectId;
     }
 
     public async Task<long> Evaluate(long projectId, int mark, CancellationToken cancellationToken)
     {
-        var project = await dbContext.Projects.AsTracking().FirstAsync(x => x.Id == projectId, cancellationToken);
+        var project = await dbContext.Projects
+            .Include(x => x.Students).ThenInclude(x => x.UserInfo)
+            .Include(x => x.Teacher).ThenInclude(x => x.UserInfo)
+            .AsTracking()
+            .FirstAsync(x => x.Id == projectId, cancellationToken);
         project.Mark = mark;
         project.ActualEndDate = DateOnly.FromDateTime(DateTime.UtcNow);
         project.State = ProjectState.Reviewed;
@@ -119,6 +118,8 @@ public class ProjectService: BaseService<Project>, IProjectService
 
         await messageService.CreateSystemActionLog(projectId, string.Format(MessageFormats.Reviewed, mark),
             cancellationToken);
+        
+        hangfireNotificationService.SendProjectMarkAddedNotification(project.Id);
         return projectId;
     }
 
