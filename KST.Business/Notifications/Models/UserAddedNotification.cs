@@ -8,5 +8,5 @@ public class UserAddedNotification: BaseNotification
     public string Password { get; set; }
     public string FrontendLink { get; set; }
     public override string Subject => "Вы добавлены в систему StudentTracker";
-    public override string TemplatePath => "KST.Business/Notifications/Templates/UserAddedNotification.cshtml";
+    public override string TemplatePath =>  "/Emails/Templates/UserAddedNotification.cshtml";
 }

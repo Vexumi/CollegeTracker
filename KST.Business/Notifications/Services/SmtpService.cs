@@ -25,10 +25,6 @@ public class SmtpService(IOptions<EmailNotificationOptions> smtpSettings) : ISmt
         }
 
         var emails = emailMessage.Recipients.Where(recipient => !string.IsNullOrWhiteSpace(recipient));
-        /*foreach (var email in emails)
-        {
-            resultMessage.To.Add(MailboxAddress.Parse(email));
-        }*/
         resultMessage.To.AddRange(emails.Select(MailboxAddress.Parse));
         await SendWithSmtpClientAsync(resultMessage);
     }

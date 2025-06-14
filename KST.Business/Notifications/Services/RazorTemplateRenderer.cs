@@ -23,7 +23,7 @@ public class RazorTemplateRenderer(
 
         var actionContext = GetActionContext();
 
-        var viewResult = razorViewEngine.GetView(null, viewPath, isMainPage: true);
+        var viewResult = razorViewEngine.GetView(viewPath, viewPath, isMainPage: false);
 
         if (viewResult.View == null)
         {
