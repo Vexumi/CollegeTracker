@@ -105,7 +105,7 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 1,
                     Email = "student1@gmail.com",
-                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    PasswordHash = "AD7ws3db79fyRjm71AgdHR5kYYBtarCMjtjy5M2aCPtM1E2TKzlCCuJOdP1OUxsrgA==",
                     Fullname = "Иванов Иван Иванович",
                     PhoneNumber = "88005554535",
                     Username = "IvIvIv",
@@ -115,7 +115,7 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 2,
                     Email = "student2@gmail.com",
-                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    PasswordHash = "AD7ws3db79fyRjm71AgdHR5kYYBtarCMjtjy5M2aCPtM1E2TKzlCCuJOdP1OUxsrgA==",
                     Fullname = "Иванов2 Иван2 Иванович2",
                     PhoneNumber = "88005554535",
                     Username = "Iv2Iv2Iv2",
@@ -125,7 +125,7 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 3,
                     Email = "student3@gmail.com",
-                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    PasswordHash = "AD7ws3db79fyRjm71AgdHR5kYYBtarCMjtjy5M2aCPtM1E2TKzlCCuJOdP1OUxsrgA==",
                     Fullname = "Иванов3 Иван3 Иванович3",
                     PhoneNumber = "88005554535",
                     Username = "Iv3Iv3Iv3",
@@ -135,7 +135,7 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 4,
                     Email = "admin@gmail.com",
-                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    PasswordHash = "AD7ws3db79fyRjm71AgdHR5kYYBtarCMjtjy5M2aCPtM1E2TKzlCCuJOdP1OUxsrgA==",
                     Fullname = "Admin Admin Admin",
                     PhoneNumber = "88005554535",
                     Username = "Admin",
@@ -145,7 +145,7 @@ public partial class KSTDbContext : DbContext
                 {
                     Id = 5,
                     Email = "teacher@gmail.com",
-                    PasswordHash = "5Pq0DMdlOMptZkP5uKQcJDhknCjT1++zB7AKR+QA6AGAoDa7lW9TjkIcSa0AsvoE0uDAQU/phufpGPKgcVAOMA==",
+                    PasswordHash = "AD7ws3db79fyRjm71AgdHR5kYYBtarCMjtjy5M2aCPtM1E2TKzlCCuJOdP1OUxsrgA==",
                     Fullname = "Teacher Teacher Teacher",
                     PhoneNumber = "88005554535",
                     Username = "Teacher",
