@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: KST.WEB/Dockerfile
+    ports:
+      - "5118:8080"
+    networks:
+      - kst-net
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - ./appsettings.Docker.json:/app/appsettings.json:ro
+      - ./ProjectAttachments:/app/ProjectAttachments
+
+  frontend:
+    build:
+      context: ./CollegeTracker.Angular
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - kst-net
+
+networks:
+  kst-net:
+    driver: bridge

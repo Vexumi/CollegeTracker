@@ -1,5 +1,6 @@
 using KST.Business.Infrastructure;
 using KST.Business.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
@@ -9,9 +10,11 @@ public class FileUploadService: IFileUploadService
 {
     private readonly string _rootPath;
 
-    public FileUploadService(IOptions<AttachmentsOptions> attachmentOptions)
+    public FileUploadService(
+        IWebHostEnvironment env,
+        IOptions<AttachmentsOptions> attachmentOptions)
     {
-        _rootPath = attachmentOptions.Value.RootPath;
+        _rootPath = Path.Combine(env.ContentRootPath, attachmentOptions.Value.RootPath);
 
         if (!Directory.Exists(_rootPath))
         {

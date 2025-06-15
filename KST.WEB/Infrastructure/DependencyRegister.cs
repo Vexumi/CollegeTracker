@@ -18,7 +18,7 @@ public static class DependencyRegister
 {
     public static WebApplicationBuilder AddHangfire(this WebApplicationBuilder builder)
     {
-#if DEBUG
+#if !DEBUG
         var connectionString = builder.Configuration.GetConnectionString("HangfireConnection");
 
         builder.Services.AddHangfire(options =>
@@ -39,7 +39,7 @@ public static class DependencyRegister
     
     public static void UseHangfireUi(this IApplicationBuilder app)
     {
-#if DEBUG
+#if !DEBUG
         var options = new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } };
         app.UseHangfireDashboard("/hangfire", options);
 #endif
